@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Tests - InterLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="study-materials.css"> </head>
+<body>
+
+   <nav class="navbar">
+        <div class="logo">🎓 <span>Inter</span>Learn</div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </button> 
+
+        <ul class="nav-links" id="navMenu">
+            <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+            <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+            <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+            <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+            <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-container">
+        <h2>Subject-wise Practice</h2>
+        <p class="section-description">Focus on specific subjects</p>
+
+        <div class="subjects-grid">
+            
+            <a href="phyquiz.html" class="subject-card">
+                <div class="subject-icon physics-bg">⚛️</div>
+                <h3>1st year Physics Mock Test</h3>
+                <p>Comprehensive physics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+             
+            <a href="phyquiz2.html" class="subject-card">
+                <div class="subject-icon physics-bg">⚛️</div>
+                <h3>2st year Physics Mock Test</h3>
+                <p>Comprehensive physics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="chemistry.html" class="subject-card">
+                <div class="subject-icon chemistry-bg">🧪</div>
+                <h3>1st year Chemistry Mock Test</h3>
+                <p>Comprehensive chemistry practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+              <a href="chemistry2.html" class="subject-card">
+                <div class="subject-icon chemistry-bg">🧪</div>
+                <h3>2nd year Chemistry Mock Test</h3>
+                <p>Comprehensive chemistry practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="maths1A.html" class="subject-card">
+                <div class="subject-icon mathsA-bg">📐</div>
+                <h3>Mathematics 1A Mock Test</h3>
+                <p>Comprehensive mathematics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="math1B.html" class="subject-card">
+                <div class="subject-icon mathsA-bg">📐</div>
+                <h3>Mathematics 1B Mock Test</h3>
+                <p>Comprehensive mathematics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="maths2A.html" class="subject-card">
+                <div class="subject-icon mathsA-bg">📐</div>
+                <h3>Mathematics 2A Mock Test</h3>
+                <p>Comprehensive mathematics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="math2B.html" class="subject-card">
+                <div class="subject-icon mathsA-bg">📐</div>
+                <h3>Mathematics 2B Mock Test</h3>
+                <p>Comprehensive mathematics practice test</p>
+                <span class="pdf-count">⏱️ 10 Questions | 20 min</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+        
+        <h2 style="margin-top: 40px;">Mixed Practice</h2>
+        <div class="subjects-grid">
+            <a href="quiz.html?subject=mixed" class="subject-card" style="grid-column: span 1;">
+                <div class="subject-icon mathsB-bg">🎯</div>
+                <h3>Mixed Subject Practice</h3>
+                <p>Questions from all subjects combined</p>
+                <span class="pdf-count">⏱️ 15 Questions | 25 min</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="app.js"></script> 
+</body>
+</html>

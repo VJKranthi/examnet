@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Brain Bloom Quiz Session</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+/* --- Global Variables and Base Styling --- */
+:root {
+    --primary: #FF6584; /* Pink/Rose for Chemistry - NEW PRIMARY */
+    --primary-light: #FF8FA3;
+    --secondary: #00BFA6; /* Green/Teal for accents */
+    --secondary-light: #26D7BD;
+    --accent: #6C63FF; /* Purple for hints */
+    --accent-light: #8E85FF;
+    --card: rgba(255, 255, 255, 0.95);
+    --text: #2D3748;
+    --text-light: #718096;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --success: #00BFA6;
+    --nav-bg: #f8f8fa; /* Light background for the navigator section */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5; 
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Changed from flex-start to center to align the quiz */
+    box-sizing: border-box;
+}
+
+
+.menu-toggle {
+    display: none; /* Hide toggle by default on desktop */
+}
+
+/* --- Quiz and General Styles --- */
+.hidden {
+    display: none !important;
+}
+
+/* --- Main Quiz Container (Centered) --- */
+.quiz-wrapper {
+    width: 100%;
+    max-width: 700px; /* Standard card width */
+    margin-top: 50px; /* Keeps separation from the navbar */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz-container {
+    background-color: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Soft border */
+    min-height: 400px;
+}
+
+@media (max-width: 600px) {
+    .quiz-wrapper {
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+    .quiz-container {
+        padding: 20px;
+    }
+}
+
+
+h1 {
+    text-align: center;
+    color: var(--primary); /* Primary for Quiz Title */
+    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* --- Score/Progress Bar (Top Section) --- */
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #e6e8eb; 
+    border-radius: 5px;
+    margin-bottom: 30px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary); /* Primary color for progress */
+    border-radius: 5px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* --- Question Area --- */
+.question-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.question-meta {
+    font-size: 0.9rem;
+    color: var(--primary); /* Primary color for subject/topic */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+.question-meta span {
+    color: var(--text-light);
+    margin-right: 5px;
+}
+
+.question {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.option:hover {
+    background: #fff0f3; /* Light pink on hover */
+    border-color: var(--primary-light);
+}
+
+.option input {
+    margin-right: 15px;
+    transform: scale(1.1);
+    accent-color: var(--primary); /* Primary radio button color */
+}
+
+/* --- Question Navigator (Bottom Section) --- */
+.quiz-navigator {
+    background-color: var(--nav-bg); /* Use the defined variable */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light); /* Darker grey text for the title */
+    margin-bottom: 15px; /* Space between title and grid */
+}
+
+.nav-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap to the next line */
+    gap: 10px; /* Space between question number circles */
+}
+
+.nav-item {
+    width: 40px; /* Fixed size for the circle */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Makes it a circle */
+    background-color: #e2e8f0; /* Light background for unvisited */
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #cbd5e0;
+}
+
+.nav-item:hover {
+    background-color: #f7fafc; /* Lighter on hover */
+    border-color: var(--primary);
+}
+
+/* Style for the currently active question */
+.nav-item.current {
+    background-color: var(--primary); /* Primary background */
+    color: white; /* White text */
+    font-weight: 700;
+    border-color: var(--primary);
+    box-shadow: 0 4px 8px rgba(255, 101, 132, 0.3);
+    transform: scale(1.05);
+}
+
+/* Optional: Style for answered/unanswered */
+.nav-item.answered {
+    background-color: #fcd5df; /* Lighter primary color for answered */
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+
+/* --- Buttons Area (Bottom) --- */
+.buttons-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.submit-btn { background: var(--primary); color: white; flex-grow: 1;}
+.submit-btn:hover { background-color: var(--primary-light); }
+.skip-btn { background-color: var(--secondary); color: white; } /* Secondary/Teal for navigation */
+.skip-btn:hover { background-color: var(--secondary-light); }
+.hint-btn { background-color: var(--accent); color: white; }
+.hint-btn:hover { background-color: var(--accent-light); }
+
+.hint-text {
+    margin-top: 15px;
+    font-style: italic;
+    color: var(--text-light);
+    min-height: 20px;
+    padding: 10px;
+    background-color: rgba(255, 101, 132, 0.08); /* Light primary color for hint box */
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+    font-size: 0.9rem;
+}
+
+.emoji-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 1000;
+}
+</style>
+</head>
+<body>
+     <nav class="navbar">
+    <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
+        </button> 
+
+    <ul class="nav-links" id="navMenu">
+        <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
+    
+    <div class="quiz-wrapper" id="quiz-wrapper">
+        <div class="quiz-container">
+            <h1 id="quiz-title">Chemistry Mock Test - Session 1 (Q1-20)</h1>
+            
+            <div class="header-info">
+                <span>Score: <span id="score">0</span></span>
+                <span>Question <span id="current-q">1</span> of <span id="total-q">20</span></span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="question-card" id="question-card">
+                <div class="question-meta"><span>CHEMISTRY •</span> <span id="topic-display">Topic Name</span></div>
+                <div class="question" id="question-text">
+                    </div>
+                
+                <div class="answer-options" id="answer-options">
+                    </div>
+                
+                <div class="hint-text" id="hint-text"></div>
+            </div>
+            
+            <div class="quiz-navigator" id="quiz-navigator">
+                <div class="nav-title">Question Navigator:</div>
+                <div class="nav-grid" id="nav-grid">
+                    </div>
+            </div>
+
+            <div class="buttons-area">
+                <button class="skip-btn" id="previous-btn" disabled>Previous</button>
+                <button class="submit-btn" id="submit-btn">Submit Answer</button>
+                <button class="skip-btn" id="next-btn">Next</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="emoji-feedback" id="emoji-feedback"></div>
+    
+    <script>
+        // --- QUIZ CONFIGURATION ---
+        // Changed to start the quiz immediately
+        const SESSION_START_INDEX = 0; 
+        const SESSION_SIZE = 20;
+        // --- END CONFIGURATION ---
+
+        // Data for the 65 chemistry questions (as provided in the input)
+        const rawQuestions = [
+            {
+          "id": 1,
+          "question": "Which concentration unit is independent of temperature?",
+          "options": ["Molarity ($M$)", "Normality ($N$)", "Molality ($m$)", "Mole fraction ($\\chi$)"],
+          "answer": 2,
+          "topic": "Basic Concepts"
+        },
+        {
+          "id": 2,
+          "question": "The number of atoms present in $\\text{4.4}$ grams of $\\text{CO}_2$ is:",
+          "options": ["$\\text{6.022} \\times \\text{10}^{23}$", "$\\text{1.0} \\times \\text{10}^{23}$", "$\\text{1.8} \\times \\text{10}^{23}$", "$\\text{6.022} \\times \\text{10}^{22}$"],
+          "answer": 3,
+          "topic": "Mole Concept"
+        },
+        {
+          "id": 3,
+          "question": "Which of Dalton's postulates is violated by the existence of isotopes?",
+          "options": ["Atoms are indivisible.", "Atoms of the same element are identical in all respects.", "Atoms combine in simple whole-number ratios.", "Atoms are neither created nor destroyed."],
+          "answer": 1,
+          "topic": "Basic Concepts"
+        },
+        {
+          "id": 4,
+          "question": "If an electron has a principal quantum number $n=3$, what are the possible values for the azimuthal quantum number ($l$)?",
+          "options": ["0, 1, 2, 3", "0, 1, 2", "1, 2, 3", "0, 1"],
+          "answer": 1,
+          "topic": "Structure of Atom"
+        },
+        {
+          "id": 5,
+          "question": "The maximum number of electrons that can be accommodated in a subshell is given by:",
+          "options": ["$2n^2$", "$2l+1$", "$2(2l+1)$", "$2n$"],
+          "answer": 2,
+          "topic": "Structure of Atom"
+        },
+        {
+          "id": 6,
+          "question": "The wave nature of the electron was experimentally verified by:",
+          "options": ["Bohr", "Planck", "Heisenberg", "Davisson and Germer"],
+          "answer": 3,
+          "topic": "Structure of Atom"
+        },
+        {
+          "id": 7,
+          "question": "Which of the following elements has the highest first ionization enthalpy?",
+          "options": ["Li", "B", "C", "N"],
+          "answer": 3,
+          "topic": "Periodicity"
+        },
+        {
+          "id": 8,
+          "question": "Why is the second ionization enthalpy always greater than the first ionization enthalpy?",
+          "options": ["The size of the atom increases.", "The effective nuclear charge increases for the removal of the second electron.", "The electron is removed from a completely filled orbital.", "The second electron is removed from a higher energy level."],
+          "answer": 1,
+          "topic": "Periodicity"
+        },
+        {
+          "id": 9,
+          "question": "Which of the following is the most electronegative element?",
+          "options": ["Cl", "O", "N", "F"],
+          "answer": 3,
+          "topic": "Periodicity"
+        },
+        {
+          "id": 10,
+          "question": "What is the geometry of $\\text{SF}_4$ according to VSEPR theory?",
+          "options": ["Tetrahedral", "Square planar", "Seesaw", "Trigonal bipyramidal"],
+          "answer": 2,
+          "topic": "Chemical Bonding"
+        },
+        {
+          "id": 11,
+          "question": "The bond order of the $\\text{N}_2$ molecule is:",
+          "options": ["1", "2", "2.5", "3"],
+          "answer": 3,
+          "topic": "Chemical Bonding"
+        },
+        {
+          "id": 12,
+          "question": "Which type of hybridization is observed in the central atom of $\\text{PCl}_5$?",
+          "options": ["$sp^3$", "$sp^3d$", "$sp^3d^2$", "$sp^2$"],
+          "answer": 1,
+          "topic": "Chemical Bonding"
+        },
+        {
+          "id": 13,
+          "question": "Which molecule has a dipole moment of zero?",
+          "options": ["$\\text{NH}_3$", "$\\text{H}_2\\text{O}$", "$\\text{CO}_2$", "$\\text{SO}_2$"],
+          "answer": 2,
+          "topic": "Chemical Bonding"
+        },
+        {
+          "id": 14,
+          "question": "Which of the following is a state function?",
+          "options": ["Heat ($q$)", "Work ($w$)", "Enthalpy ($H$)", "Specific heat capacity ($C$)"],
+          "answer": 2,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 15,
+          "question": "For an adiabatic process, which of the following is true?",
+          "options": ["$q = 0$", "$\\Delta T = 0$", "$\\Delta V = 0$", "$\\Delta P = 0$"],
+          "answer": 0,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 16,
+          "question": "In an isolated system, the total change in entropy ($\\Delta S_{total}$) is:",
+          "options": ["Zero ($\\Delta S_{total} = 0$)", "Always negative ($\\Delta S_{total} < 0$)", "Always positive ($\\Delta S_{total} > 0$)", "Always positive or zero ($\\Delta S_{total} \\ge 0$)"],
+          "answer": 3,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 17,
+          "question": "What is the relationship between $\\Delta H$ and $\\Delta U$ for the reaction: $\\text{PCl}_5 (g) \\rightarrow \\text{PCl}_3 (g) + \\text{Cl}_2 (g)$ at constant temperature?",
+          "options": ["$\\Delta H = \\Delta U$", "$\\Delta H = \\Delta U + \\text{RT}$", "$\\Delta H = \\Delta U - \\text{RT}$", "$\\Delta H = \\Delta U + 2\\text{RT}$"],
+          "answer": 1,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 18,
+          "question": "The specific heat capacity of a gas during an adiabatic process is:",
+          "options": ["Zero", "Infinite", "Positive and constant", "Depends on pressure"],
+          "answer": 0,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 19,
+          "question": "For a reversible reaction at equilibrium, the change in Gibbs Free Energy ($\\Delta G$) is:",
+          "options": ["Positive", "Negative", "Zero", "Dependent on the path"],
+          "answer": 2,
+          "topic": "Equilibrium"
+        },
+        {
+          "id": 20,
+          "question": "If the pressure is increased for the reaction: $\\text{N}_2 (g) + 3\\text{H}_2 (g) \\rightleftharpoons 2\\text{NH}_3 (g)$, the equilibrium shifts to the:",
+          "options": ["Right (products)", "Left (reactants)", "Does not change", "Equilibrium is completely destroyed"],
+          "answer": 0,
+          "topic": "Equilibrium"
+        },
+        {
+          "id": 21,
+          "question": "What happens to the $\\text{pH}$ of pure water when the temperature is increased?",
+          "options": ["Increases", "Decreases", "Remains $\\text{7}$", "Cannot be determined"],
+          "answer": 1,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 22,
+          "question": "Which of the following is a Lewis acid but not a Brønsted acid?",
+          "options": ["$\\text{HCl}$", "$\\text{NH}_4^+$", "$\\text{BF}_3$", "$\\text{H}_2\\text{O}$"],
+          "answer": 2,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 23,
+          "question": "The solubility product constant ($K_{sp}$) is an example of:",
+          "options": ["Homogeneous equilibrium constant", "Heterogeneous equilibrium constant", "Rate constant", "Dissociation constant of water"],
+          "answer": 1,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 24,
+          "question": "What is the oxidation number of $\\text{Cr}$ in $\\text{K}_2\\text{Cr}_2\\text{O}_7$?",
+          "options": ["$+3$", "$+6$", "$+7$", "$+5$"],
+          "answer": 1,
+          "topic": "Redox Reactions"
+        },
+        {
+          "id": 25,
+          "question": "In the reaction $\\text{Zn} + \\text{Cu}^{2+} \\rightarrow \\text{Zn}^{2+} + \\text{Cu}$, which species is the oxidizing agent?",
+          "options": ["$\\text{Zn}$", "$\\text{Cu}^{2+}$", "$\\text{Zn}^{2+}$", "$\\text{Cu}$"],
+          "answer": 1,
+          "topic": "Redox Reactions"
+        },
+        {
+          "id": 26,
+          "question": "Which of the following is NOT a fundamental feature of Organic Compounds?",
+          "options": ["Catenation", "Isomerism", "Electrovalency", "Tetravalency of Carbon"],
+          "answer": 2,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 27,
+          "question": "The total number of $\\sigma$ and $\\pi$ bonds in the ethylene molecule ($\\text{C}_2\\text{H}_4$) is:",
+          "options": ["$5 \\sigma, 1 \\pi$", "$4 \\sigma, 2 \\pi$", "$6 \\sigma, 0 \\pi$", "$3 \\sigma, 2 \\pi$"],
+          "answer": 0,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 28,
+          "question": "Which of the following represents chain isomerism?",
+          "options": ["1-Butene and 2-Butene", "Ethanol and Dimethyl ether", "Pentane and 2-Methylbutane", "Propanone and Propanal"],
+          "answer": 2,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 29,
+          "question": "The functional group that shows metamerism is:",
+          "options": ["Alcohols", "Aldehydes", "Ketones", "Ethers"],
+          "answer": 3,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 30,
+          "question": "Purification of organic compounds that decompose below their boiling points is best done by:",
+          "options": ["Simple distillation", "Fractional distillation", "Vacuum distillation (Distillation under reduced pressure)", "Steam distillation"],
+          "answer": 2,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 31,
+          "question": "The stability of carbocations is in the order:",
+          "options": ["$1^{\\circ} < 2^{\\circ} < 3^{\\circ}$", "$3^{\\circ} < 2^{\\circ} < 1^{\\circ}$", "$1^{\\circ} = 2^{\\circ} = 3^{\\circ}$", "$2^{\\circ} < 1^{\\circ} < 3^{\\circ}$"],
+          "answer": 0,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 32,
+          "question": "The effect involving the polarization of $\\sigma$-bonds due to the presence of an adjacent multiple bond or lone pair is called:",
+          "options": ["Inductive effect", "Electromeric effect", "Resonance effect", "Hyperconjugation"],
+          "answer": 3,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 33,
+          "question": "The number of tertiary hydrogen atoms in isobutane is:",
+          "options": ["0", "1", "2", "3"],
+          "answer": 1,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 34,
+          "question": "The final product of the reaction of ethene (ethylene) with $\\text{HBr}$ is:",
+          "options": ["Ethane", "Bromoethane", "Dibromoethane", "Ethene dibromide"],
+          "answer": 1,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 35,
+          "question": "Which of the following compounds exhibits aromaticity?",
+          "options": ["Cyclohexane", "Cyclobutadiene", "Benzene", "Cyclooctatetraene"],
+          "answer": 2,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 36,
+          "question": "According to Huckel's rule, a cyclic, planar molecule is aromatic if it possesses ($n$ is an integer):",
+          "options": ["$2n$ $\\pi$ electrons", "$(4n+2)$ $\\pi$ electrons", "$4n$ $\\pi$ electrons", "$(2n+1)$ $\\pi$ electrons"],
+          "answer": 1,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 37,
+          "question": "In the Bohr model of the atom, the radius of the electron orbit is directly proportional to:",
+          "options": ["$n$", "$1/n$", "$n^2$", "$1/n^2$"],
+          "answer": 2,
+          "topic": "Structure of Atom"
+        },
+        {
+          "id": 38,
+          "question": "The angular momentum of an electron in a Bohr orbit is given by:",
+          "options": ["$nh/2\\pi$", "$h/2\\pi$", "$nh$", "$2\\pi / nh$"],
+          "answer": 0,
+          "topic": "Structure of Atom"
+        },
+        {
+          "id": 39,
+          "question": "Which of the following elements has the largest atomic radius?",
+          "options": ["$\text{Na}$", "$\text{Mg}$", "$\text{K}$", "$\text{Ca}$"],
+          "answer": 2,
+          "topic": "Periodicity"
+        },
+        {
+          "id": 40,
+          "question": "The bond angle in the water molecule ($\\text{H}_2\\text{O}$) is less than the ideal tetrahedral angle ($109.5^{\\circ}$) due to:",
+          "options": ["High electronegativity of Oxygen", "Presence of one lone pair", "Presence of two lone pairs", "Small size of Hydrogen atoms"],
+          "answer": 2,
+          "topic": "Chemical Bonding"
+        },
+        {
+          "id": 41,
+          "question": "Which of the following species is diamagnetic?",
+          "options": ["$\\text{O}_2$", "$\\text{B}_2$", "$\\text{N}_2$", "$\\text{C}_2$"],
+          "answer": 2,
+          "topic": "Chemical Bonding (MOT)"
+        },
+        {
+          "id": 42,
+          "question": "For a spontaneous process, the entropy change of the system is:",
+          "options": ["Always positive", "Always negative", "Must be positive", "Can be positive or negative, but $\\Delta S_{total}$ must be positive"],
+          "answer": 3,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 43,
+          "question": "In a closed container, the partial pressure of a gas is directly proportional to its:",
+          "options": ["Molecular mass", "Volume", "Density", "Mole fraction"],
+          "answer": 3,
+          "topic": "Basic Concepts (Gases)"
+        },
+        {
+          "id": 44,
+          "question": "The kinetic energy of gas molecules is directly proportional to:",
+          "options": ["Pressure", "Volume", "Absolute temperature", "Number of moles"],
+          "answer": 2,
+          "topic": "Basic Concepts (Gases)"
+        },
+        {
+          "id": 45,
+          "question": "Which condition is NOT favorable for high yield of product in an exothermic reversible reaction?",
+          "options": ["High pressure", "Low temperature", "Removal of product", "Addition of catalyst"],
+          "answer": 0,
+          "topic": "Equilibrium"
+        },
+        {
+          "id": 46,
+          "question": "The $\\text{pH}$ of a solution containing $\\text{0.1} \\text{M}$ $\\text{NaOH}$ is:",
+          "options": ["1", "7", "13", "14"],
+          "answer": 2,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 47,
+          "question": "A buffer solution is a mixture of:",
+          "options": ["Strong acid and strong base", "Weak acid and its salt with a strong base", "Weak acid and a strong base", "Strong acid and a weak base"],
+          "answer": 1,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 48,
+          "question": "The property of $\\text{H}_2\\text{O}$ that allows it to act as both an acid and a base is called:",
+          "options": ["Amphoterism", "Amphiprotic", "Neutrality", "Polarity"],
+          "answer": 1,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 49,
+          "question": "The substance that undergoes a decrease in oxidation number is the:",
+          "options": ["Oxidizing agent", "Reducing agent", "Reductant", "Species being oxidized"],
+          "answer": 0,
+          "topic": "Redox Reactions"
+        },
+        {
+          "id": 50,
+          "question": "Which of the following is a redox reaction?",
+          "options": ["$\\text{NaOH} + \\text{HCl} \\rightarrow \\text{NaCl} + \\text{H}_2\\text{O}$", "$\\text{CaCO}_3 \\rightarrow \\text{CaO} + \\text{CO}_2$", "$\\text{2AgNO}_3 + \\text{Cu} \\rightarrow \\text{Cu}(\\text{NO}_3)_2 + \\text{2Ag}$", "$\\text{NaCl} + \\text{AgNO}_3 \\rightarrow \\text{AgCl} + \\text{NaNO}_3$"],
+          "answer": 2,
+          "topic": "Redox Reactions"
+        },
+        {
+          "id": 51,
+          "question": "The functional groups responsible for tautomerism are:",
+          "options": ["Aldehyde and Alcohol", "Ketone and Carboxylic acid", "Keto and Enol", "Alcohol and Ether"],
+          "answer": 2,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 52,
+          "question": "In the IUPAC naming, the longest continuous carbon chain is selected, irrespective of the presence of the functional group. This statement is:",
+          "options": ["True", "False, the functional group must be included", "True only for alkanes", "False, but is true for compounds with only $\\pi$ bonds"],
+          "answer": 1,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 53,
+          "question": "Which type of cleavage of a covalent bond results in the formation of free radicals?",
+          "options": ["Homolytic cleavage", "Heterolytic cleavage", "Ionic cleavage", "Nucleophilic cleavage"],
+          "answer": 0,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 54,
+          "question": "The least stable carbanion is:",
+          "options": ["Methyl carbanion", "Primary carbanion", "Secondary carbanion", "Tertiary carbanion"],
+          "answer": 3,
+          "topic": "Organic Chemistry Basics"
+        },
+        {
+          "id": 55,
+          "question": "The mechanism of the addition of $\\text{HBr}$ to propene follows:",
+          "options": ["Electrophilic addition", "Nucleophilic addition", "Free radical addition", "Elimination reaction"],
+          "answer": 0,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 56,
+          "question": "Which of the following does NOT decolourize bromine water?",
+          "options": ["Ethene", "Ethyne", "Propane", "Cyclohexene"],
+          "answer": 2,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 57,
+          "question": "The $sp^2$ hybridized carbon atom in propene is:",
+          "options": ["The terminal carbon only", "The middle carbon only", "Both terminal and middle carbons", "All carbons are $sp^3$ hybridized"],
+          "answer": 2,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 58,
+          "question": "The phenomenon of resonance in Benzene is due to:",
+          "options": ["Inductive effect", "Delocalization of $\\sigma$ electrons", "Delocalization of $\\pi$ electrons", "Hyperconjugation"],
+          "answer": 2,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 59,
+          "question": "Which of the following is true regarding the $\\text{C-C}$ bond length in Benzene?",
+          "options": ["It is longer than a single bond", "It is shorter than a double bond", "It is intermediate between a single and a double bond", "It is the same as the single bond in ethane"],
+          "answer": 2,
+          "topic": "Hydrocarbons"
+        },
+        {
+          "id": 60,
+          "question": "The formula used for finding the $\\text{pH}$ of a weak acid is:",
+          "options": ["$\\text{pH} = -\\log [\\text{H}^+]$", "$\\text{pH} = \\text{p}K_a + \\log (\\text{[Salt]} / \\text{[Acid]})$", "$\\text{pH} = (\\text{1}/\\text{2})(\\text{p}K_a - \\log \\text{c})$", "$\\text{pH} = (\\text{1}/\\text{2})(\\text{p}K_w + \\text{p}K_a + \\log \\text{c})$"],
+          "answer": 2,
+          "topic": "Equilibrium (Ionic)"
+        },
+        {
+          "id": 61,
+          "question": "The process of transfer of heat from one particle to another without actual movement of particles is called:",
+          "options": ["Conduction", "Convection", "Radiation", "Vaporization"],
+          "answer": 0,
+          "topic": "Thermodynamics"
+        },
+        {
+          "id": 62,
+          "question": "The law of constant heat summation is known as:",
+          "options": ["Hess's Law", "First Law of Thermodynamics", "Kirchhoff's Law", "Zeroth Law of Thermodynamics"],
+          "answer": 0,
+          "topic": "Thermodynamics"
+        }
+        ];
+        
+        // Filter the questions to create a session of the first 20 questions
+        const quizQuestions = rawQuestions.slice(SESSION_START_INDEX, SESSION_START_INDEX + SESSION_SIZE);
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let score = 0;
+        let submitted = new Array(quizQuestions.length).fill(false);
+        let quizActive = true;
+
+        // Element IDs
+        const quizWrapper = document.getElementById('quiz-wrapper');
+        const scoreDisplay = document.getElementById('score');
+        const currentQDisplay = document.getElementById('current-q');
+        const totalQDisplay = document.getElementById('total-q');
+        const progressBar = document.getElementById('progress-bar');
+        const questionTextElement = document.getElementById('question-text');
+        const topicDisplay = document.getElementById('topic-display');
+        const answerOptionsContainer = document.getElementById('answer-options');
+        const hintTextElement = document.getElementById('hint-text');
+        const previousBtn = document.getElementById('previous-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const navGrid = document.getElementById('nav-grid');
+        const emojiFeedback = document.getElementById('emoji-feedback');
+
+
+        // Set total questions display
+        totalQDisplay.textContent = quizQuestions.length;
+
+
+        // --- Navigation Toggle (from original HTML) ---
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+        function closeMenu() {
+             const navMenu = document.getElementById('navMenu');
+             navMenu.classList.remove('active');
+        }
+
+        // --- Utility Functions ---
+
+        // Simple MathJax/LaTeX rendering simulation (to show formatted text)
+        function formatLatex(text) {
+            // Very simple replacement for the sake of demo, a full implementation would use a library like MathJax
+            return text.replace(/\$(.*?)\$/g, (match, p1) => `<span class="latex-formula">${p1}</span>`);
+        }
+
+        function loadQuestion(index) {
+            if (index < 0 || index >= quizQuestions.length) return;
+
+            currentQuestionIndex = index;
+            const q = quizQuestions[currentQuestionIndex];
+
+            // 1. Update Header Info
+            currentQDisplay.textContent = currentQuestionIndex + 1;
+            topicDisplay.textContent = q.topic || 'General Chemistry';
+
+            // 2. Load Question Text
+            questionTextElement.innerHTML = formatLatex(q.question);
+
+            // 3. Load Answer Options
+            answerOptionsContainer.innerHTML = '';
+            q.options.forEach((optionText, i) => {
+                const optionDiv = document.createElement('label');
+                optionDiv.classList.add('option');
+                optionDiv.innerHTML = `
+                    <input type="radio" name="answer" value="${i}" ${userAnswers[currentQuestionIndex] === i ? 'checked' : ''} ${submitted[currentQuestionIndex] ? 'disabled' : ''}>
+                    ${formatLatex(optionText)}
+                `;
+                optionDiv.onclick = () => {
+                    if (!submitted[currentQuestionIndex]) {
+                        userAnswers[currentQuestionIndex] = i;
+                        // Visually mark selection for better UX (optional, but good)
+                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                        optionDiv.classList.add('selected');
+                    }
+                };
+                answerOptionsContainer.appendChild(optionDiv);
+
+                // Apply visual feedback if submitted
+                if (submitted[currentQuestionIndex]) {
+                    if (i === q.answer) {
+                        optionDiv.classList.add('correct-answer');
+                        optionDiv.style.backgroundColor = 'rgba(0, 191, 166, 0.1)'; // Success light color
+                    } else if (userAnswers[currentQuestionIndex] === i) {
+                        optionDiv.classList.add('incorrect-answer');
+                        optionDiv.style.backgroundColor = 'rgba(255, 101, 132, 0.1)'; // Primary light color (for incorrect choice)
+                    }
+                }
+            });
+
+            // 4. Update Hint (hide or show) - currently no hints in data, so just hide
+            hintTextElement.classList.add('hidden'); 
+            hintTextElement.innerHTML = '';
+
+            // 5. Update Navigator Grid
+            updateNavGrid(index);
+
+            // 6. Update Buttons
+            previousBtn.disabled = index === 0;
+            nextBtn.disabled = index === quizQuestions.length - 1;
+            submitBtn.style.display = submitted[currentQuestionIndex] ? 'none' : 'block';
+            
+            // Check if all questions are answered/submitted
+            if (submitted.every(s => s)) {
+                submitBtn.textContent = 'Finish Test';
+            } else {
+                submitBtn.textContent = 'Submit Answer';
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = (currentQuestionIndex + 1) / quizQuestions.length * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function updateNavGrid(activeIndex) {
+            if (navGrid.children.length === 0) {
+                // Initialize the grid if it's empty
+                for (let i = 0; i < quizQuestions.length; i++) {
+                    const navItem = document.createElement('div');
+                    navItem.classList.add('nav-item');
+                    navItem.textContent = i + 1;
+                    navItem.dataset.index = i;
+                    navItem.onclick = () => loadQuestion(i);
+                    navGrid.appendChild(navItem);
+                }
+            }
+
+            // Update classes for current, answered, and submitted states
+            document.querySelectorAll('.nav-item').forEach((item, i) => {
+                item.classList.remove('current', 'answered', 'submitted');
+                if (i === activeIndex) {
+                    item.classList.add('current');
+                }
+                if (userAnswers[i] !== null) {
+                    item.classList.add('answered');
+                }
+                if (submitted[i]) {
+                    item.classList.add('submitted'); // Use a different class for submitted if needed
+                    item.style.backgroundColor = quizQuestions[i].answer === userAnswers[i] ? '#00BFA6' : '#FF6584';
+                    item.style.color = 'white';
+                } else if (userAnswers[i] !== null) {
+                    // Show answered questions as light primary color if not submitted
+                    item.style.backgroundColor = '#fcd5df'; 
+                    item.style.color = 'var(--text)';
+                } else {
+                    item.style.backgroundColor = '#e2e8f0'; 
+                    item.style.color = 'var(--text)';
+                }
+            });
+        }
+        
+        function showEmojiFeedback(isCorrect) {
+            emojiFeedback.textContent = isCorrect ? '✅' : '❌';
+            emojiFeedback.style.opacity = '1';
+            setTimeout(() => {
+                emojiFeedback.style.opacity = '0';
+            }, 800);
+        }
+
+        function submitAnswer() {
+            const q = quizQuestions[currentQuestionIndex];
+            const selectedOptionIndex = userAnswers[currentQuestionIndex];
+            
+            if (selectedOptionIndex === null || submitted[currentQuestionIndex]) {
+                if (submitted.every(s => s)) {
+                    showResults();
+                    return;
+                }
+                // Optional: Alert the user to select an answer before submitting if not already submitted
+                return;
+            }
+
+            submitted[currentQuestionIndex] = true;
+            
+            const isCorrect = selectedOptionIndex === q.answer;
+            
+            if (isCorrect) {
+                score++;
+                scoreDisplay.textContent = score;
+            }
+            
+            showEmojiFeedback(isCorrect);
+            
+            // Reload the question to show feedback (disable radio, highlight correct/incorrect)
+            loadQuestion(currentQuestionIndex);
+            
+            // Check if all questions are submitted
+            if (submitted.every(s => s)) {
+                 submitBtn.textContent = 'Finish Test';
+            }
+        }
+
+        function showResults() {
+            quizActive = false;
+            quizWrapper.innerHTML = `
+                <div class="quiz-container" style="text-align: center; padding: 50px;">
+                    <h1>Quiz Session Complete!</h1>
+                    <p style="font-size: 1.2rem; color: var(--text-light);">Thank you for taking the Chemistry Mock Test.</p>
+                    <div style="margin: 30px 0; padding: 20px; background-color: var(--primary-light); color: white; border-radius: 12px;">
+                        <h2 style="margin: 0; font-size: 3rem;">Your Final Score:</h2>
+                        <p style="font-size: 4rem; font-weight: 700;">${score} / ${quizQuestions.length}</p>
+                    </div>
+                    <p style="font-size: 1.1rem;">Review your answers by clicking the links in the navigation menu (which would be implemented here in a real application).</p>
+                    <button class="register-btn" onclick="window.location.reload();" style="margin-top: 20px;">Restart Session</button>
+                </div>
+            `;
+        }
+
+        // --- Event Listeners ---
+        submitBtn.addEventListener('click', submitAnswer);
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            }
+            updateProgressBar();
+        });
+
+        previousBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+            updateProgressBar();
+        });
+
+        // --- START THE QUIZ DIRECTLY ---
+        loadQuestion(currentQuestionIndex);
+        updateProgressBar();
+    </script>
+</body>
+</html>

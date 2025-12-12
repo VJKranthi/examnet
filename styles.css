@@ -1,0 +1,1113 @@
+
+/* --- General Styles (Assuming they are here) --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.hidden {
+    display: none !important;
+}
+/* ... existing navbar, logo, button styles ... */
+
+/* --- Modal Overlay Styles --- */
+#registration-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Ensure it's above everything */
+}
+
+.registration-section {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 450px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.registration-section .logo {
+    font-size: 1.8rem;
+    color: #00BFA6;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.registration-section h2 {
+    color: #2D3748;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: none;
+    font-size: 1.6rem;
+}
+
+/* Form Group Styles */
+.registration-section .form-group {
+    margin-bottom: 20px;
+}
+
+.registration-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2D3748;
+}
+
+.registration-section input,
+.registration-section select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #00BFA6; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #00a08e;
+}
+
+.error-message {
+    color: #FF6584;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f7fdfd;
+}
+
+@media (max-width: 768px) {
+    /* ... (other mobile styles) ... */
+    
+    .hero {
+        height: 60vh;
+        background-size: contain;
+        background-position: center top;
+        
+        /* 🔑 MOBILE FIX: Adjust margin-top for mobile padding */
+        margin-top: 50px; 
+    }
+}
+/* --- NEW: Blocking Registration Modal Styles --- */
+#registration-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95); /* White background with slight transparency */
+    z-index: 10000; /* Ensure it's on top of everything, including the navbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Optional: Blurs the content behind it */
+}
+
+/* Ensure the form container is styled nicely within the modal */
+#registration-modal-overlay .registration-section {
+    margin: 0; /* Override the 40px auto margin */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+    transition: transform 0.3s ease-out;
+}
+
+/* Initially hide the main site content */
+.main-content-wrapper.hidden {
+    display: none;
+}
+
+
+
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f7fdfd;
+}
+
+/* -------------------------
+    NAVBAR
+-------------------------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 50px;
+    background: white;
+    border-bottom: 1px solid #e5ecec;
+    position: relative; /* Base for positioning */
+
+    /* ADD THIS if you want the navbar to always stay at the top */
+    /* position: fixed; 
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: 1000; */
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #013b52;
+}
+
+.logo span {
+    color: #00828a;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    transition: 0.3s ease-in-out; /* Smooth transition for closing */
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 17px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: #013b52;
+    transition: 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #008390;
+    color: white;
+}
+
+/* --- HAMBURGER ICON STYLES --- */
+.menu-toggle {
+    display: none; /* Initially hide on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Above everything */
+}
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #013b52;
+    transition: all 0.3s ease-in-out;
+}
+
+/* -------------------------
+    HERO - FULL IMAGE, NO CROP
+-------------------------- */
+.hero {
+    width: 100%;
+    height: 80vh;
+    background-image: url("assets/images/Ammu.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center top;
+    background-color: #000;
+
+    
+    margin-top: 65px; 
+}
+
+/* -------------------------
+    BUTTON SECTION
+-------------------------- */
+.button-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.btn-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 12px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.primary {
+    background: #0d9aab;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.primary:hover {
+    background: #086f7b;
+}
+
+.outline {
+    border: 2px solid #0d9aab;
+    color: #0d9aab;
+}
+
+.outline:hover {
+    background: #0d9aab;
+    color: white;
+}
+
+/* -------------------------
+    RESPONSIVE NAVBAR LOGIC
+-------------------------- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 18px 20px;
+    }
+    
+    /* 1. Show the Hamburger Icon */
+    .menu-toggle {
+        display: block; 
+    }
+
+    /* 2. Hide Desktop Menu, Setup Mobile Menu */
+    .nav-links {
+        display: flex; /* Display is needed for the mobile setup */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 61px; /* Navbar height + border */
+        left: 0;
+        background: white; 
+        border-top: 1px solid #e5ecec;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        z-index: 1000;
+        padding: 10px 0;
+        
+        /* The key to hiding the menu initially: move it up and off-screen */
+        transform: translateY(-150%);
+        opacity: 0;
+        pointer-events: none; /* Disable clicking when hidden */
+    }
+
+    /* 3. The class toggled by JavaScript to make the menu visible */
+    .nav-links.active-menu {
+        transform: translateY(0); /* Slide it down into view */
+        opacity: 1;
+        pointer-events: all; /* Enable clicking */
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    /* Other mobile styles */
+    .hero {
+        height: 60vh;
+        background-size: contain;
+        background-position: center top;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* ... (Rest of the responsive styles for content-container, etc., are here) ... */
+}
+/* --- Global Resets for the Navbar Page --- */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5; 
+}
+
+/* --- Navigation Bar (navbar) Styling --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2D3748;
+}
+
+.logo span {
+    color: #00BFA6; /* Primary color for 'Inter' */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #718096;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-radius: 4px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #00BFA6;
+    font-weight: 600;
+    border-bottom: 2px solid #00BFA6;
+}
+
+/* --- Mobile Menu Toggle --- */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25px;
+    height: 20px;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #2D3748;
+    border-radius: 1px;
+}
+
+/* --- Media Queries for Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 60px; /* Adjust based on navbar height */
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #ffffff;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 99;
+    }
+
+    .nav-links.open {
+        transform: translateX(0);
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+}
+
+
+
+
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 50px;
+    background: white;
+    border-bottom: 1px solid #e5ecec;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #013b52;
+}
+
+.logo span {
+    color: #00828a;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 17px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: #013b52;
+    transition: 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #008390;
+    color: white;
+}
+
+/* -------------------------
+   HERO - FULL IMAGE, NO CROP
+-------------------------- */
+.hero {
+    width: 100%;
+    height: 80vh;
+
+    /* FULL IMAGE + FACE CLEAR (WORKS ALWAYS) */
+    background-image: url("./assets/images/Ammu.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;   /* 👈 FULL IMAGE visible */
+    background-position: center top;
+
+    background-color: #000; /* black bg behind image */
+}
+
+/* -------------------------
+   BUTTON SECTION
+-------------------------- */
+.button-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.btn-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 12px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.primary {
+    background: #0d9aab;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.primary:hover {
+    background: #086f7b;
+}
+
+.outline {
+    border: 2px solid #0d9aab;
+    color: #0d9aab;
+}
+
+.outline:hover {
+    background: #0d9aab;
+    color: white;
+}
+
+/* -------------------------
+   RESPONSIVE
+-------------------------- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 18px 20px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero {
+        height: 60vh;
+        background-size: contain; /* FULL IMAGE even on phone */
+        background-position: center top;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+/* SUBJECTS PAGE */
+.content-container {
+    padding: 50px;
+}
+
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.subject-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.subject-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.physics-bg { background: #e8dbff; }
+.chemistry-bg { background: #d8f8dd; }
+.mathsA-bg { background: #f0e7ff; }
+.mathsB-bg { background: #ffe5d1; }
+
+.subject-card h3 {
+    font-size: 22px;
+    color: #013b52;
+}
+
+.subject-card p {
+    margin: 5px 0 10px;
+    color: #666;
+}
+
+.pdf-count {
+    font-size: 14px;
+    color: #444;
+    display: block;
+}
+
+.arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    font-size: 22px;
+    transform: translateY(-50%);
+    color: #008390;
+}
+/* --- EXISTING CSS (Meeru ichindi already vundi anukuntunna) --- */
+/* Paste your existing CSS here if not present */
+
+/* -------------------------
+   EAMCET PAPERS TABLE STYLES
+-------------------------- */
+
+/* Header Text styling */
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.header-section h2 {
+    color: #013b52;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.header-section p {
+    color: #666;
+}
+
+/* Paper Wrapper - White Box card look */
+.papers-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    overflow-x: auto; /* Handles scroll on small mobile screens */
+}
+
+/* Table Design */
+.papers-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Ensures table doesn't squish too much */
+}
+
+.papers-table th, 
+.papers-table td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.papers-table th {
+    background-color: #f0f8ff; /* Light blue header */
+    color: #013b52;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 8px; /* Slight curve for header row */
+}
+
+.papers-table td {
+    color: #444;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.papers-table tr:last-child td {
+    border-bottom: none; /* Remove border for last row */
+}
+
+.papers-table tr:hover {
+    background-color: #fcfcfc; /* Slight hover effect on row */
+}
+
+/* Button Styles specifically for Table */
+.btn-download {
+    display: inline-block;
+    background-color: #0d9aab;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-download:hover {
+    background-color: #097582;
+    box-shadow: 0 2px 8px rgba(13, 154, 171, 0.3);
+}
+
+.btn-solution {
+    display: inline-block;
+    background-color: white;
+    border: 2px solid #0d9aab;
+    color: #0d9aab;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-solution:hover {
+    background-color: #0d9aab;
+    color: white;
+}
+/* -------------------------
+   NAVBAR RESPONSIVENESS (for Mobile Menu)
+-------------------------- */
+
+/* Mobile Menu Hidden by default */
+.nav-links.active-menu {
+    display: flex !important; /* Overwrite the mobile hidden state */
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 18px 20px;
+    }
+    
+    /* Hamburger Icon Visible */
+    .menu-toggle {
+        display: block; 
+    }
+
+    /* Navigation Links Hidden by default on small screens */
+    .nav-links {
+        /* Flex row default style ni break cheyadaniki */
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; /* Adjust based on your navbar height */
+        left: 0;
+        background: white; 
+        border-top: 1px solid #e5ecec;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        z-index: 1000;
+        padding: 10px 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+        border-radius: 0;
+    }
+}
+/* Mobile Responsiveness for Table */
+@media (max-width: 768px) {
+    .content-container {
+        padding: 20px;
+    }
+    
+    .header-section h2 {
+        font-size: 22px;
+    }
+
+    .papers-table th, 
+    .papers-table td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+
+    .btn-download, .btn-solution {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+/* --- QUIZ PAGE LAYOUT --- */
+.quiz-layout-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 30px;
+}
+
+/* Sidebar - Left Side (Timer, Navigator, Score) */
+.quiz-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.timer-box, .navigator-box, #quiz-summary-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.timer-box h4, .navigator-box h4, #quiz-summary-box h4 {
+    color: #013b52;
+    margin-bottom: 10px;
+}
+
+.timer-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #d35400; /* Orange/Red for urgency */
+    text-align: center;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    background: #e74c3c;
+}
+.submit-btn:hover {
+    background: #c0392b;
+}
+
+/* Navigator Grid */
+.navigator-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nav-btn {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.nav-btn:hover {
+    background: #eee;
+}
+
+.nav-btn.active {
+    background: #0d9aab;
+    color: white;
+    border-color: #0d9aab;
+}
+
+.nav-btn.answered {
+    background: #2ecc71; /* Green if answered */
+    color: white;
+}
+
+/* Quiz Main Content - Right Side */
+.quiz-main-content {
+    flex-grow: 1;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    margin-bottom: 20px;
+}
+.progress-bar-line {
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.progress {
+    height: 100%;
+    width: 0%; /* JS controls width */
+    background: #0d9aab;
+    transition: width 0.3s;
+}
+
+/* Question Card */
+.question-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.question-card h3 {
+    margin-bottom: 20px;
+    color: #013b52;
+    font-size: 20px;
+}
+
+.option {
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+.option:hover {
+    background: #f0f8ff;
+    border-color: #0d9aab;
+}
+
+.option input[type="radio"] {
+    margin-right: 15px;
+}
+
+/* Navigation Buttons at bottom */
+.quiz-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Result Review Styles */
+.result-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #eee;
+}
+.result-item.correct { border-left: 5px solid #2ecc71; }
+.result-item.wrong { border-left: 5px solid #e74c3c; }
+
+.quiz-layout-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex; /* <--- THIS IS CRITICAL */
+    gap: 30px;
+}
+.quiz-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+.quiz-main-content {
+    flex-grow: 1; /* This makes the main content take remaining space */
+}
+/* --- RESPONSIVENESS --- */
+@media (max-width: 900px) {
+    .quiz-layout-container {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .quiz-sidebar {
+        width: 100%; /* Sidebar takes full width on mobile */
+        order: 2; /* Move sidebar to the bottom */
+    }
+    .quiz-main-content {
+        order: 1; /* Keep main content at the top */
+    }
+    .navigator-box {
+        display: none; /* Hide Navigator Grid on small screens to save space */
+    }
+}
+/* Removes the default underline from all text within the card link */
+.subject-card {
+    text-decoration: none; /* <-- This is the fix! */
+    color: inherit;
+    display: block;
+    /* ... rest of your subject-card styles ... */
+}
+
+/* Also ensure your h3 and p tags inside the link don't have underlines */
+.subject-card h3,
+.subject-card p,
+.subject-card .pdf-count {
+    text-decoration: none;
+}
+/* --- General Navbar Setup --- */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Pushes logo and links/button to opposite ends */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f8f8; /* Example color */
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* --- Menu Toggle Button Setup (Hamburger Icon) --- */
+.menu-toggle {
+    display: none; /* Hide button by default on larger screens */
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure button is above other elements */
+}
+
+/* --- Nav Links Setup --- */
+.nav-links {
+    list-style: none;
+    display: flex; /* Links side-by-side on desktop */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    padding: 8px 15px;
+    display: block;
+}
+
+/* --- MOBILE STYLES: This is the critical part for the toggling issue --- */
+@media (max-width: 768px) {
+    /* 1. Show the hamburger button */
+    .menu-toggle {
+        display: block; 
+    }
+
+    /* 2. Style the navigation links for mobile view */
+    .nav-links {
+        /* Set position to cover the whole screen/area below navbar */
+        position: absolute;
+        top: 60px; /* Adjust based on your navbar height */
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Make it full height */
+        flex-direction: column; /* Stack links vertically */
+        background-color: #fff; /* Menu background */
+        
+        /* HIDDEN STATE: Move it off-screen */
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out; /* Smooth slide animation */
+        
+        z-index: 1000;
+        overflow-y: auto; /* Allows scrolling if many links */
+    }
+
+    /* 3. SHOWN STATE: When the 'active' class is added by JS, move it on-screen */
+    .nav-links.active {
+        transform: translateX(0); /* Slide it into view */
+    }
+}

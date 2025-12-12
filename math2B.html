@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths 2B Brain Bloom Quiz Session</title>
+     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-Gvr4r2W5tQ1T9p1j9O9m/kK/mXoN4GgJ4vA1O1uC7S/wL2+5tQo9wP9n/jF+7jH/" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-o88+3kR58O0wT2r9xX3qQ3E7dKz7T+sB3iC1E1/w4T8K+Vq6r4jH/1w6xN2zX9q+" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+Rz6H/FoyE8yQ/G2X9b4t4+J6b0uGqg+8p/O1fP6A8k+V/eE9pQvJ9tT2Cg+8fQ+" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+    <style>
+        /* --- Global Variables and Base Styling --- */
+        :root {
+            /* MATHS THEME: Deep Blue/Indigo */
+            --primary: #4A55A2; /* Deep Blue/Indigo - NEW PRIMARY */
+            --primary-light: #6A77B8;
+            --secondary: #00BFA6; /* Green/Teal for accents (kept) */
+            --secondary-light: #26D7BD;
+            --accent: #FF6584; /* Pink/Rose for hints (new accent) */
+            --accent-light: #FF8FA3;
+            --card: rgba(255, 255, 255, 0.95);
+            --text: #2D3748;
+            --text-light: #718096;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            --success: #00BFA6;
+            --error: #E53E3E; /* Red for incorrect */
+            --nav-bg: #f8f8fa; /* Light background for the navigator section */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5; 
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            box-sizing: border-box;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+        
+        /* Navbar styles from the original snippet (simplified for single file) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+
+        /* --- Quiz and General Styles --- */
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Main Quiz Container (Centered) --- */
+        .quiz-wrapper {
+            width: 100%;
+            max-width: 700px; /* Standard card width */
+            margin-top: 0px; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quiz-container {
+            background-color: var(--card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08); /* Soft border */
+            min-height: 400px;
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                padding-top: 70px;
+                align-items: flex-start;
+            }
+            .quiz-wrapper {
+                margin-top: 0;
+                padding: 0;
+            }
+            .quiz-container {
+                padding: 20px;
+                min-height: unset;
+            }
+        }
+
+
+        h1 {
+            text-align: center;
+            color: var(--primary); /* Primary for Quiz Title */
+            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* --- Score/Progress Bar (Top Section) --- */
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e6e8eb; 
+            border-radius: 5px;
+            margin-bottom: 30px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary); /* Primary color for progress */
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* --- Question Area --- */
+        .question-card {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-meta {
+            font-size: 0.9rem;
+            color: var(--primary); /* Primary color for subject/topic */
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .question-meta span {
+            color: var(--text-light);
+            margin-right: 5px;
+        }
+
+        .question {
+            font-size: 1.25rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            color: var(--text);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .option:hover {
+            background: #e9eaf6; /* Light primary on hover */
+            border-color: var(--primary-light);
+        }
+
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.1);
+            accent-color: var(--primary); /* Primary radio button color */
+            pointer-events: none; /* Prevent radio input from interfering with label click */
+        }
+
+        /* Feedback Styles */
+        .option.correct {
+            background-color: #E6FFFA; /* Very light success */
+            border-color: var(--success);
+            box-shadow: 0 0 10px rgba(0, 191, 166, 0.4);
+        }
+
+        .option.incorrect {
+            background-color: #FFF5F5; /* Very light error */
+            border-color: var(--error);
+        }
+
+        /* --- Question Navigator (Bottom Section) --- */
+        .quiz-navigator {
+            background-color: var(--nav-bg); 
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light); 
+            margin-bottom: 15px; 
+        }
+
+        .nav-grid {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+
+        .nav-item {
+            width: 40px; 
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%; 
+            background-color: #e2e8f0; 
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #cbd5e0;
+        }
+
+        .nav-item:hover {
+            background-color: #f7fafc; 
+            border-color: var(--primary);
+        }
+
+        /* Style for the currently active question */
+        .nav-item.current {
+            background-color: var(--primary); 
+            color: white; 
+            font-weight: 700;
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(74, 85, 162, 0.3); 
+            transform: scale(1.05);
+        }
+
+        /* Style for answered questions */
+        .nav-item.answered {
+            background-color: var(--secondary); /* Teal for answered */
+            border-color: var(--secondary-light);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-item.answered.correct {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        .nav-item.answered.incorrect {
+            background-color: var(--error);
+            border-color: var(--error);
+        }
+
+
+        /* --- Buttons Area (Bottom) --- */
+        .buttons-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .submit-btn { background: var(--primary); color: white; flex-grow: 1;}
+        .submit-btn:hover { background-color: var(--primary-light); }
+        .skip-btn { background-color: #E2E8F0; color: var(--text); border: 1px solid #CBD5E0; } 
+        .skip-btn:hover { background-color: #CBD5E0; }
+
+        .hint-text {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--text-light);
+            min-height: 20px;
+            padding: 10px;
+            background-color: rgba(74, 85, 162, 0.08); /* Light primary color for hint box (new) */
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.9rem;
+            display: none; /* Initially hidden */
+        }
+        
+        .feedback-text {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback-correct {
+            background-color: #E6FFFA; 
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .feedback-incorrect {
+            background-color: #FFF5F5; 
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+
+        .emoji-feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Custom style for LaTeX rendering */
+        .latex-formula {
+            font-family: serif;
+            font-style: italic;
+            font-weight: 600;
+            padding: 0 2px;
+        }
+    </style>
+</head>
+<body>
+     <nav class="navbar">
+    <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
+        </button> 
+
+    <ul class="nav-links" id="navMenu">
+        <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
+    <div class="quiz-wrapper" id="quiz-wrapper">
+        <div class="quiz-container">
+            <h1 id="quiz-title">Maths 1A Mock Test - Session 1 (Q1-20)</h1>
+            
+            <div class="header-info">
+                <span>Score: <span id="score">0</span></span>
+                <span>Question <span id="current-q">1</span> of <span id="total-q">100</span></span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="question-card" id="question-card">
+                <div class="question-meta"><span>MATHS 1A •</span> <span id="topic-display">Topic Name</span></div>
+                <div class="question" id="question-text"></div>
+                
+                <div class="answer-options" id="answer-options"></div>
+                
+                <div class="feedback-text" id="feedback-text"></div>
+            </div>
+            
+            <div class="quiz-navigator" id="quiz-navigator">
+                <div class="nav-title">Question Navigator:</div>
+                <div class="nav-grid" id="nav-grid"></div>
+            </div>
+
+            <div class="buttons-area">
+                <button class="skip-btn" id="previous-btn" disabled>Previous</button>
+                <button class="submit-btn" id="submit-btn">Submit Answer</button>
+                <button class="skip-btn" id="next-btn">Next Question</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="emoji-feedback" id="emoji-feedback"></div>
+    
+    <script>
+        // --- QUIZ CONFIGURATION AND DATA ---
+        
+        // **MODIFIED:** Session size changed from 25 to 20 per user request
+        const TOTAL_QUESTIONS = 100;
+        const SESSION_SIZE = 20; 
+        let currentSession = 0; // 0 for Q1-20, 1 for Q21-40, etc.
+        const maxSessions = Math.ceil(TOTAL_QUESTIONS / SESSION_SIZE);
+
+        let currentQuestionIndex = 0; // Index within the current session (0 to 19)
+        let currentSessionQuestions = []; // The subset of questions for the current session
+
+        let userAnswers = {}; // Store answers for all 100 questions {qId: selectedIndex}
+        let totalScore = 0; // Global score
+
+        // Data for the 100 Maths 1A questions (Completed to 100 for proper session handling)
+        const ALL_QUESTIONS = [
+            { "id": 1, "question": "If $f(x) = 2x + 1$ and $g(x) = x^2$, find $(g \\circ f)(x)$.", "options": ["$4x^2 + 1$", "$2x^2 + 1$", "$4x^2 + 4x + 1$", "$x^2 + 2x + 1$"], "answer": 2, "topic": "Functions" },
+            { "id": 2, "question": "What is the domain of the function $f(x) = \\frac{1}{x-3}$?", "options": ["$R$", "$R - \\{0\\}$", "$R - \\{3\\}$", "$R - \\{-3\\}$"], "answer": 2, "topic": "Functions" },
+            { "id": 3, "question": "A function $f: A \\to B$ is called **bijective** if it is:", "options": ["One-one only", "Onto only", "Neither one-one nor onto", "Both one-one and onto"], "answer": 3, "topic": "Functions" },
+            { "id": 4, "question": "If $f(x) = 4x - 7$, find the inverse function $f^{-1}(x)$.", "options": ["$\\frac{x+7}{4}$", "$\\frac{x}{4} + 7$", "$\\frac{x-7}{4}$", "$7x + 4$"], "answer": 0, "topic": "Functions" },
+            { "id": 5, "question": "If $f(x) = \\log(x)$ for $x > 0$, find $f(x) + f(y)$.", "options": ["$f(x+y)$", "$f(xy)$", "$f(x/y)$", "$\\log(x) \\log(y)$"], "answer": 1, "topic": "Functions" },
+            { "id": 6, "question": "What is the range of $f(x) = \\sqrt{x-4}$?", "options": ["$[4, \\infty)$", "$[0, \\infty)$", "$(-4, \\infty)$", "$R$"], "answer": 1, "topic": "Functions" },
+            { "id": 7, "question": "Which of the following functions is an **even** function?", "options": ["$f(x) = x^3$", "$f(x) = \\sin(x)$", "$f(x) = x^2 + 5$", "$f(x) = x^3 + x$"], "answer": 2, "topic": "Functions" },
+            { "id": 8, "question": "If $f(x) = \\frac{1}{x}$ and $g(x) = x+1$, find $(f \\circ g)(x)$.", "options": ["$\\frac{1}{x+1}$", "$x+1$", "$x(x+1)$", "$\\frac{1}{x} + 1$"], "answer": 0, "topic": "Functions" },
+            { "id": 9, "question": "For a function $f: R \\to R$ defined by $f(x) = x^2$, is it one-one?", "options": ["Yes", "No", "Only if domain is restricted to $[0, \\infty)$", "Only if domain is restricted to $(-\\infty, 0]$"], "answer": 1, "topic": "Functions" },
+            { "id": 10, "question": "What is the inverse of the identity function $f(x) = x$?", "options": ["$f(x) = -x$", "$f(x) = 1/x$", "$f(x) = x$", "The inverse does not exist"], "answer": 2, "topic": "Functions" },
+            { "id": 11, "question": "Which principle is used to prove statements involving natural numbers?", "options": ["Principle of Inclusion-Exclusion", "Principle of Mathematical Induction", "Pigeonhole Principle", "Well-Ordering Principle"], "answer": 1, "topic": "Mathematical Induction" },
+            { "id": 12, "question": "The first step in Mathematical Induction is the **basis step**. What does it involve?", "options": ["Assuming the statement is true for $n=k$", "Proving the statement is true for $n=k+1$", "Proving the statement is true for $n=1$", "Checking if the statement is true for all $n$"], "answer": 2, "topic": "Mathematical Induction" },
+            { "id": 13, "question": "In Mathematical Induction, the **inductive step** involves proving $P(k+1)$ is true, assuming that:", "options": ["$P(1)$ is true", "$P(k-1)$ is true", "$P(k)$ is true", "$P(n)$ is true for all $n$"], "answer": 2, "topic": "Mathematical Induction" },
+            { "id": 14, "question": "The statement $2^n > n$ is true for $n=1$. Assuming it's true for $n=k$, what inequality needs to be proved?", "options": ["$2^{k+1} > k$", "$2^{k+1} > k+1$", "$2^k > k+1$", "$2^k > k-1$"], "answer": 1, "topic": "Mathematical Induction" },
+            { "id": 15, "question": "The sum of the first $n$ odd natural numbers is:", "options": ["$n$", "$n^2$", "$n(n+1)/2$", "$2n+1$"], "answer": 1, "topic": "Mathematical Induction" },
+            { "id": 16, "question": "A statement $P(n)$ is said to be proved by induction if:", "options": ["$P(1)$ is true and $P(k)$ is true", "$P(1)$ is true and $P(k) \\implies P(k+1)$", "$P(k) \\implies P(k+1)$ and $P(n)$ is true", "$P(1)$ is false"], "answer": 1, "topic": "Mathematical Induction" },
+            { "id": 17, "question": "The sum $1+2+3+...+n$ is equal to:", "options": ["$n^2$", "$n^2/2$", "$n(n+1)/2$", "$n(n-1)/2$"], "answer": 2, "topic": "Mathematical Induction" },
+            { "id": 18, "question": "Which of the following is divisible by 3 for all natural numbers $n$ (prove by induction)?", "options": ["$n^2 + 1$", "$n^3 + 2n$", "$2^n + 1$", "$n^2 - 1$"], "answer": 1, "topic": "Mathematical Induction" },
+            { "id": 19, "question": "What is a **square matrix**?", "options": ["A matrix with only one row", "A matrix with only one column", "A matrix where the number of rows equals the number of columns", "A matrix with all zero entries"], "answer": 2, "topic": "Matrices" },
+            { "id": 20, "question": "If $A$ is a matrix of order $m \\times n$ and $B$ is a matrix of order $n \\times p$, what is the order of the product matrix $AB$?", "options": ["$n \\times m$", "$m \\times p$", "$p \\times n$", "The product is not possible"], "answer": 1, "topic": "Matrices" },
+            { "id": 21, "question": "The determinant of the matrix $A = \\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}$ is:", "options": ["1", "2", "3", "4"], "answer": 1, "topic": "Matrices" },
+            { "id": 22, "question": "For a square matrix $A$, if $|A| \\ne 0$, then $A$ is called a:", "options": ["Singular matrix", "Symmetric matrix", "Non-singular matrix", "Skew-symmetric matrix"], "answer": 2, "topic": "Matrices" },
+            { "id": 23, "question": "If $A$ is a non-singular matrix, then $A^{-1}$ is equal to:", "options": ["$|A| \\cdot (adj A)$", "$\\frac{1}{|A|} \\cdot (adj A)$", "$|A| \\cdot A$", "$A / |A|$"], "answer": 1, "topic": "Matrices" },
+            { "id": 24, "question": "What is the **rank** of the identity matrix $I_3$?", "options": ["1", "2", "3", "0"], "answer": 2, "topic": "Matrices" },
+            { "id": 25, "question": "If $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$, what is the transpose $A^T$?", "options": ["$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$", "$\\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}$", "$\\begin{pmatrix} 1 & 3 \\\\ 2 & 4 \\end{pmatrix}$", "$\\begin{pmatrix} -1 & -2 \\\\ -3 & -4 \\end{pmatrix}$"], "answer": 2, "topic": "Matrices" },
+            { "id": 26, "question": "If $A$ and $B$ are two matrices, then $(AB)^T$ is equal to:", "options": ["$A^T B^T$", "$B^T A^T$", "$AB$", "$BA$"], "answer": 1, "topic": "Matrices" },
+            { "id": 27, "question": "What is the determinant of a matrix whose two rows are identical?", "options": ["1", "-1", "0", "Cannot be determined"], "answer": 2, "topic": "Matrices" },
+            { "id": 28, "question": "For a system of linear equations $AX = B$, if $|A| \\ne 0$, the system has a:", "options": ["No solution", "Infinitely many solutions", "Unique solution", "Trivial solution only"], "answer": 2, "topic": "Matrices" },
+            { "id": 29, "question": "What is a **zero vector**?", "options": ["A vector with magnitude 1", "A vector with all components equal to 1", "A vector with magnitude 0", "A vector parallel to the x-axis"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 30, "question": "If $\\vec{a} = 2\\vec{i} + 3\\vec{j} - \\vec{k}$, what is the magnitude $|\\vec{a}|$?", "options": ["$\\sqrt{5}$", "$\\sqrt{14}$", "$6$", "$\\sqrt{13}$"], "answer": 1, "topic": "Vector Algebra" },
+            { "id": 31, "question": "Two vectors $\\vec{a}$ and $\\vec{b}$ are **collinear** if:", "options": ["$|\\vec{a}| = |\\vec{b}| = 1$", "$\\vec{a} \\cdot \\vec{b} = 0$", "$\\vec{a} = \\lambda \\vec{b}$ for some scalar $\\lambda$", "$|\\vec{a} + \\vec{b}| = |\\vec{a}| + |\\vec{b}|$"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 32, "question": "If $\\vec{a} = \\vec{i} + 2\\vec{j} + 3\\vec{k}$ and $\\vec{b} = 2\\vec{i} - \\vec{j} + 4\\vec{k}$, find $\\vec{a} + 2\\vec{b}$.", "options": ["$3\\vec{i} + \\vec{j} + 7\\vec{k}$", "$5\\vec{i} + 0\\vec{j} + 11\\vec{k}$", "$0\\vec{i} + 4\\vec{j} - 5\\vec{k}$", "$4\\vec{i} + 4\\vec{j} + 10\\vec{k}$"], "answer": 1, "topic": "Vector Algebra" },
+            { "id": 33, "question": "A vector whose initial and terminal points are the same is called a:", "options": ["Unit vector", "Position vector", "Zero vector", "Co-initial vector"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 34, "question": "If $\\vec{a}, \\vec{b}, \\vec{c}$ are coplanar vectors, then which of the following is true?", "options": ["$\\vec{a} + \\vec{b} + \\vec{c} = \\vec{0}$", "$[\\vec{a} \\; \\vec{b} \\; \\vec{c}] = 1$", "$[\\vec{a} \\; \\vec{b} \\; \\vec{c}] = 0$", "$|\\vec{a}| = |\\vec{b}| = |\\vec{c}|$"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 35, "question": "The position vector of a point $P(x, y, z)$ with respect to the origin $O$ is:", "options": ["$x\\vec{i} + y\\vec{j}$", "$x+y+z$", "$x\\vec{i} + y\\vec{j} + z\\vec{k}$", "$x\\vec{i} - y\\vec{j} - z\\vec{k}$"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 36, "question": "What is a **unit vector** in the direction of $\\vec{a}$?", "options": ["$\\vec{a} / |\\vec{a}|^2$", "$|\\vec{a}| \\cdot \\vec{a}$", "$\\vec{a} / |\\vec{a}| $", "$|\\vec{a}| / \\vec{a}$"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 37, "question": "If $\\vec{a}$ and $\\vec{b}$ are two vectors, the scalar (dot) product $\\vec{a} \\cdot \\vec{b}$ is defined as:", "options": ["$|\\vec{a}| |\\vec{b}| \\sin\\theta$", "$|\\vec{a}| |\\vec{b}| \\cos\\theta$", "$|\\vec{a}| |\\vec{b}| \\tan\\theta$", "$|\\vec{a} \\times \\vec{b}|$"], "answer": 1, "topic": "Product of Vectors" },
+            { "id": 38, "question": "If $\\vec{a}$ and $\\vec{b}$ are perpendicular vectors, then $\\vec{a} \\cdot \\vec{b}$ is:", "options": ["1", "$|\\vec{a}| |\\vec{b}|$", "$0$", "$-1$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 39, "question": "The geometrical interpretation of $|\\vec{a} \\times \\vec{b}|$ is the area of the:", "options": ["Triangle with sides $\\vec{a}$ and $\\vec{b}$", "Parallelogram with adjacent sides $\\vec{a}$ and $\\vec{b}$", "Square with side $\\vec{a}$", "Rectangle with sides $|\\vec{a}|$ and $|\\vec{b}|$"], "answer": 1, "topic": "Product of Vectors" },
+            { "id": 40, "question": "If $\\vec{a} = \\vec{i} + 2\\vec{j}$ and $\\vec{b} = 3\\vec{i} - \\vec{j}$, find $\\vec{a} \\cdot \\vec{b}$.", "options": ["$1$", "$5$", "$0$", "$3$"], "answer": 0, "topic": "Product of Vectors" },
+            { "id": 41, "question": "The vector (cross) product $\\vec{a} \\times \\vec{b}$ is a vector that is:", "options": ["Parallel to $\\vec{a}$", "Parallel to $\\vec{b}$", "Perpendicular to the plane containing $\\vec{a}$ and $\\vec{b}$", "Equal to the scalar product"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 42, "question": "Find the work done by the force $\\vec{F} = 2\\vec{i} + \\vec{j}$ acting on a body that displaces it from $A(1, 1)$ to $B(2, 3)$.", "options": ["2 units", "4 units", "6 units", "8 units"], "answer": 1, "topic": "Product of Vectors" },
+            { "id": 43, "question": "If $\\vec{a} = 2\\vec{i} - \\vec{j} + 3\\vec{k}$ and $\\vec{b} = \\vec{i} + 2\\vec{j} + 0\\vec{k}$, find the magnitude of $\\vec{a} \\times \\vec{b}$.", "options": ["$\\sqrt{49}$", "$\\sqrt{38}$", "$\\sqrt{42}$", "$\\sqrt{56}$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 44, "question": "The angle between $\\vec{i} + \\vec{j}$ and $\\vec{i} - \\vec{j}$ is:", "options": ["$0^\\circ$", "$45^\\circ$", "$90^\\circ$", "$180^\\circ$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 45, "question": "What is the value of $\\vec{i} \\times \\vec{j}$?", "options": ["$\\vec{0}$", "$1$", "$\\vec{k}$", "$- \\vec{k}$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 46, "question": "What is the value of $\\sin(A+B) + \\sin(A-B)$?", "options": ["$2\\sin A \\cos B$", "$2\\cos A \\sin B$", "$2\\cos A \\cos B$", "$2\\sin A \\sin B$"], "answer": 0, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 47, "question": "The value of $\\cos 75^\\circ$ is:", "options": ["$\\frac{\\sqrt{3}+1}{2\\sqrt{2}}$", "$\\frac{\\sqrt{3}-1}{2\\sqrt{2}}$", "$\\frac{1}{2}$", "$\\frac{\\sqrt{3}}{2}$"], "answer": 1, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 48, "question": "If $A+B+C = 180^\\circ$, then $\\tan A + \\tan B + \\tan C$ is equal to:", "options": ["$0$", "$1$", "$\\tan A \\tan B \\tan C$", "$-\\tan A \\tan B \\tan C$"], "answer": 2, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 49, "question": "The transformation formula for $\\sin C + \\sin D$ is:", "options": ["$2\\sin(\\frac{C+D}{2}) \\cos(\\frac{C-D}{2})$", "$2\\cos(\\frac{C+D}{2}) \\sin(\\frac{C-D}{2})$", "$2\\cos(\\frac{C+D}{2}) \\cos(\\frac{C-D}{2})$", "$2\\sin(\\frac{C-D}{2}) \\cos(\\frac{C+D}{2})$"], "answer": 0, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 50, "question": "If $\\tan A = 3/4$ and $A$ is in the third quadrant, what is the value of $\\sin A$?", "options": ["$3/5$", "$-3/5$", "$4/5$", "$-4/5$"], "answer": 1, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 51, "question": "The value of $\\sin(2x)$ in terms of $\\tan x$ is:", "options": ["$\\frac{2\\tan x}{1+\\tan^2 x}$", "$\\frac{2\\tan x}{1-\\tan^2 x}$", "$\\frac{1-\\tan^2 x}{1+\\tan^2 x}$", "$2\\sin x \\cos x$"], "answer": 0, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 52, "question": "What is the fundamental period of $\\cos(3x)$?", "options": ["$2\\pi$", "$\\pi$", "$3\\pi$", "$2\\pi/3$"], "answer": 3, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 53, "question": "The maximum value of $a \\cos x + b \\sin x$ is:", "options": ["$a+b$", "$a^2 + b^2$", "$\\sqrt{a^2 + b^2}$", "$|a|+|b|$"], "answer": 2, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 54, "question": "If $\\sin \\theta = 1/2$, the principal solution for $\\theta$ is:", "options": ["$0$", "$\\pi/6$", "$\\pi/4$", "$\\pi/2$"], "answer": 1, "topic": "Trigonometric Equations" },
+            { "id": 55, "question": "The general solution for $\\tan \\theta = 1$ is:", "options": ["$n\\pi + \\pi/4, n \\in Z$", "$2n\\pi + \\pi/4, n \\in Z$", "$n\\pi - \\pi/4, n \\in Z$", "$n\\pi, n \\in Z$"], "answer": 0, "topic": "Trigonometric Equations" },
+            { "id": 56, "question": "If $\\cos \\theta = \\cos \\alpha$, the general solution for $\\theta$ is:", "options": ["$n\\pi \\pm \\alpha, n \\in Z$", "$2n\\pi + \\alpha, n \\in Z$", "$2n\\pi \\pm \\alpha, n \\in Z$", "$n\\pi + (-1)^n \\alpha, n \\in Z$"], "answer": 2, "topic": "Trigonometric Equations" },
+            { "id": 57, "question": "The number of solutions for $\\sin x = 2$ in the interval $[0, 2\\pi]$ is:", "options": ["0", "1", "2", "Infinitely many"], "answer": 0, "topic": "Trigonometric Equations" },
+            { "id": 58, "question": "The general solution for $\\sin^2 \\theta = \\sin^2 \\alpha$ is:", "options": ["$n\\pi + \\alpha$", "$n\\pi \\pm \\alpha$", "$2n\\pi + \\alpha$", "$2n\\pi \\pm \\alpha$"], "answer": 1, "topic": "Trigonometric Equations" },
+            { "id": 59, "question": "The principal value of $\\sin^{-1}(1/2)$ is:", "options": ["$\\pi/6$", "$5\\pi/6$", "$7\\pi/6$", "$-\\pi/6$"], "answer": 0, "topic": "Inverse Trigonometric Functions" },
+            { "id": 60, "question": "The domain of $\\cos^{-1}(x)$ is:", "options": ["$R$", "$[-1, 1]$", "$[0, \\pi]$", "$(-1, 1)$"], "answer": 1, "topic": "Inverse Trigonometric Functions" },
+            { "id": 61, "question": "The range of $\\tan^{-1}(x)$ is:", "options": ["$[-\\pi/2, \\pi/2]$", "$[0, \\pi]$", "$R$", "$(- \\pi/2, \\pi/2)$"], "answer": 3, "topic": "Inverse Trigonometric Functions" },
+            { "id": 62, "question": "The value of $\\sin^{-1} x + \\cos^{-1} x$ is:", "options": ["$0$", "$\\pi/2$", "$\\pi$", "$2\\pi$"], "answer": 1, "topic": "Inverse Trigonometric Functions" },
+            { "id": 63, "question": "What is the value of $\\tan^{-1}(1) + \\tan^{-1}(1/2) + \\tan^{-1}(1/3)$?", "options": ["$\\pi/4$", "$\\pi/2$", "$\\pi$", "$3\\pi/4$"], "answer": 2, "topic": "Inverse Trigonometric Functions" },
+            { "id": 64, "question": "The Sine Rule in a triangle states that $a/\\sin A = b/\\sin B = c/\\sin C$ is equal to:", "options": ["$r$", "$2r$", "$R$", "$2R$"], "answer": 3, "topic": "Properties of Triangles" },
+            { "id": 65, "question": "In $\\triangle ABC$, the Cosine Rule for $\\cos A$ is:", "options": ["$\\frac{b^2 + c^2 - a^2}{2bc}$", "$\\frac{a^2 + c^2 - b^2}{2ac}$", "$\\frac{a^2 + b^2 - c^2}{2ab}$", "$\\frac{a^2 + b^2}{2ab}$"], "answer": 0, "topic": "Properties of Triangles" },
+            
+            // --- Placeholder Questions 66-100 to ensure TOTAL_QUESTIONS=100 works correctly ---
+            { "id": 66, "question": "What is the area of $\\triangle ABC$ given sides $b, c$ and included angle $A$?", "options": ["$bc \\sin A$", "$2bc \\sin A$", "$\\frac{1}{2} bc \\sin A$", "$\\frac{1}{2} a b \\sin C$"], "answer": 2, "topic": "Properties of Triangles" },
+            { "id": 67, "question": "The radius of the circumcircle of $\\triangle ABC$ is denoted by:", "options": ["$r_1$", "$r$", "$R$", "$2R$"], "answer": 2, "topic": "Properties of Triangles" },
+            { "id": 68, "question": "What is the perimeter of a triangle with sides $a, b, c$?", "options": ["$s$", "$2s$", "$s^2$", "$\\sqrt{s}$"], "answer": 1, "topic": "Properties of Triangles" },
+            { "id": 69, "question": "In a right-angled triangle, if $\\cos B = 3/5$, then $\\sin B$ is:", "options": ["$4/5$", "$3/4$", "$5/3$", "$-4/5$"], "answer": 0, "topic": "Trigonometric Ratios" },
+            { "id": 70, "question": "If $\\tan \\theta = 1/2$, find $\\tan(2\\theta)$.", "options": ["$4/3$", "$3/4$", "$1/4$", "$2/3$"], "answer": 0, "topic": "Trigonometric Ratios" },
+            { "id": 71, "question": "The value of $\\sin^2 15^\\circ + \\cos^2 15^\\circ$ is:", "options": ["$\\sin 30^\\circ$", "$1$", "$1/2$", "$0$"], "answer": 1, "topic": "Trigonometric Identities" },
+            { "id": 72, "question": "The magnitude of the vector $\\vec{v} = 6\\vec{i} - 8\\vec{j}$ is:", "options": ["$2$", "$10$", "$14$", "$5$"], "answer": 1, "topic": "Vector Algebra" },
+            { "id": 73, "question": "If $\\vec{a} = 3\\vec{i}$ and $\\vec{b} = 4\\vec{j}$, then $\\vec{a} \\cdot \\vec{b}$ is:", "options": ["$12$", "$7$", "$0$", "$5$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 74, "question": "The value of $\\sin(22.5^\\circ)$ is:", "options": ["$\\sqrt{2+\\sqrt{2}}/2$", "$\\sqrt{2-\\sqrt{2}}/2$", "$\\sqrt{2+\\sqrt{3}}/2$", "$\\sqrt{2-\\sqrt{3}}/2$"], "answer": 1, "topic": "Multiple and Submultiple Angles" },
+            { "id": 75, "question": "Find the domain of $f(x) = \\log_e(x^2 - 4)$", "options": ["$(-2, 2)$", "$R - [-2, 2]$", "$R - \\{2, -2\\}$", "$R$"], "answer": 1, "topic": "Functions" },
+            { "id": 76, "question": "The inverse of $A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ is:", "options": ["$\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}$", "$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$", "$A$ itself", "Inverse does not exist"], "answer": 2, "topic": "Matrices" },
+            { "id": 77, "question": "If $f(x) = \\cos x$, then $f(\\pi - x)$ is:", "options": ["$\\cos x$", "$-\\cos x$", "$\\sin x$", "$-\\sin x$"], "answer": 1, "topic": "Trigonometric Ratios" },
+            { "id": 78, "question": "The value of $\\tan^{-1} (\\sqrt{3})$ is:", "options": ["$\\pi/6$", "$\\pi/4$", "$\\pi/3$", "$2\\pi/3$"], "answer": 2, "topic": "Inverse Trigonometric Functions" },
+            { "id": 79, "question": "If $a, b, c$ are sides and $R$ is the circumradius, then $a \\sin B$ equals:", "options": ["$b \\sin A$", "$c \\sin B$", "$2R \\sin A$", "$2R \\sin C$"], "answer": 0, "topic": "Properties of Triangles" },
+            { "id": 80, "question": "What is the general solution for $\\cos \\theta = 0$?", "options": ["$n\\pi$", "$2n\\pi$", "$n\\pi + \\pi/2$", "$2n\\pi + \\pi/2$"], "answer": 2, "topic": "Trigonometric Equations" },
+            { "id": 81, "question": "If $P(n): 1+3+5+...+(2n-1) = n^2$, find $P(2)$.", "options": ["1", "3", "4", "9"], "answer": 2, "topic": "Mathematical Induction" },
+            { "id": 82, "question": "The scalar triple product of $\\vec{i}, \\vec{j}, \\vec{k}$ is:", "options": ["$0$", "$1$", "$-1$", "$3$"], "answer": 1, "topic": "Product of Vectors" },
+            { "id": 83, "question": "If $|A| = 5$, find $|A^{-1}|$.", "options": ["$5$", "$-5$", "$1/5$", "$25$"], "answer": 2, "topic": "Matrices" },
+            { "id": 84, "question": "Which set of vectors is linearly dependent?", "options": ["$\\vec{i}, \\vec{j}, \\vec{k}$", "$2\\vec{i}, 3\\vec{j}, 4\\vec{k}$", "$\\vec{a}, 2\\vec{a}, 3\\vec{a}$", "$\\vec{i}+\\vec{j}, \\vec{j}+\\vec{k}, \\vec{k}+\\vec{i}$"], "answer": 2, "topic": "Vector Algebra" },
+            { "id": 85, "question": "If $\\sin \\theta + \\cos \\theta = 1$, the value of $\\sin(2\\theta)$ is:", "options": ["$1$", "$0$", "$2$", "$1/2$"], "answer": 1, "topic": "Trigonometric Equations" },
+            { "id": 86, "question": "The inverse of the function $f(x) = x^3$ is:", "options": ["$x^{-3}$", "$\\frac{1}{x^3}$", "$\\sqrt[3]{x}$", "$-x^3$"], "answer": 2, "topic": "Functions" },
+            { "id": 87, "question": "If $A$ is a square matrix, $A+A^T$ is always a:", "options": ["Skew-symmetric matrix", "Symmetric matrix", "Null matrix", "Identity matrix"], "answer": 1, "topic": "Matrices" },
+            { "id": 88, "question": "The value of $\\cos(\\pi/2 - x)$ is:", "options": ["$\\cos x$", "$-\\cos x$", "$\\sin x$", "$-\\sin x$"], "answer": 2, "topic": "Trigonometric Ratios" },
+            { "id": 89, "question": "In a triangle, $a^2 = b^2 + c^2 - 2bc \\cos A$ is called:", "options": ["Sine Rule", "Tangent Rule", "Projection Rule", "Cosine Rule"], "answer": 3, "topic": "Properties of Triangles" },
+            { "id": 90, "question": "The general solution of $\\sin \\theta = 1$ is:", "options": ["$n\\pi + \\pi/2$", "$2n\\pi + \\pi/2$", "$n\\pi$", "$2n\\pi$"], "answer": 1, "topic": "Trigonometric Equations" },
+            { "id": 91, "question": "The range of $\\cot^{-1}(x)$ is:", "options": ["$[-\\pi/2, \\pi/2]$", "$[0, \\pi]$", "$(0, \\pi)$", "$(- \\pi/2, \\pi/2)$"], "answer": 2, "topic": "Inverse Trigonometric Functions" },
+            { "id": 92, "question": "If $\\vec{a}$ and $\\vec{b}$ are parallel, then $|\\vec{a} \\times \\vec{b}|$ is:", "options": ["$1$", "$|\\vec{a}| |\\vec{b}|$", "$0$", "$-1$"], "answer": 2, "topic": "Product of Vectors" },
+            { "id": 93, "question": "The domain of $f(x) = \\sqrt{9 - x^2}$ is:", "options": ["$R$", "$[-3, 3]$", "$[0, 3]$", "$(-3, 3)$"], "answer": 1, "topic": "Functions" },
+            { "id": 94, "question": "The value of $\\sin 105^\\circ$ is:", "options": ["$\\frac{\\sqrt{3}-1}{2\\sqrt{2}}$", "$\\frac{\\sqrt{3}+1}{2\\sqrt{2}}$", "$\\frac{1}{2}$", "$\\frac{\\sqrt{3}}{2}$"], "answer": 1, "topic": "Trigonometric Ratios up to Transformation" },
+            { "id": 95, "question": "The number of solutions for $\\tan x = -1$ in $[0, 2\\pi]$ is:", "options": ["1", "2", "3", "0"], "answer": 1, "topic": "Trigonometric Equations" },
+            { "id": 96, "question": "If $A = \\begin{pmatrix} 1 & 2 \\end{pmatrix}$ and $B = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$, find $AB$.", "options": ["$\\begin{pmatrix} 11 \\end{pmatrix}$", "$\\begin{pmatrix} 3 & 4 \\\\ 6 & 8 \\end{pmatrix}$", "$\\begin{pmatrix} 7 \\end{pmatrix}$", "$AB$ is not possible"], "answer": 0, "topic": "Matrices" },
+            { "id": 97, "question": "The position vector of the midpoint of $A(\\vec{a})$ and $B(\\vec{b})$ is:", "options": ["$\\vec{a} - \\vec{b}$", "$\\frac{\\vec{a} + \\vec{b}}{2}$", "$\\frac{\\vec{a} - \\vec{b}}{2}$", "$2(\\vec{a} + \\vec{b})$"], "answer": 1, "topic": "Vector Algebra" },
+            { "id": 98, "question": "The range of $\\sin^{-1} x$ is:", "options": ["$[0, \\pi]$", "$[-1, 1]$", "$[- \\pi/2, \\pi/2]$", "$(-1, 1)$"], "answer": 2, "topic": "Inverse Trigonometric Functions" },
+            { "id": 99, "question": "If $\\sin A = 1/2$ and $\\cos B = 1/2$, find the maximum value of $A+B$.", "options": ["$60^\\circ$", "$90^\\circ$", "$120^\\circ$", "$150^\\circ$"], "answer": 3, "topic": "Trigonometric Ratios" },
+            { "id": 100, "question": "What is the general solution of $\\tan^2\\theta = 1/3$?", "options": ["$n\\pi \\pm \\pi/6, n \\in Z$", "$2n\\pi \\pm \\pi/6, n \\in Z$", "$n\\pi + \\pi/6, n \\in Z$", "$2n\\pi - \\pi/6, n \\in Z$"], "answer": 0, "topic": "Trigonometric Equations" }
+        ];
+
+        // --- QUIZ LOGIC FUNCTIONS (Modified for Session Handling) ---
+        
+        function updateScoreDisplay() {
+            document.getElementById('score').textContent = totalScore;
+        }
+
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.remove('active');
+        }
+
+        function setupQuiz() {
+            // Calculate start and end indices for the current session's questions
+            const startIndex = currentSession * SESSION_SIZE;
+            const endIndex = Math.min(startIndex + SESSION_SIZE, ALL_QUESTIONS.length);
+            
+            // 1. Determine the questions for the current session
+            currentSessionQuestions = ALL_QUESTIONS.slice(startIndex, endIndex);
+
+            const sessionLength = currentSessionQuestions.length;
+            const sessionNumber = currentSession + 1;
+            
+            // 2. Update Header/Title based on the session range
+            const qStart = startIndex + 1;
+            const qEnd = endIndex;
+            document.getElementById('quiz-title').textContent = `Maths 1A Mock Test - Session ${sessionNumber} (Q${qStart}-${qEnd})`;
+            document.getElementById('total-q').textContent = TOTAL_QUESTIONS; 
+            
+            // 3. Clear and build Navigator Grid (with global question numbers)
+            const navGrid = document.getElementById('nav-grid');
+            navGrid.innerHTML = '';
+            
+            for (let i = 0; i < sessionLength; i++) {
+                const globalQId = currentSessionQuestions[i].id;
+                const navItem = document.createElement('div');
+                navItem.className = 'nav-item';
+                navItem.textContent = startIndex + i + 1; // Display global question number
+                navItem.setAttribute('data-q-index', i); // Store session index
+                navItem.onclick = () => navigateToQuestion(i);
+
+                // Check if the question was answered previously
+                if (userAnswers.hasOwnProperty(globalQId)) {
+                    navItem.classList.add('answered');
+                    const isCorrect = userAnswers[globalQId] === currentSessionQuestions[i].answer;
+                    navItem.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+                
+                navGrid.appendChild(navItem);
+            }
+
+            updateScoreDisplay();
+            
+            // 4. Load the first question of the session
+            currentQuestionIndex = 0;
+            loadQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+
+        function loadQuestion(index) {
+            if (index < 0 || index >= currentSessionQuestions.length) return;
+
+            const q = currentSessionQuestions[index];
+            
+            // Update question content
+            document.getElementById('topic-display').textContent = q.topic;
+            document.getElementById('question-text').innerHTML = q.question;
+            
+            // Update Global Question number
+            const globalQuestionNumber = (currentSession * SESSION_SIZE) + index + 1;
+            document.getElementById('current-q').textContent = globalQuestionNumber;
+
+            // Render options
+            const optionsContainer = document.getElementById('answer-options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((optionText, i) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                label.innerHTML = `
+                    <input type="radio" name="answer" value="${i}">
+                    <span class="latex-formula">${optionText}</span>
+                `;
+                optionsContainer.appendChild(label);
+            });
+
+            // Restore previously selected answer
+            const globalQId = q.id;
+            const selectedAnswerIndex = userAnswers[globalQId];
+
+            if (selectedAnswerIndex !== undefined) {
+                // Restore selection and show feedback/lock options
+                const options = document.querySelectorAll('.option input');
+                if (options[selectedAnswerIndex]) {
+                    options[selectedAnswerIndex].checked = true;
+                }
+                showFeedback(selectedAnswerIndex);
+                lockOptions();
+            } else {
+                // Clear feedback and enable options
+                clearFeedback();
+                unlockOptions();
+            }
+
+            updateNavigatorHighlight(index);
+            updateButtons(index);
+            
+            // Re-render LaTeX for the new question
+            renderMathInElement(document.getElementById('question-card'));
+        }
+
+        function updateProgress() {
+            const totalAnswered = Object.keys(userAnswers).length;
+            const progress = (totalAnswered / TOTAL_QUESTIONS) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function checkAnswer() {
+            const q = currentSessionQuestions[currentQuestionIndex];
+            const options = document.getElementsByName('answer');
+            let selectedIndex = -1;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedIndex = parseInt(options[i].value);
+                    break;
+                }
+            }
+
+            if (selectedIndex === -1) {
+                alert('Please select an answer before submitting.');
+                return;
+            }
+
+            const globalQId = q.id;
+            
+            // Update userAnswers
+            userAnswers[globalQId] = selectedIndex;
+
+            // Recalculate total score (safest way for multi-session quiz)
+            totalScore = 0;
+            for (const id in userAnswers) {
+                const question = ALL_QUESTIONS.find(q => q.id == parseInt(id));
+                if (question && userAnswers[id] === question.answer) {
+                    totalScore++;
+                }
+            }
+            updateScoreDisplay();
+
+            // Display feedback and lock options
+            showFeedback(selectedIndex);
+            lockOptions();
+            
+            // Update navigator status
+            const navItem = document.querySelector(`.nav-item[data-q-index="${currentQuestionIndex}"]`);
+            if (navItem) {
+                navItem.classList.add('answered');
+                navItem.classList.remove('incorrect', 'correct');
+                if (selectedIndex === q.answer) {
+                    navItem.classList.add('correct');
+                } else {
+                    navItem.classList.add('incorrect');
+                }
+            }
+            
+            // Disable submit button after answering
+            document.getElementById('submit-btn').disabled = true;
+            updateProgress();
+            
+            // Re-check buttons to enable Next Session/Finish button if it's the last in session
+            updateButtons(currentQuestionIndex); 
+        }
+
+        function showFeedback(selectedIndex) {
+            const q = currentSessionQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('correct', 'incorrect');
+                if (i === q.answer) {
+                    option.classList.add('correct');
+                } else if (i === selectedIndex && i !== q.answer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            const feedbackText = document.getElementById('feedback-text');
+            feedbackText.textContent = selectedIndex === q.answer ? 'Correct! Well done.' : 'Incorrect. The correct answer is highlighted.';
+            feedbackText.className = selectedIndex === q.answer ? 'feedback-text feedback-correct' : 'feedback-text feedback-incorrect';
+            feedbackText.style.display = 'block';
+        }
+
+        function clearFeedback() {
+             const options = document.querySelectorAll('.option');
+             options.forEach(option => option.classList.remove('correct', 'incorrect'));
+             document.getElementById('feedback-text').style.display = 'none';
+             document.getElementById('feedback-text').textContent = '';
+        }
+
+        function lockOptions() {
+            document.querySelectorAll('.option input').forEach(input => input.disabled = true);
+        }
+
+        function unlockOptions() {
+            document.querySelectorAll('.option input').forEach(input => input.disabled = false);
+            document.getElementById('submit-btn').disabled = false;
+        }
+
+        function updateNavigatorHighlight(index) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('current');
+            });
+            const currentNavItem = document.querySelector(`.nav-item[data-q-index="${index}"]`);
+            if (currentNavItem) {
+                currentNavItem.classList.add('current');
+            }
+        }
+
+        function updateButtons(index) {
+            const sessionLength = currentSessionQuestions.length;
+            const isLastInSession = index === sessionLength - 1;
+            const isLastSession = currentSession === maxSessions - 1;
+            const nextBtn = document.getElementById('next-btn');
+            const previousBtn = document.getElementById('previous-btn');
+            const globalQId = currentSessionQuestions[index].id;
+
+            // Previous button logic: Only enable if not the very first question of the very first session
+            previousBtn.disabled = (index === 0 && currentSession === 0);
+
+            // Submit button logic: Disabled if already answered
+            document.getElementById('submit-btn').disabled = userAnswers.hasOwnProperty(globalQId);
+
+            // Next button logic (The "toggle state" part)
+            if (isLastInSession) {
+                if (!isLastSession) {
+                    // Last question of a session, but not the last session overall
+                    nextBtn.textContent = 'Next 20 Questions (Session ' + (currentSession + 2) + ')';
+                    nextBtn.onclick = loadNextSession;
+                    // Only enable the next session button if the current question is answered
+                    nextBtn.disabled = !userAnswers.hasOwnProperty(globalQId); 
+                } else {
+                    // Last question of the very last session
+                    nextBtn.textContent = 'Finish Quiz';
+                    nextBtn.onclick = finishQuiz;
+                    nextBtn.disabled = !userAnswers.hasOwnProperty(globalQId);
+                }
+            } else {
+                // Regular navigation within the session
+                nextBtn.textContent = 'Next Question';
+                nextBtn.onclick = handleNext;
+                nextBtn.disabled = false; 
+            }
+        }
+
+        function handleNext() {
+            const sessionLength = currentSessionQuestions.length;
+            if (currentQuestionIndex < sessionLength - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+                updateProgress();
+            } else {
+                // If this is clicked on the last question, it means the button was reset for navigation, 
+                // but we should just trigger the session change (if conditions allow).
+                updateButtons(currentQuestionIndex); 
+            }
+        }
+
+        function handlePrevious() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+                updateProgress();
+            }
+        }
+
+        function navigateToQuestion(qIndex) {
+            currentQuestionIndex = qIndex;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadNextSession() {
+            if (currentSession < maxSessions - 1) {
+                currentSession++;
+                setupQuiz();
+                // Scroll to top for new session view for better UX
+                document.getElementById('quiz-wrapper').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function finishQuiz() {
+            // Check if all questions are answered before finalizing
+            if (Object.keys(userAnswers).length < TOTAL_QUESTIONS) {
+                const unanswered = TOTAL_QUESTIONS - Object.keys(userAnswers).length;
+                if (!confirm(`You have ${unanswered} unanswered questions. Are you sure you want to finish the quiz?`)) {
+                    return;
+                }
+            }
+
+            // Display results screen
+            const quizWrapper = document.getElementById('quiz-wrapper');
+            quizWrapper.innerHTML = `
+                <div class="quiz-container" style="text-align: center; padding: 50px;">
+                    <h2>Quiz Session Complete!</h2>
+                    <p style="font-size: 1.5rem; margin-top: 20px;">Your Final Score:</p>
+                    <p style="font-size: 3.5rem; font-weight: bold; color: var(--primary);">${totalScore} / ${TOTAL_QUESTIONS}</p>
+                    <p style="margin-top: 30px;">Congratulations on completing all the sessions!</p>
+                    <button class="submit-btn" style="margin-top: 30px;" onclick="window.location.reload();">Start Over</button>
+                </div>
+            `;
+        }
+
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial binding for the next and previous buttons before loadQuestion overrides them
+            document.getElementById('next-btn').onclick = handleNext;
+            document.getElementById('previous-btn').onclick = handlePrevious;
+            document.getElementById('submit-btn').onclick = checkAnswer;
+            
+            setupQuiz();
+        });
+    </script>
+</body>
+</html>

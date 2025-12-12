@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Users & Control</title>
+      <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Dashboard Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #00BFA6;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+        h1 { margin-top: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f8f8;
+            color: #2D3748;
+        }
+        .logout-btn {
+            float: right;
+            padding: 10px 15px;
+            background-color: #FF6584;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .logout-btn:hover {
+            background-color: #d85470;
+        }
+        .modification-box {
+            background: #fcfcfc;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .modification-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .modification-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .save-btn {
+            background-color: #00BFA6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .save-btn:hover {
+            background-color: #00a08e;
+        }
+    </style>
+</head>
+<body>
+      <nav class="navbar">
+        <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+            <div class="hamburger">☰</div>
+            </button> 
+
+        <ul class="nav-links" id="navMenu">
+            <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+            <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+            <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+            <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+            <li id="admin-link-nav-dashboard"><a class="active" href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+        </ul>
+    </nav>
+
+    <div class="dashboard-container">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <h1>Admin Control Panel</h1>
+
+        <h2>📝 User Registrations</h2>
+        <div id="registrations-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Level</th>
+                        <th>Registered Date</th>
+                    </tr>
+                </thead>
+                <tbody id="registration-table-body">
+                    </tbody>
+            </table>
+        </div>
+        <p id="no-data-msg" style="display: none; text-align: center; color: #718096;">No registrations found yet.</p>
+
+        <h2>⚙️ Website Content Modification</h2>
+        <div class="modification-box">
+            <p><strong>Note:</strong> In a real-world scenario, this section would interact with a server to securely update content (like `index.html` text or links). For this front-end project, this is a simulated control.</p>
+            <form>
+                <div class="form-group">
+                    <label for="hero-text">Update Hero Section Text (Simulated)</label>
+                    <textarea id="hero-text" rows="3">Your journey to success begins here. Master your EAMCET preparation.</textarea>
+                </div>
+                <button type="button" class="save-btn" onclick="alert('Simulated Save: Changes would be applied after server update.')">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Check if admin is logged in
+        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'admin.html';
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'admin.html';
+        }
+
+        function loadRegistrations() {
+            // Retrieve all user registrations from Local Storage
+            const registrations = JSON.parse(localStorage.getItem('userRegistrations') || '[]');
+            const tableBody = document.getElementById('registration-table-body');
+            const noDataMsg = document.getElementById('no-data-msg');
+            
+            tableBody.innerHTML = '';
+
+            if (registrations.length === 0) {
+                noDataMsg.style.display = 'block';
+                return;
+            } else {
+                noDataMsg.style.display = 'none';
+            }
+
+            // Populate the table with user data
+            registrations.forEach((reg, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell().textContent = index + 1;
+                row.insertCell().textContent = reg.name;
+                row.insertCell().textContent = reg.email;
+                row.insertCell().textContent = reg.level;
+                row.insertCell().textContent = reg.date;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRegistrations);
+    </script>
+</body>
+</html>

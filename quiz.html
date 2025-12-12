@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="quizTitle">Physics Mock Test</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+<body>
+
+   <nav class="navbar">
+        <div class="logo">🎓 <span>Inter</span>Learn</div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </button> 
+
+        <ul class="nav-links" id="navMenu">
+            <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+            <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+            <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+            <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+            <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+        </ul>
+    </nav>
+
+    <div class="quiz-layout-container">
+        
+        <div class="quiz-sidebar">
+            <div class="timer-box">
+                <h4>Time Remaining:</h4>
+                <div id="quiz-timer" class="timer-value">20:00</div>
+            </div>
+
+            <div id="quiz-summary-box" style="display:none;">
+                <h4>Your Score:</h4>
+                <p>Correct: <span id="correct-count">0</span></p>
+                <p>Wrong: <span id="wrong-count">0</span></p>
+                <p>Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
+                <button class="btn primary" onclick="window.location.href='mock-tests.html'">Back to Tests</button>
+            </div>
+
+            <div class="navigator-box">
+                <h4>Question Navigator</h4>
+                <div id="question-navigator" class="navigator-grid">
+                    </div>
+                <button class="btn primary submit-btn" onclick="submitQuiz()">Submit Test</button>
+            </div>
+        </div>
+
+        <div class="quiz-main-content">
+            <h2 id="current-quiz-name"></h2>
+            
+            <div class="progress-bar-container">
+                <span id="question-counter">Question 1 of 10</span>
+                <div class="progress-bar-line">
+                    <div id="quiz-progress" class="progress"></div>
+                </div>
+            </div>
+
+            <div id="question-card" class="question-card">
+                </div>
+
+            <div class="quiz-nav-buttons">
+                <button id="prev-btn" class="btn outline" onclick="showQuestion('prev')">← Previous</button>
+                <button id="next-btn" class="btn primary" onclick="showQuestion('next')">Next →</button>
+            </div>
+            
+            <div id="result-review" style="display:none; margin-top: 30px;">
+                </div>
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

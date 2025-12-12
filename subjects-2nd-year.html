@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2nd Year Subjects - Study Materials</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🎓 <span>Inter</span>Learn</div>
+    
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </button> 
+
+    <ul class="nav-links" id="navMenu">
+        <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a class="active" href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
+
+<div class="content-container">
+
+    <h2>Inter 2nd Year Subjects</h2>
+    <p class="section-description">Select a subject to view available notes and guides.</p>
+
+    <div class="subjects-grid">
+
+        <a href="assets/pdfs/eamcet/May27-S1-QP.pdf" class="subject-card">
+            <div class="subject-icon physics-bg">⚛️</div>
+            <h3>Physics</h3>
+            <p>Electromagnetism, Optics, Dual Nature & more</p>
+            <span class="pdf-count">📄 3 PDFs available</span>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="assets/pdfs/eamcet/May27-S1-QP.pdf" class="subject-card">
+            <div class="subject-icon chemistry-bg">🧪</div>
+            <h3>Chemistry</h3>
+            <p>Organic, Physical & Inorganic Chemistry</p>
+            <span class="pdf-count">📄 2 PDFs available</span>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="assets/pdfs/eamcet/May27-S1-QP.pdf" class="subject-card">
+            <div class="subject-icon mathsA-bg">📐</div>
+            <h3>Mathematics 2A</h3>
+            <p>Algebra, Calculus, Vectors</p>
+            <span class="pdf-count">📄 2 PDFs available</span>
+            <div class="arrow">→</div>
+        </a>
+
+        <a href="assets/pdfs/eamcet/May27-S1-QP.pdf" class="subject-card">
+            <div class="subject-icon mathsB-bg">📊</div>
+            <h3>Mathematics 2B</h3>
+            <p>Coordinate Geometry & Calculus</p>
+            <span class="pdf-count">📄 2 PDFs available</span>
+            <div class="arrow">→</div>
+        </a>
+        
+        </div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

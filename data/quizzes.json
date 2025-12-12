@@ -1,0 +1,465 @@
+{"physics":[
+
+  {
+    "id": 1,
+    "question": "Which of the following physical quantities has the same dimensional formula as that of impulse?",
+    "options": ["Torque", "Momentum", "Stress", "Pressure"],
+    "answer": 1,
+    "topic": "Units & Measurements"
+  },
+  {
+    "id": 2,
+    "question": "A stone is dropped from a cliff. Its velocity after falling 4 seconds is (g = 9.8 m/s²):",
+    "options": ["9.8 m/s", "19.6 m/s", "39.2 m/s", "49.0 m/s"],
+    "answer": 2,
+    "topic": "Motion in a Straight Line"
+  },
+  {
+    "id": 3,
+    "question": "For a projectile launched at an angle θ, the horizontal range is maximum when θ is:",
+    "options": ["30°", "45°", "60°", "90°"],
+    "answer": 1,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 4,
+    "question": "The total mechanical energy of a body moving under conservative forces remains constant. This is based on:",
+    "options": ["Conservation of Momentum", "Work-Energy Theorem", "Conservation of Energy", "Newton's Third Law"],
+    "answer": 2,
+    "topic": "Work, Energy & Power"
+  },
+  {
+    "id": 5,
+    "question": "The moment of inertia of a rigid body about an axis passing through its centre of mass is I. If the body is rolled on a surface, what is the torque acting on it?",
+    "options": ["Zero", "Iα", "Iω", "mgR"],
+    "answer": 1,
+    "topic": "Rotational Motion"
+  },
+  {
+    "id": 6,
+    "question": "What is the relation between Stress (σ), Strain (ε), and Young's Modulus (Y)?",
+    "options": ["Y = ε / σ", "Y = σ / ε", "Y = σ * ε", "Y = σ² / ε"],
+    "answer": 1,
+    "topic": "Mechanical Properties of Solids"
+  },
+  {
+    "id": 7,
+    "question": "Bernoulli's principle is a statement of the conservation of which quantity for an ideal fluid flow?",
+    "options": ["Mass", "Momentum", "Energy", "Velocity"],
+    "answer": 2,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 8,
+    "question": "What is the efficiency of a Carnot engine working between 127°C and 27°C?",
+    "options": ["10%", "25%", "33%", "50%"],
+    "answer": 1,
+    "topic": "Thermodynamics"
+  },
+  {
+    "id": 9,
+    "question": "According to the Kinetic Theory of Gases, the average kinetic energy of a gas molecule is directly proportional to:",
+    "options": ["Pressure", "Volume", "Absolute Temperature", "Density"],
+    "answer": 2,
+    "topic": "Kinetic Theory"
+  },
+  {
+    "id": 10,
+    "question": "The time period of a simple pendulum depends on:",
+    "options": ["Mass of the Bob", "Amplitude", "Length of the Pendulum", "Density of surrounding medium"],
+    "answer": 2,
+    "topic": "Oscillations"
+  },
+  
+  
+  {
+    "id": 11,
+    "question": "The minimum number of vectors of unequal magnitude required to give a zero resultant is:",
+    "options": ["Two", "Three", "Four", "One"],
+    "answer": 1,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 12,
+    "question": "If the error in the measurement of radius is 2%, the error in the calculation of the area of a circle is:",
+    "options": ["2%", "4%", "8%", "1%"],
+    "answer": 1,
+    "topic": "Units & Measurements"
+  },
+  {
+    "id": 13,
+    "question": "A passenger drops a coin from the window of a train moving horizontally at a high speed. The path of the coin, as seen by a person on the ground, is:",
+    "options": ["Vertical straight line", "Horizontal straight line", "Parabola", "Circle"],
+    "answer": 2,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 14,
+    "question": "The coefficient of static friction is always ____ the coefficient of kinetic friction.",
+    "options": ["Equal to", "Less than", "Greater than", "Half of"],
+    "answer": 2,
+    "topic": "Laws of Motion"
+  },
+  {
+    "id": 15,
+    "question": "If a light body and a heavy body have the same momentum, then which body has greater kinetic energy?",
+    "options": ["Heavy body", "Light body", "Both have the same", "Cannot be determined"],
+    "answer": 1,
+    "topic": "Work, Energy & Power"
+  },
+  {
+    "id": 16,
+    "question": "The center of mass of a system of particles does not depend upon:",
+    "options": ["Masses of the particles", "Internal forces", "Position of the particles", "External forces"],
+    "answer": 1,
+    "topic": "Rotational Motion"
+  },
+  {
+    "id": 17,
+    "question": "The ratio of escape velocity on the earth to the orbital velocity of a satellite very close to the surface of the earth is:",
+    "options": ["2", "$/sqrt{2}$", "1/$/sqrt{2}$", "4"],
+    "answer": 1,
+    "topic": "Gravitation"
+  },
+  {
+    "id": 18,
+    "question": "What is the elastic property that measures the resistance of a substance to compression?",
+    "options": ["Young's Modulus", "Shear Modulus", "Bulk Modulus", "Poisson's Ratio"],
+    "answer": 2,
+    "topic": "Mechanical Properties of Solids"
+  },
+  {
+    "id": 19,
+    "question": "The velocity of a liquid flowing in a pipe is highest at:",
+    "options": ["The walls of the pipe", "The center of the pipe", "Near the inlet", "Near the outlet"],
+    "answer": 1,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 20,
+    "question": "The phenomenon of transfer of heat without any medium is called:",
+    "options": ["Conduction", "Convection", "Radiation", "Insulation"],
+    "answer": 2,
+    "topic": "Thermal Properties of Matter"
+  },
+  {
+    "id": 21,
+    "question": "The first law of thermodynamics is based on the principle of conservation of:",
+    "options": ["Momentum", "Mass", "Energy", "Temperature"],
+    "answer": 2,
+    "topic": "Thermodynamics"
+  },
+  {
+    "id": 22,
+    "question": "The expression for pressure exerted by an ideal gas is proportional to (v_rms is root mean square velocity):",
+    "options": ["v_rms", "v_rms²", "1/v_rms", "1/v_rms²"],
+    "answer": 1,
+    "topic": "Kinetic Theory"
+  },
+  {
+    "id": 23,
+    "question": "For a particle undergoing Simple Harmonic Motion (SHM), the acceleration is maximum at:",
+    "options": ["The mean position", "The extreme positions", "Halfway between mean and extreme", "It is constant"],
+    "answer": 1,
+    "topic": "Oscillations"
+  },
+  {
+    "id": 24,
+    "question": "Sound waves in air are examples of:",
+    "options": ["Transverse waves", "Longitudinal waves", "Electromagnetic waves", "Standing waves"],
+    "answer": 1,
+    "topic": "Waves"
+  },
+  {
+    "id": 25,
+    "question": "A vector that has magnitude one is called a:",
+    "options": ["Null vector", "Unit vector", "Position vector", "Displacement vector"],
+    "answer": 1,
+    "topic": "Motion in a Plane"
+  },
+
+ 
+  {
+    "id": 26,
+    "question": "If $\\vec{A} \\cdot \\vec{B} = 0$, the angle between $\\vec{A}$ and $\\vec{B}$ is:",
+    "options": ["0°", "45°", "90°", "180°"],
+    "answer": 2,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 27,
+    "question": "The force required to sustain uniform circular motion is:",
+    "options": ["Frictional Force", "Centrifugal Force", "Centripetal Force", "Coriolis Force"],
+    "answer": 2,
+    "topic": "Laws of Motion"
+  },
+  {
+    "id": 28,
+    "question": "A cricket player catches a fast-moving ball. To decrease the force of impact, he lowers his hands. This action is an application of:",
+    "options": ["Newton's 1st Law", "Conservation of Energy", "Impulse-Momentum Theorem", "Newton's 3rd Law"],
+    "answer": 2,
+    "topic": "Laws of Motion"
+  },
+  {
+    "id": 29,
+    "question": "If the kinetic energy of a body is doubled, its momentum will be:",
+    "options": ["Doubled", "Halved", "Increased by $\\sqrt{2}$ times", "Increased by 4 times"],
+    "answer": 2,
+    "topic": "Work, Energy & Power"
+  },
+  {
+    "id": 30,
+    "question": "The radius of gyration (k) is related to the moment of inertia (I) by the formula:",
+    "options": ["I = mk", "I = m/k²", "I = mk²", "I = m²k"],
+    "answer": 2,
+    "topic": "Rotational Motion"
+  },
+  {
+    "id": 31,
+    "question": "A geostationary satellite orbits the Earth at what period?",
+    "options": ["1 hour", "12 hours", "24 hours", "365 days"],
+    "answer": 2,
+    "topic": "Gravitation"
+  },
+  {
+    "id": 32,
+    "question": "In the case of a perfectly elastic body, the value of the coefficient of restitution (e) is:",
+    "options": ["0", "0.5", "1", "$\\infty$"],
+    "answer": 2,
+    "topic": "Work, Energy & Power"
+  },
+  {
+    "id": 33,
+    "question": "Which of the following describes the ability of a material to return to its original shape after deformation?",
+    "options": ["Plasticity", "Ductility", "Elasticity", "Hardness"],
+    "answer": 2,
+    "topic": "Mechanical Properties of Solids"
+  },
+  {
+    "id": 34,
+    "question": "The pressure at a point inside a liquid does not depend on:",
+    "options": ["Density of the liquid", "Depth from the surface", "Acceleration due to gravity", "Area of the surface"],
+    "answer": 3,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 35,
+    "question": "In a streamline flow, the total energy (pressure, kinetic, and potential) per unit mass of an incompressible non-viscous fluid is constant. This is:",
+    "options": ["Poiseuille's law", "Archimedes' principle", "Stokes' law", "Bernoulli's theorem"],
+    "answer": 3,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 36,
+    "question": "The S.I. unit of the coefficient of thermal conductivity is:",
+    "options": ["Joule/s", "Watt/m·K", "Calorie/g", "Watt·m/K"],
+    "answer": 1,
+    "topic": "Thermal Properties of Matter"
+  },
+  {
+    "id": 37,
+    "question": "The process where no heat transfer occurs between the system and the surroundings is:",
+    "options": ["Isothermal", "Isobaric", "Isochoric", "Adiabatic"],
+    "answer": 3,
+    "topic": "Thermodynamics"
+  },
+  {
+    "id": 38,
+    "question": "The degree of freedom for a monoatomic gas molecule is:",
+    "options": ["1", "3", "5", "6"],
+    "answer": 1,
+    "topic": "Kinetic Theory"
+  },
+  {
+    "id": 39,
+    "question": "The phenomenon of beats is a consequence of:",
+    "options": ["Reflection", "Interference", "Diffraction", "Polarization"],
+    "answer": 1,
+    "topic": "Waves"
+  },
+  {
+    "id": 40,
+    "question": "The time period of a body in SHM is T. After what time is the phase change $90°$?",
+    "options": ["T", "T/2", "T/4", "T/8"],
+    "answer": 2,
+    "topic": "Oscillations"
+  },
+  {
+    "id": 41,
+    "question": "What is the angle between the velocity and acceleration vectors at the highest point of a projectile's motion?",
+    "options": ["0°", "45°", "90°", "180°"],
+    "answer": 2,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 42,
+    "question": "According to Newton's second law, Force is equal to:",
+    "options": ["Change in velocity", "Rate of change of momentum", "Rate of change of acceleration", "Energy per unit time"],
+    "answer": 1,
+    "topic": "Laws of Motion"
+  },
+  {
+    "id": 43,
+    "question": "A body is accelerating uniformly. The distance covered in the first 't' seconds is 10 m and in the next 't' seconds is 20 m. The initial velocity of the body is:",
+    "options": ["0", "5/t", "15/t", "10/t"],
+    "answer": 3,
+    "topic": "Motion in a Straight Line"
+  },
+  {
+    "id": 44,
+    "question": "The specific heat capacity of a gas during an adiabatic process is:",
+    "options": ["Zero", "Infinite", "Always positive", "Always negative"],
+    "answer": 0,
+    "topic": "Thermodynamics"
+  },
+  {
+    "id": 45,
+    "question": "The phenomenon of viscosity in a gas is primarily due to:",
+    "options": ["Cohesive forces", "Transfer of momentum", "Gravitational forces", "Frictional forces"],
+    "answer": 1,
+    "topic": "Mechanical Properties of Fluids"
+  },
+
+
+  {
+    "id": 46,
+    "question": "Which physical quantity has the unit Poise?",
+    "options": ["Pressure", "Surface Tension", "Viscosity", "Elasticity"],
+    "answer": 2,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 47,
+    "question": "If the acceleration due to gravity on the surface of the Earth is g, its value at a depth d is:",
+    "options": ["g(1 - d/R)", "g(1 - R/d)", "g(R/d)", "g(d/R)"],
+    "answer": 0,
+    "topic": "Gravitation"
+  },
+  {
+    "id": 48,
+    "question": "For a body rolling without slipping, the ratio of rotational kinetic energy to total kinetic energy is:",
+    "options": ["$I / (I + mR^2)$", "$I / mR^2$", "$mR^2 / I$", "$mR^2 / (I + mR^2)$"],
+    "answer": 0,
+    "topic": "Rotational Motion"
+  },
+  {
+    "id": 49,
+    "question": "The ratio of specific heats $C_p / C_v$ for a diatomic gas (like $O_2$) is approximately:",
+    "options": ["1.33", "1.40", "1.66", "1.0"],
+    "answer": 1,
+    "topic": "Kinetic Theory"
+  },
+  {
+    "id": 50,
+    "question": "The maximum velocity of a particle executing SHM is $v_{max}$. Its velocity when displacement is half the amplitude is:",
+    "options": ["$v_{max} / 2$", "$v_{max} \\sqrt{3} / 2$", "$v_{max} / \\sqrt{2}$", "$v_{max} \\sqrt{2} / 3$"],
+    "answer": 1,
+    "topic": "Oscillations"
+  },
+  {
+    "id": 51,
+    "question": "If $\\vec{A} \\times \\vec{B} = 0$, the vectors $\\vec{A}$ and $\\vec{B}$ are:",
+    "options": ["Perpendicular", "Parallel", "Zero", "Equal"],
+    "answer": 1,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 52,
+    "question": "If the units of force and length are doubled, the unit of energy will be:",
+    "options": ["Doubled", "Halved", "Four times", "Eight times"],
+    "answer": 2,
+    "topic": "Units & Measurements"
+  },
+  {
+    "id": 53,
+    "question": "A uniform chain of length L is lying on a table. If $\\mu$ is the coefficient of friction, the maximum length of the chain that can hang over the edge without slipping is:",
+    "options": ["$L / (1+\\mu)$", "$L \\mu$", "$L \\mu / (1+\\mu)$", "$L (1+\\mu) / \\mu$"],
+    "answer": 2,
+    "topic": "Laws of Motion"
+  },
+  {
+    "id": 54,
+    "question": "Two bodies of mass $m_1$ and $m_2$ have equal kinetic energy. If $p_1$ and $p_2$ are their momenta, then $p_1 / p_2$ is equal to:",
+    "options": ["$m_1 / m_2$", "$m_2 / m_1$", "$\\sqrt{m_1 / m_2}$", "$\\sqrt{m_2 / m_1}$"],
+    "answer": 2,
+    "topic": "Work, Energy & Power"
+  },
+  {
+    "id": 55,
+    "question": "The work done in increasing the length of a wire of Young's Modulus Y by $x$ is proportional to:",
+    "options": ["$x$", "$x^2$", "$\\sqrt{x}$", "Zero"],
+    "answer": 1,
+    "topic": "Mechanical Properties of Solids"
+  },
+  {
+    "id": 56,
+    "question": "A solid sphere and a hollow sphere of the same mass and radius are rolled down an inclined plane. Which one reaches the bottom first?",
+    "options": ["Solid Sphere", "Hollow Sphere", "Both reach at the same time", "Depends on the angle"],
+    "answer": 0,
+    "topic": "Rotational Motion"
+  },
+  {
+    "id": 57,
+    "question": "The time period of a satellite revolving very close to the surface of the Earth (R is Earth's radius) is given by:",
+    "options": ["$2 \\pi \\sqrt{g/R}$", "$2 \\pi \\sqrt{R/g}$", "$4 \\pi \\sqrt{R/g}$", "$2 \\pi R / g$"],
+    "answer": 1,
+    "topic": "Gravitation"
+  },
+  {
+    "id": 58,
+    "question": "The value of surface tension is zero at the:",
+    "options": ["Boiling point", "Critical temperature", "Melting point", "Triple point"],
+    "answer": 1,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 59,
+    "question": "If $\\gamma$ is the ratio of specific heats, the speed of sound in a gas is proportional to:",
+    "options": ["$\\sqrt{P}$", "$\\sqrt{\\rho}$", "$\\sqrt{\\gamma P / \\rho}$", "$\\gamma P / \\rho$"],
+    "answer": 2,
+    "topic": "Waves"
+  },
+  {
+    "id": 60,
+    "question": "The efficiency of a heat engine is given by:",
+    "options": ["$W / Q_1$", "$Q_2 / Q_1$", "$Q_1 / W$", "$Q_1 / (Q_1 - Q_2)$"],
+    "answer": 0,
+    "topic": "Thermodynamics"
+  },
+  {
+    "id": 61,
+    "question": "If the temperature of a gas is raised, which quantity changes?",
+    "options": ["Volume", "Mass of the molecule", "Pressure", "Root mean square velocity"],
+    "answer": 3,
+    "topic": "Kinetic Theory"
+  },
+  {
+    "id": 62,
+    "question": "A hole is made in the side wall of a tank at a depth $h$ from the free surface. The velocity of efflux is given by:",
+    "options": ["$\\sqrt{2gh}$", "$2gh$", "$gh$", "$g/h$"],
+    "answer": 0,
+    "topic": "Mechanical Properties of Fluids"
+  },
+  {
+    "id": 63,
+    "question": "Two pendulums have lengths $L_1$ and $L_2$. If $L_1 = 4L_2$, the ratio of their time periods $T_1 / T_2$ is:",
+    "options": ["1:4", "4:1", "2:1", "1:2"],
+    "answer": 2,
+    "topic": "Oscillations"
+  },
+  {
+    "id": 64,
+    "question": "The maximum height of a projectile is 10m. What is its horizontal range, if it is fired at $45°$?",
+    "options": ["10m", "20m", "40m", "80m"],
+    "answer": 2,
+    "topic": "Motion in a Plane"
+  },
+  {
+    "id": 65,
+    "question": "Which of the following forces is non-conservative?",
+    "options": ["Gravitational force", "Frictional force", "Spring force", "Electrostatic force"],
+    "answer": 1,
+    "topic": "Work, Energy & Power"
+  }
+]
+}

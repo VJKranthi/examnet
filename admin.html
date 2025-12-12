@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - InterLearn</title>
+     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Simple Admin Login Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .login-container h2 {
+            color: #00BFA6;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2D3748;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #00BFA6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #00a08e;
+        }
+        .error-message {
+            color: #FF6584;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+     <nav class="navbar">
+    <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
+        </button> 
+
+    <ul class="nav-links" id="navMenu">
+        <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
+
+    <div class="login-container">
+        <h2>Admin Portal Login</h2>
+        <form id="admin-login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="login-btn">Log In</button>
+            <p id="error-msg" class="error-message" style="display: none;">Invalid credentials.</p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            // Static credentials check
+            const ADMIN_USER = "vijaya";
+            const ADMIN_PASS = "ammulu2006";
+
+            if (username === ADMIN_USER && password === ADMIN_PASS) {
+                // If successful, save a flag and redirect to the dashboard
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

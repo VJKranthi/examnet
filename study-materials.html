@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials | InterLearn</title>
+
+    <link rel="stylesheet" href="study-materials.css">
+     <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+ <nav class="navbar">
+   <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
+        </button> 
+
+    <ul class="nav-links" id="navMenu">
+        <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
+
+    <!-- MAIN CONTENT -->
+    <section class="container">
+        <h2>Select Your Year</h2>
+
+        <div class="years">
+            <!-- 1st Year -->
+            <div class="year-card">
+                <div class="icon-box">
+                    <span class="material-icons folder-icon">folder</span>
+                </div>
+
+                <h3>1st Year</h3>
+                <p>Foundation courses for Intermediate First Year students</p>
+
+                <div class="subjects">
+                    <span>📘 Physics</span>
+                    <span>🧪 Chemistry</span>
+                    <span>📐 Mathematics A</span>
+                    <span>📊 Mathematics B</span>
+                </div>
+
+                <div class="arrow">
+                    <span class="material-icons">arrow_forward</span>
+                </div>
+            </div>
+
+            <!-- 2nd Year -->
+            <div class="year-card">
+                <div class="icon-box">
+                    <span class="material-icons folder-icon">folder</span>
+                </div>
+
+                <h3>2nd Year</h3>
+                <p>Advanced courses for Intermediate Second Year students</p>
+
+                <div class="subjects">
+                    <span>📘 Physics</span>
+                    <span>🧪 Chemistry</span>
+                    <span>📐 Mathematics A</span>
+                    <span>📊 Mathematics B</span>
+                </div>
+
+                <div class="arrow">
+                    <span class="material-icons">arrow_forward</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="study-materials.js"></script>
+</body>
+</html>

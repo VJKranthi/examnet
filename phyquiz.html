@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Brain Bloom Quiz Session - Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+/* --- Global Variables and Base Styling --- */
+:root {
+    --primary: #00BFA6; /* Green/Teal for Physics */
+    --primary-light: #26D7BD;
+    --secondary: #FF6584; /* Pink for accents */
+    --secondary-light: #FF8FA3;
+    --accent: #6C63FF; /* Purple for hints */
+    --accent-light: #8E85FF;
+    --card: rgba(255, 255, 255, 0.95);
+    --text: #2D3748;
+    --text-light: #718096;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --success: #00BFA6;
+    --nav-bg: #f8f8fa; /* Light background for the navigator section */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5; 
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns content slightly higher */
+    box-sizing: border-box;
+}
+
+
+.menu-toggle {
+    display: none; /* Hide toggle by default on desktop */
+}
+
+/* --- Registration Form Styling --- */
+.registration-container {
+    background-color: var(--card);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    width: 90%;
+    margin-top: 100px; /* Space for fixed navbar */
+}
+.registration-container h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text);
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 191, 166, 0.2);
+}
+.register-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.register-btn:hover {
+    background-color: var(--primary-light);
+}
+
+/* --- Quiz and General Styles (Retained/Adjusted for visibility) --- */
+.hidden {
+    display: none !important;
+}
+
+/* --- Main Quiz Container (Centered) --- */
+.quiz-wrapper {
+    width: 100%;
+    max-width: 700px; /* Standard card width */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz-container {
+    background-color: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Soft border */
+    min-height: 400px;
+}
+
+@media (max-width: 600px) {
+    .quiz-wrapper {
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+    .quiz-container {
+        padding: 20px;
+    }
+}
+
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* --- Score/Progress Bar (Top Section) --- */
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #e6e8eb; 
+    border-radius: 5px;
+    margin-bottom: 30px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: 5px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* --- Question Area --- */
+.question-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.question-meta {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+.question-meta span {
+    color: var(--text-light);
+    margin-right: 5px;
+}
+
+.question {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.option:hover {
+    background: #f0faff;
+    border-color: var(--primary-light);
+}
+
+.option input {
+    margin-right: 15px;
+    transform: scale(1.1);
+    accent-color: var(--primary);
+}
+
+/* --- Question Navigator (Bottom Section) --- */
+/* --- Question Navigator (Bottom Section) --- */
+.quiz-navigator {
+    background-color: var(--nav-bg); /* Use the defined variable */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light); /* Darker grey text for the title */
+    margin-bottom: 15px; /* Space between title and grid */
+}
+
+.nav-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap to the next line */
+    gap: 10px; /* Space between question number circles */
+}
+
+.nav-item {
+    width: 40px; /* Fixed size for the circle */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Makes it a circle */
+    background-color: #e2e8f0; /* Light background for unvisited */
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #cbd5e0;
+}
+
+.nav-item:hover {
+    background-color: #f7fafc; /* Lighter on hover */
+    border-color: var(--primary);
+}
+
+/* Style for the currently active question */
+.nav-item.current {
+    background-color: var(--primary); /* Teal/Green background */
+    color: white; /* White text */
+    font-weight: 700;
+    border-color: var(--primary);
+    box-shadow: 0 4px 8px rgba(0, 191, 166, 0.3);
+    transform: scale(1.05);
+}
+
+/* Optional: Style for answered/unanswered */
+.nav-item.answered {
+    background-color: #b2f5ea; /* Lighter primary color for answered */
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+
+/* --- Buttons Area (Bottom) --- */
+.buttons-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.submit-btn { background: var(--primary); color: white; flex-grow: 1;}
+.submit-btn:hover { background-color: var(--primary-light); }
+.skip-btn { background-color: var(--secondary); color: white; }
+.skip-btn:hover { background-color: var(--secondary-light); }
+.hint-btn { background-color: var(--accent); color: white; }
+.hint-btn:hover { background-color: var(--accent-light); }
+
+.hint-text {
+    margin-top: 15px;
+    font-style: italic;
+    color: var(--text-light);
+    min-height: 20px;
+    padding: 10px;
+    background-color: rgba(108, 99, 255, 0.08); 
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+    font-size: 0.9rem;
+}
+
+.emoji-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 1000;
+}
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🎓 <span>Inter</span>Learn</div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </button> 
+
+        <ul class="nav-links" id="navMenu">
+            <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+            <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+            <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+            <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+            <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+        </ul>
+    </nav>
+    
+    <div class="registration-container" id="registration-form">
+        <h2>Register for the Quiz Session</h2>
+        <form id="quiz-registration">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="level">Study Level</label>
+                <select id="level" name="level" required>
+                    <option value="" disabled selected>Select your current level</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="highschool">High School</option>
+                    <option value="college">College</option>
+                </select>
+            </div>
+            <button type="submit" class="register-btn">Start Quiz</button>
+        </form>
+    </div>
+
+    <div class="quiz-wrapper hidden" id="quiz-wrapper">
+        <div class="quiz-container">
+            <h1 id="quiz-title">Physics Mock Test - Session 1 (Q1-20)</h1>
+            
+            <div class="header-info">
+                <span>Score: <span id="score">0</span></span>
+                <span>Question <span id="current-q">1</span> of <span id="total-q">20</span></span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="question-card" id="question-card">
+                <div class="question-meta"><span>PHYSICS •</span> <span id="topic-display">Topic Name</span></div>
+                <div class="question" id="question-text">
+                    </div>
+                
+                <div class="answer-options" id="answer-options">
+                    </div>
+                
+                <div class="hint-text" id="hint-text"></div>
+            </div>
+            
+            <div class="quiz-navigator" id="quiz-navigator">
+                <div class="nav-title">Question Navigator:</div>
+                <div class="nav-grid" id="nav-grid">
+                    </div>
+            </div>
+
+            <div class="buttons-area">
+                <button class="skip-btn" id="previous-btn" disabled>Previous</button>
+                <button class="submit-btn" id="submit-btn">Submit Answer</button>
+                <button class="skip-btn" id="next-btn">Next</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="emoji-feedback" id="emoji-feedback"></div>
+    
+    <script>
+        // --- QUIZ CONFIGURATION ---
+        const SESSION_START_INDEX = 0; 
+        const SESSION_SIZE = 20;
+        // --- END CONFIGURATION ---
+
+        // Data for the 65 physics questions
+        const rawQuestions = [
+            { "id": 1, "question": "Which of the following physical quantities has the same dimensional formula as that of impulse?", "options": ["Torque", "Momentum", "Stress", "Pressure"], "answer": 1, "topic": "Units & Measurements" },
+            { "id": 2, "question": "A stone is dropped from a cliff. Its velocity after falling 4 seconds is (g = 9.8 m/s²):", "options": ["9.8 m/s", "19.6 m/s", "39.2 m/s", "49.0 m/s"], "answer": 2, "topic": "Motion in a Straight Line" },
+            { "id": 3, "question": "For a projectile launched at an angle $\\theta$, the horizontal range is maximum when $\\theta$ is:", "options": ["30°", "45°", "60°", "90°"], "answer": 1, "topic": "Motion in a Plane" },
+            { "id": 4, "question": "The total mechanical energy of a body moving under conservative forces remains constant. This is based on:", "options": ["Conservation of Momentum", "Work-Energy Theorem", "Conservation of Energy", "Newton's Third Law"], "answer": 2, "topic": "Work, Energy & Power" },
+            { "id": 5, "question": "The moment of inertia of a rigid body about an axis passing through its centre of mass is I. If the body is rolled on a surface, what is the torque acting on it?", "options": ["Zero", "$I\\alpha$", "$I\\omega$", "$mgR$"], "answer": 1, "topic": "Rotational Motion" },
+            { "id": 6, "question": "What is the relation between Stress ($\\sigma$), Strain ($\\varepsilon$), and Young's Modulus (Y)?", "options": ["$Y = \\varepsilon / \\sigma$", "$Y = \\sigma / \\varepsilon$", "$Y = \\sigma \\cdot \\varepsilon$", "$Y = \\sigma^2 / \\varepsilon$"], "answer": 1, "topic": "Mechanical Properties of Solids" },
+            { "id": 7, "question": "Bernoulli's principle is a statement of the conservation of which quantity for an ideal fluid flow?", "options": ["Mass", "Momentum", "Energy", "Velocity"], "answer": 2, "topic": "Mechanical Properties of Fluids" },
+            { "id": 8, "question": "What is the efficiency of a Carnot engine working between 127°C and 27°C?", "options": ["10%", "25%", "33%", "50%"], "answer": 1, "topic": "Thermodynamics" },
+            { "id": 9, "question": "According to the Kinetic Theory of Gases, the average kinetic energy of a gas molecule is directly proportional to:", "options": ["Pressure", "Volume", "Absolute Temperature", "Density"], "answer": 2, "topic": "Kinetic Theory" },
+            { "id": 10, "question": "The time period of a simple pendulum depends on:", "options": ["Mass of the Bob", "Amplitude", "Length of the Pendulum", "Density of surrounding medium"], "answer": 2, "topic": "Oscillations" },
+            { "id": 11, "question": "The minimum number of vectors of unequal magnitude required to give a zero resultant is:", "options": ["Two", "Three", "Four", "One"], "answer": 1, "topic": "Motion in a Plane" },
+            { "id": 12, "question": "If the error in the measurement of radius is 2%, the error in the calculation of the area of a circle is:", "options": ["2%", "4%", "8%", "1%"], "answer": 1, "topic": "Units & Measurements" },
+            { "id": 13, "question": "A passenger drops a coin from the window of a train moving horizontally at a high speed. The path of the coin, as seen by a person on the ground, is:", "options": ["Vertical straight line", "Horizontal straight line", "Parabola", "Circle"], "answer": 2, "topic": "Motion in a Plane" },
+            { "id": 14, "question": "The coefficient of static friction is always ____ the coefficient of kinetic friction.", "options": ["Equal to", "Less than", "Greater than", "Half of"], "answer": 2, "topic": "Laws of Motion" },
+            { "id": 15, "question": "If a light body and a heavy body have the same momentum, then which body has greater kinetic energy?", "options": ["Heavy body", "Light body", "Both have the same", "Cannot be determined"], "answer": 1, "topic": "Work, Energy & Power" },
+            { "id": 16, "question": "The center of mass of a system of particles does not depend upon:", "options": ["Masses of the particles", "Internal forces", "Position of the particles", "External forces"], "answer": 1, "topic": "Rotational Motion" },
+            { "id": 17, "question": "The ratio of escape velocity on the earth to the orbital velocity of a satellite very close to the surface of the earth is:", "options": ["2", "$\\sqrt{2}$", "$1/\\sqrt{2}$", "4"], "answer": 1, "topic": "Gravitation" },
+            { "id": 18, "question": "What is the elastic property that measures the resistance of a substance to compression?", "options": ["Young's Modulus", "Shear Modulus", "Bulk Modulus", "Poisson's Ratio"], "answer": 2, "topic": "Mechanical Properties of Solids" },
+            { "id": 19, "question": "The velocity of a liquid flowing in a pipe is highest at:", "options": ["The walls of the pipe", "The center of the pipe", "Near the inlet", "Near the outlet"], "answer": 1, "topic": "Mechanical Properties of Fluids" },
+            { "id": 20, "question": "The phenomenon of transfer of heat without any medium is called:", "options": ["Conduction", "Convection", "Radiation", "Insulation"], "answer": 2, "topic": "Thermal Properties of Matter" },
+            { "id": 21, "question": "The first law of thermodynamics is based on the principle of conservation of:", "options": ["Momentum", "Mass", "Energy", "Temperature"], "answer": 2, "topic": "Thermodynamics" },
+            { "id": 22, "question": "The expression for pressure exerted by an ideal gas is proportional to ($v_{rms}$ is root mean square velocity):", "options": ["$v_{rms}$", "$v_{rms}^2$", "$1/v_{rms}$", "$1/v_{rms}^2$"], "answer": 1, "topic": "Kinetic Theory" },
+            { "id": 23, "question": "For a particle undergoing Simple Harmonic Motion (SHM), the acceleration is maximum at:", "options": ["The mean position", "The extreme positions", "Halfway between mean and extreme", "It is constant"], "answer": 1, "topic": "Oscillations" },
+            { "id": 24, "question": "Sound waves in air are examples of:", "options": ["Transverse waves", "Longitudinal waves", "Electromagnetic waves", "Standing waves"], "answer": 1, "topic": "Waves" },
+            { "id": 25, "question": "A vector that has magnitude one is called a:", "options": ["Null vector", "Unit vector", "Position vector", "Displacement vector"], "answer": 1, "topic": "Motion in a Plane" },
+            { "id": 26, "question": "If $\\vec{A} \\cdot \\vec{B} = 0$, the angle between $\\vec{A}$ and $\\vec{B}$ is:", "options": ["0°", "45°", "90°", "180°"], "answer": 2, "topic": "Motion in a Plane" },
+            { "id": 27, "question": "The force required to sustain uniform circular motion is:", "options": ["Frictional Force", "Centrifugal Force", "Centripetal Force", "Coriolis Force"], "answer": 2, "topic": "Laws of Motion" },
+            { "id": 28, "question": "A cricket player catches a fast-moving ball. To decrease the force of impact, he lowers his hands. This action is an application of:", "options": ["Newton's 1st Law", "Conservation of Energy", "Impulse-Momentum Theorem", "Newton's 3rd Law"], "answer": 2, "topic": "Laws of Motion" },
+            { "id": 29, "question": "If the kinetic energy of a body is doubled, its momentum will be:", "options": ["Doubled", "Halved", "Increased by $\\sqrt{2}$ times", "Increased by 4 times"], "answer": 2, "topic": "Work, Energy & Power" },
+            { "id": 30, "question": "The radius of gyration ($k$) is related to the moment of inertia ($I$) by the formula:", "options": ["$I = mk$", "$I = m/k^2$", "$I = mk^2$", "$I = m^2k$"], "answer": 2, "topic": "Rotational Motion" },
+            { "id": 31, "question": "A geostationary satellite orbits the Earth at what period?", "options": ["1 hour", "12 hours", "24 hours", "365 days"], "answer": 2, "topic": "Gravitation" },
+            { "id": 32, "question": "In the case of a perfectly elastic body, the value of the coefficient of restitution (e) is:", "options": ["0", "0.5", "1", "$\\infty$"], "answer": 2, "topic": "Work, Energy & Power" },
+            { "id": 33, "question": "Which of the following describes the ability of a material to return to its original shape after deformation?", "options": ["Plasticity", "Ductility", "Elasticity", "Hardness"], "answer": 2, "topic": "Mechanical Properties of Solids" },
+            { "id": 34, "question": "The pressure at a point inside a liquid does not depend on:", "options": ["Density of the liquid", "Depth from the surface", "Acceleration due to gravity", "Area of the surface"], "answer": 3, "topic": "Mechanical Properties of Fluids" },
+            { "id": 35, "question": "In a streamline flow, the total energy (pressure, kinetic, and potential) per unit mass of an incompressible non-viscous fluid is constant. This is:", "options": ["Poiseuille's law", "Archimedes' principle", "Stokes' law", "Bernoulli's theorem"], "answer": 3, "topic": "Mechanical Properties of Fluids" },
+            { "id": 36, "question": "The S.I. unit of the coefficient of thermal conductivity is:", "options": ["Joule/s", "Watt/m·K", "Calorie/g", "Watt·m/K"], "answer": 1, "topic": "Thermal Properties of Matter" },
+            { "id": 37, "question": "The process where no heat transfer occurs between the system and the surroundings is:", "options": ["Isothermal", "Isobaric", "Isochoric", "Adiabatic"], "answer": 3, "topic": "Thermodynamics" },
+            { "id": 38, "question": "The degree of freedom for a monoatomic gas molecule is:", "options": ["1", "3", "5", "6"], "answer": 1, "topic": "Kinetic Theory" },
+            { "id": 39, "question": "The phenomenon of beats is a consequence of:", "options": ["Reflection", "Interference", "Diffraction", "Polarization"], "answer": 1, "topic": "Waves" },
+            { "id": 40, "question": "The time period of a body in SHM is T. After what time is the phase change $90°$?", "options": ["T", "T/2", "T/4", "T/8"], "answer": 2, "topic": "Oscillations" },
+            { "id": 41, "question": "What is the angle between the velocity and acceleration vectors at the highest point of a projectile's motion?", "options": ["0°", "45°", "90°", "180°"], "answer": 2, "topic": "Motion in a Plane" },
+            { "id": 42, "question": "According to Newton's second law, Force is equal to:", "options": ["Change in velocity", "Rate of change of momentum", "Rate of change of acceleration", "Energy per unit time"], "answer": 1, "topic": "Laws of Motion" },
+            { "id": 43, "question": "A body is accelerating uniformly. The distance covered in the first 't' seconds is 10 m and in the next 't' seconds is 20 m. The initial velocity of the body is:", "options": ["0", "5/t", "15/t", "10/t"], "answer": 3, "topic": "Motion in a Straight Line" },
+            { "id": 44, "question": "The specific heat capacity of a gas during an adiabatic process is:", "options": ["Zero", "Infinite", "Always positive", "Always negative"], "answer": 0, "topic": "Thermodynamics" },
+            { "id": 45, "question": "The phenomenon of viscosity in a gas is primarily due to:", "options": ["Cohesive forces", "Transfer of momentum", "Gravitational forces", "Frictional forces"], "answer": 1, "topic": "Mechanical Properties of Fluids" },
+            { "id": 46, "question": "Which physical quantity has the unit Poise?", "options": ["Pressure", "Surface Tension", "Viscosity", "Elasticity"], "answer": 2, "topic": "Mechanical Properties of Fluids" },
+            { "id": 47, "question": "If the acceleration due to gravity on the surface of the Earth is $g$, its value at a depth $d$ is:", "options": ["$g(1 - d/R)$", "$g(1 - R/d)$", "$g(R/d)$", "$g(d/R)$"], "answer": 0, "topic": "Gravitation" },
+            { "id": 48, "question": "For a body rolling without slipping, the ratio of rotational kinetic energy to total kinetic energy is:", "options": ["$I / (I + mR^2)$", "$I / mR^2$", "$mR^2 / I$", "$mR^2 / (I + mR^2)$"], "answer": 0, "topic": "Rotational Motion" },
+            { "id": 49, "question": "The ratio of specific heats $C_p / C_v$ for a diatomic gas (like $O_2$) is approximately:", "options": ["1.33", "1.40", "1.66", "1.0"], "answer": 1, "topic": "Kinetic Theory" },
+            { "id": 50, "question": "The maximum velocity of a particle executing SHM is $v_{max}$. Its velocity when displacement is half the amplitude is:", "options": ["$v_{max} / 2$", "$v_{max} \\sqrt{3} / 2$", "$v_{max} / \\sqrt{2}$", "$v_{max} \\sqrt{2} / 3$"], "answer": 1, "topic": "Oscillations" },
+            { "id": 51, "question": "If $\\vec{A} \\times \\vec{B} = 0$, the vectors $\\vec{A}$ and $\\vec{B}$ are:", "options": ["Perpendicular", "Parallel", "Zero", "Equal"], "answer": 1, "topic": "Motion in a Plane" },
+            { "id": 52, "question": "If the units of force and length are doubled, the unit of energy will be:", "options": ["Doubled", "Halved", "Four times", "Eight times"], "answer": 2, "topic": "Units & Measurements" },
+            { "id": 53, "question": "A uniform chain of length L is lying on a table. If $\\mu$ is the coefficient of friction, the maximum length of the chain that can hang over the edge without slipping is:", "options": ["$L / (1+\\mu)$", "$L \\mu$", "$L \\mu / (1+\\mu)$", "$L (1+\\mu) / \\mu$"], "answer": 2, "topic": "Laws of Motion" },
+            { "id": 54, "question": "Two bodies of mass $m_1$ and $m_2$ have equal kinetic energy. If $p_1$ and $p_2$ are their momenta, then $p_1 / p_2$ is equal to:", "options": ["$m_1 / m_2$", "$m_2 / m_1$", "$\\sqrt{m_1 / m_2}$", "$\\sqrt{m_2 / m_1}$"], "answer": 2, "topic": "Work, Energy & Power" },
+            { "id": 55, "question": "The work done in increasing the length of a wire of Young's Modulus Y by $x$ is proportional to:", "options": ["$x$", "$x^2$", "$\\sqrt{x}$", "Zero"], "answer": 1, "topic": "Mechanical Properties of Solids" },
+            { "id": 56, "question": "A solid sphere and a hollow sphere of the same mass and radius are rolled down an inclined plane. Which one reaches the bottom first?", "options": ["Solid Sphere", "Hollow Sphere", "Both reach at the same time", "Depends on the angle"], "answer": 0, "topic": "Rotational Motion" },
+            { "id": 57, "question": "The time period of a satellite revolving very close to the surface of the Earth (R is Earth's radius) is given by:", "options": ["$2 \\pi \\sqrt{g/R}$", "$2 \\pi \\sqrt{R/g}$", "$4 \\pi \\sqrt{R/g}$", "$2 \\pi R / g$"], "answer": 1, "topic": "Gravitation" },
+            { "id": 58, "question": "The value of surface tension is zero at the:", "options": ["Boiling point", "Critical temperature", "Melting point", "Triple point"], "answer": 1, "topic": "Mechanical Properties of Fluids" },
+            { "id": 59, "question": "If $\\gamma$ is the ratio of specific heats, the speed of sound in a gas is proportional to:", "options": ["$\\sqrt{P}$", "$\\sqrt{\\rho}$", "$\\sqrt{\\gamma P / \\rho}$", "$\\gamma P / \\rho$"], "answer": 2, "topic": "Waves" },
+            { "id": 60, "question": "The efficiency of a heat engine is given by:", "options": ["$W / Q_1$", "$Q_2 / Q_1$", "$Q_1 / W$", "$Q_1 / (Q_1 - Q_2)$"], "answer": 0, "topic": "Thermodynamics" },
+            { "id": 61, "question": "If the temperature of a gas is raised, which quantity changes?", "options": ["Volume", "Mass of the molecule", "Pressure", "Root mean square velocity"], "answer": 3, "topic": "Kinetic Theory" },
+            { "id": 62, "question": "A hole is made in the side wall of a tank at a depth $h$ from the free surface. The velocity of efflux is given by:", "options": ["$\\sqrt{2gh}$", "$2gh$", "$gh$", "$g/h$"], "answer": 0, "topic": "Mechanical Properties of Fluids" },
+            { "id": 63, "question": "Two pendulums have lengths $L_1$ and $L_2$. If $L_1 = 4L_2$, the ratio of their time periods $T_1 / T_2$ is:", "options": ["1:4", "4:1", "2:1", "1:2"], "answer": 2, "topic": "Oscillations" },
+            { "id": 64, "question": "The maximum height of a projectile is 10m. What is its horizontal range, if it is fired at $45°$?", "options": ["10m", "20m", "40m", "80m"], "answer": 2, "topic": "Motion in a Plane" },
+            { "id": 65, "question": "Which of the following forces is non-conservative?", "options": ["Gravitational force", "Frictional force", "Spring force", "Electrostatic force"], "answer": 1, "topic": "Work, Energy & Power" }
+        ];
+
+        // --- Session Setup ---
+        const sessionQuestions = rawQuestions.slice(SESSION_START_INDEX, SESSION_START_INDEX + SESSION_SIZE).map(q => ({
+            question: q.question,
+            options: q.options,
+            answer: [q.answer], 
+            type: "single",
+            topic: q.topic, 
+            hint: `Think about the topic: ${q.topic}` 
+        }));
+
+        const totalQuestions = sessionQuestions.length;
+        
+        // Update the title to reflect the session range
+        const startQNum = SESSION_START_INDEX + 1;
+        const endQNum = SESSION_START_INDEX + totalQuestions;
+
+        // Game state
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const questionStatus = Array(totalQuestions).fill('unvisited'); 
+        
+        // DOM elements
+        const registrationForm = document.getElementById('registration-form');
+        const quizWrapper = document.getElementById('quiz-wrapper');
+        const quizRegistration = document.getElementById('quiz-registration');
+
+        const quizTitle = document.getElementById('quiz-title');
+        const questionText = document.getElementById('question-text');
+        const answerOptions = document.getElementById('answer-options');
+        const topicDisplay = document.getElementById('topic-display');
+        const hintText = document.getElementById('hint-text');
+        const skipBtn = document.getElementById('skip-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const previousBtn = document.getElementById('previous-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const scoreDisplay = document.getElementById('score');
+        const emojiFeedback = document.getElementById('emoji-feedback');
+        const currentQDisplay = document.getElementById('current-q');
+        const totalQDisplay = document.getElementById('total-q');
+        const progressBar = document.getElementById('progress-bar');
+        const navGrid = document.getElementById('nav-grid');
+        
+        // --- Registration Logic ---
+        quizRegistration.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const level = document.getElementById('level').value;
+
+            // 🌟🌟🌟 FIX: SAVE REGISTRATION DATA TO LOCAL STORAGE 🌟🌟🌟
+            const newRegistration = {
+                name: name,
+                email: email,
+                level: level,
+                date: new Date().toLocaleDateString() // Add timestamp for dashboard
+            };
+            
+            // Get existing registrations or initialize an empty array
+            const existingRegistrations = JSON.parse(localStorage.getItem('quizRegistrations') || '[]');
+            
+            // Add the new registration
+            existingRegistrations.push(newRegistration);
+            
+            // Save the updated list back to Local Storage
+            localStorage.setItem('quizRegistrations', JSON.stringify(existingRegistrations));
+            // 🌟🌟🌟 END FIX 🌟🌟🌟
+            
+            // Hide registration and show quiz
+            registrationForm.classList.add('hidden');
+            quizWrapper.classList.remove('hidden');
+
+            // Initialize the quiz after registration
+            initQuiz();
+        });
+
+
+        // --- Core Quiz Logic Functions ---
+        
+        function initQuiz() {
+            // Initialize
+            quizTitle.textContent = `Physics Mock Test - Session ${Math.ceil(startQNum / SESSION_SIZE)} (Q${startQNum}-${endQNum})`;
+            totalQDisplay.textContent = totalQuestions;
+            
+            createNavigator();
+            loadQuestion(0);
+            
+            // Event listeners
+            // document.getElementById('hint-btn').addEventListener('click', showHint);
+            document.getElementById('submit-btn').addEventListener('click', checkAnswer);
+            document.getElementById('previous-btn').addEventListener('click', () => navigateQuestion(-1));
+            document.getElementById('next-btn').addEventListener('click', () => navigateQuestion(1));
+        }
+
+        function updateScore() {
+            scoreDisplay.textContent = score;
+        }
+
+        function createNavigator() {
+            navGrid.innerHTML = '';
+            for (let i = 0; i < totalQuestions; i++) {
+                const navItem = document.createElement('div');
+                const absoluteQNum = SESSION_START_INDEX + i + 1; 
+                navItem.textContent = absoluteQNum;
+                navItem.className = 'nav-item';
+                navItem.dataset.index = i;
+                
+                navItem.addEventListener('click', (e) => {
+                    loadQuestion(parseInt(e.target.dataset.index));
+                });
+                navGrid.appendChild(navItem);
+            }
+        }
+
+        function updateNavigator() {
+            const navItems = navGrid.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.classList.remove('current', 'correct', 'incorrect', 'skipped');
+                item.style.backgroundColor = ''; 
+
+                if (index === currentQuestionIndex) {
+                    item.classList.add('current');
+                } else {
+                    item.classList.add(questionStatus[index]);
+                }
+            });
+        }
+        
+        function updateNavigationButtons() {
+            previousBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = currentQuestionIndex === totalQuestions - 1;
+
+            const currentStatus = questionStatus[currentQuestionIndex];
+            if (currentStatus === 'correct' || currentStatus === 'incorrect') {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Answered';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Answer';
+            }
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const currentQuestion = sessionQuestions[currentQuestionIndex];
+
+            // Reset hint display
+            hintText.textContent = '';
+            hintText.style.display = 'none';
+            
+            // Update progress and displays
+            currentQDisplay.textContent = currentQuestionIndex + 1;
+            topicDisplay.textContent = currentQuestion.topic;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
+            
+            updateNavigator();
+            updateNavigationButtons();
+
+            questionText.innerHTML = currentQuestion.question;
+            
+            let optionsHTML = '';
+            currentQuestion.options.forEach((option, idx) => {
+                const inputType = currentQuestion.type === 'multi' ? 'checkbox' : 'radio';
+                optionsHTML += `
+                    <label class="option">
+                        <input type="${inputType}" name="answer" value="${idx}">
+                        ${option}
+                    </label>
+                `;
+            });
+            
+            answerOptions.innerHTML = optionsHTML;
+        }
+
+        function navigateQuestion(direction) {
+            let newIndex = currentQuestionIndex + direction;
+            if (newIndex >= 0 && newIndex < totalQuestions) {
+                loadQuestion(newIndex);
+            }
+        }
+        
+        function checkAnswer() {
+            if (questionStatus[currentQuestionIndex] === 'correct' || questionStatus[currentQuestionIndex] === 'incorrect') {
+                return; // Already answered
+            }
+
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (!selectedOption) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            const selectedValue = parseInt(selectedOption.value);
+            const currentQuestion = sessionQuestions[currentQuestionIndex];
+            const isCorrect = currentQuestion.answer.includes(selectedValue);
+            
+            // Mark option as correct/incorrect
+            const allOptions = answerOptions.querySelectorAll('.option');
+            allOptions.forEach(label => {
+                label.style.pointerEvents = 'none';
+                const input = label.querySelector('input');
+                const inputVal = parseInt(input.value);
+                
+                if (currentQuestion.answer.includes(inputVal)) {
+                    label.style.backgroundColor = '#E5FAF6'; // Correct: Light green
+                    // Fixed CSS variable reference
+                    label.style.borderColor = 'var(--success)';
+                } else if (inputVal === selectedValue) {
+                    label.style.backgroundColor = '#FEE8EB'; // Incorrect: Light pink
+                    // Fixed CSS variable reference
+                    label.style.borderColor = 'var(--secondary)';
+                }
+            });
+
+
+            // Update score and status
+            if (isCorrect) {
+                score += 10;
+                questionStatus[currentQuestionIndex] = 'correct';
+                showEmoji('✅');
+            } else {
+                questionStatus[currentQuestionIndex] = 'incorrect';
+                showEmoji('❌');
+            }
+            
+            updateScore();
+            updateNavigationButtons();
+            updateNavigator();
+
+            // Auto-navigate to the next question after a brief delay
+            setTimeout(() => {
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    navigateQuestion(1);
+                } else {
+                    // Final check to see if all questions are answered
+                    const answeredCount = questionStatus.filter(s => s === 'correct' || s === 'incorrect').length;
+                    if (answeredCount === totalQuestions) {
+                         alert(`Quiz finished! Your final score is: ${score}`);
+                    }
+                }
+            }, 1000); // 1 second delay
+        }
+
+        function showEmoji(emoji) {
+            emojiFeedback.textContent = emoji;
+            emojiFeedback.style.opacity = 1;
+            setTimeout(() => {
+                emojiFeedback.style.opacity = 0;
+            }, 500);
+        }
+
+        function showHint() {
+            const currentQuestion = sessionQuestions[currentQuestionIndex];
+            
+            if (!currentQuestion.hintUsed) {
+                score = Math.max(0, score - 2); 
+                updateScore();
+                currentQuestion.hintUsed = true;
+            }
+            
+            hintText.textContent = currentQuestion.hint;
+            hintText.style.display = 'block';
+        }
+
+        function skipQuestion() {
+            if (questionStatus[currentQuestionIndex] === 'correct' || questionStatus[currentQuestionIndex] === 'incorrect') {
+                return; 
+            }
+
+            questionStatus[currentQuestionIndex] = 'skipped';
+            score = Math.max(0, score - 5); 
+            updateScore();
+            updateNavigator();
+
+            navigateQuestion(1); // Move to the next question
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterLearn</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="registration-modal-overlay">
+        
+        <section class="registration-section">
+            <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+            <h2>🚨 Mandatory Registration to Continue 🚨</h2>
+            <p style="text-align: center; color: #718096; margin-bottom: 25px; font-size: 1.1rem;">
+                Please register your details to access all study materials and mock tests.
+            </p>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="reg-name">Your Full Name</label>
+                    <input type="text" id="reg-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-level">Studying Inter Year</label>
+                    <select id="reg-level" required>
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="Inter 1st Year">Inter 1st Year</option>
+                        <option value="Inter 2nd Year">Inter 2nd Year</option>
+                        <option value="Other/EAMCET">Other/EAMCET Preparation</option>
+                    </select>
+                </div>
+                <button type="submit" class="register-btn">Register & Access Website</button>
+                <p id="registration-message" class="error-message" style="display: none; text-align: center;"></p>
+            </form>
+        </section>
+    </div>
+
+    <div class="main-content-wrapper hidden">
+        
+        <nav class="navbar">
+            <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+            <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+                <div class="hamburger">☰</div>
+            </button> 
+
+            <ul class="nav-links" id="navMenu">
+                <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+                <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+                <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+                <li id="admin-link-nav"><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-overlay"></div>
+        </section>
+
+        <section class="button-section">
+            <div class="btn-group">
+                <a href="study-materials.html" class="btn primary">📄 Browse Study Materials</a>
+                <a href="mock-tests.html" class="btn outline">📝 Take Mock Test</a>
+            </div>
+        </section>
+
+    </div> 
+    <script src="app.js"></script> 
+</body>
+</html>
