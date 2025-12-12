@@ -6,7 +6,6 @@
     <title>InterLearn</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Small helper so the “blocking” overlay can be used if you want */
         #registration-modal-overlay {
             position: fixed;
             inset: 0;
@@ -16,15 +15,13 @@
             justify-content: center;
             z-index: 9999;
         }
-        body.lock-scroll {
-            overflow: hidden;
-        }
+        body.lock-scroll { overflow: hidden; }
     </style>
 </head>
 <body>
 
-    <!-- MAIN CONTENT: NAVBAR + IMAGE + BUTTONS -->
     <div class="main-content-wrapper">
+        <!-- NAVBAR -->
         <nav class="navbar">
             <div class="logo">🎓 <span>VJ</span>Kranthi</div>
 
@@ -33,20 +30,20 @@
             </button>
 
             <ul class="nav-links" id="navMenu">
-                <li><a class="active" href="index.html">Home</a></li>
-                <li><a href="study-materials.html">Study Materials</a></li>
-                <li><a href="eamcet-papers.html">EAMCET Papers</a></li>
-                <li><a href="mock-tests.html">Mock Tests</a></li>
-                <li id="admin-link-nav"><a href="admin.html">Admin Portal</a></li>
+                <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+                <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li>
+                <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+                <li id="admin-link-nav"><a href="admin-dashboard.html" onclick="closeMenu()">Admin Portal</a></li>
             </ul>
         </nav>
 
-        <!-- PHOTO / HERO -->
+        <!-- HERO -->
         <section class="hero">
             <div class="hero-overlay"></div>
         </section>
 
-        <!-- REGISTRATION FORM VISIBLE UNDER IMAGE -->
+        <!-- REGISTRATION FORM -->
         <section class="registration-section" id="registration-section">
             <div class="logo">🎓 <span>VJ</span>Kranthi</div>
             <h2>🚨 Mandatory Registration to Continue 🚨</h2>
@@ -76,7 +73,7 @@
             </form>
         </section>
 
-        <!-- BUTTONS (HOME CONTENT) -->
+        <!-- BUTTONS -->
         <section class="button-section">
             <div class="btn-group">
                 <a href="study-materials.html" class="btn primary">📄 Browse Study Materials</a>
@@ -85,12 +82,11 @@
         </section>
     </div>
 
-    <!-- OPTIONAL OVERLAY (used only while form is open after a click) -->
-    <div id="registration-modal-overlay">
-        <!-- we just reuse the same section inside JS if you want a dark background; can stay empty -->
-    </div>
+    <!-- OVERLAY -->
+    <div id="registration-modal-overlay"></div>
 
     <script>
+        // NAVBAR
         function toggleMenu() {
             const navMenu = document.getElementById("navMenu");
             navMenu.classList.toggle("open");
@@ -106,29 +102,26 @@
         const regSection = document.getElementById("registration-section");
         let isRegistered = localStorage.getItem("interlearn_registered") === "yes";
 
-        // If already registered: hide the form completely
+        // Hide form if already registered
         if (isRegistered) {
             regSection.style.display = "none";
         }
 
-        // Block navigation until registered
-       document.addEventListener("click", function (e) {
-    const target = e.target.closest("a, button, .btn, .menu-toggle");
-    if (!target) return;
+        // Block navigation until registered, except navbar/hamburger and form
+        document.addEventListener("click", function (e) {
+            const target = e.target.closest("a, button, .btn, .menu-toggle");
+            if (!target) return;
 
-    // Allow clicks inside the registration form itself
-    if (regSection.contains(target) || target.closest("#registration-section")) return;
+            if (regSection.contains(target) || target.closest("#registration-section")) return;
+            if (target.closest(".navbar")) return;
 
-    // Allow clicks on navbar / hamburger so menu can open
-    if (target.closest(".navbar")) return;
-
-    if (!isRegistered) {
-        e.preventDefault();
-        regSection.scrollIntoView({ behavior: "smooth" });
-        overlay.style.display = "flex";
-        document.body.classList.add("lock-scroll");
-    }
-});
+            if (!isRegistered) {
+                e.preventDefault();
+                regSection.scrollIntoView({ behavior: "smooth" });
+                overlay.style.display = "flex";
+                document.body.classList.add("lock-scroll");
+            }
+        });
 
         form.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -144,10 +137,22 @@
             }
 
             msg.style.display = "none";
+
+            // 1) mark as registered
             isRegistered = true;
             localStorage.setItem("interlearn_registered", "yes");
 
-            // Hide overlay + form after successful registration
+            // 2) save registration to list
+            const registrations = JSON.parse(localStorage.getItem("userRegistrations") || "[]");
+            registrations.push({
+                name,
+                email,
+                level,
+                date: new Date().toLocaleString()
+            });
+            localStorage.setItem("userRegistrations", JSON.stringify(registrations));
+
+            // 3) hide overlay + form
             overlay.style.display = "none";
             document.body.classList.remove("lock-scroll");
             regSection.style.display = "none";
