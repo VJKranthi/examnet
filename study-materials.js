@@ -22,3 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+  function toggleMenu() {
+      const navMenu = document.getElementById("navMenu");
+      navMenu.classList.toggle("open");
+  }
+
+  function closeMenu() {
+      const navMenu = document.getElementById("navMenu");
+      navMenu.classList.remove("open");
+  }
+
+  // If this page should NOT have registration blocking,
+  // you can omit all the registration / overlay code here.
+
+

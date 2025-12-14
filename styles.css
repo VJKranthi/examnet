@@ -9,6 +9,53 @@ body {
     display: none !important;
 }
 /* ... existing navbar, logo, button styles ... */
+/* Base navbar layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #ffffff;
+}
+
+/* Hide menu button on large screens */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Horizontal menu on desktop */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 60px;          /* adjust to navbar height */
+        right: 0;
+        left: 0;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 16px;
+        display: none;      /* hidden by default */
+    }
+
+    .nav-links.open {
+        display: flex;      /* shown when JS adds .open */
+    }
+}
 
 /* --- Modal Overlay Styles --- */
 #registration-modal-overlay {

@@ -5,12 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InterLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #registration-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        body.lock-scroll { overflow: hidden; }
+    </style>
 </head>
-
 <body>
-    <div id="registration-modal-overlay">
-        
-        <section class="registration-section">
+
+    <div class="main-content-wrapper">
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+            <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+                <div class="hamburger">☰</div>
+            </button>
+
+            <ul class="nav-links" id="navMenu">
+                <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+                <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li>
+                <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+                <li id="admin-link-nav"><a href="admin-dashboard.html" onclick="closeMenu()">Admin Portal</a></li>
+            </ul>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+        </section>
+
+        <!-- REGISTRATION FORM -->
+        <section class="registration-section" id="registration-section">
             <div class="logo">🎓 <span>VJ</span>Kranthi</div>
             <h2>🚨 Mandatory Registration to Continue 🚨</h2>
             <p style="text-align: center; color: #718096; margin-bottom: 25px; font-size: 1.1rem;">
@@ -38,38 +72,91 @@
                 <p id="registration-message" class="error-message" style="display: none; text-align: center;"></p>
             </form>
         </section>
-    </div>
 
-    <div class="main-content-wrapper hidden">
-        
-        <nav class="navbar">
-            <div class="logo">🎓 <span>VJ</span>Kranthi</div>
-
-            <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
-                <div class="hamburger">☰</div>
-            </button> 
-
-            <ul class="nav-links" id="navMenu">
-                <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
-                <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
-                <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
-                <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
-                <li id="admin-link-nav"><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
-            </ul>
-        </nav>
-
-        <section class="hero">
-            <div class="hero-overlay"></div>
-        </section>
-
+        <!-- BUTTONS -->
         <section class="button-section">
             <div class="btn-group">
                 <a href="study-materials.html" class="btn primary">📄 Browse Study Materials</a>
                 <a href="mock-tests.html" class="btn outline">📝 Take Mock Test</a>
             </div>
         </section>
+    </div>
 
-    </div> 
-    <script src="app.js"></script> 
+    <!-- OVERLAY -->
+    <div id="registration-modal-overlay"></div>
+
+    <script>
+        // NAVBAR
+        function toggleMenu() {
+            const navMenu = document.getElementById("navMenu");
+            navMenu.classList.toggle("open");
+        }
+        function closeMenu() {
+            const navMenu = document.getElementById("navMenu");
+            navMenu.classList.remove("open");
+        }
+
+        const form = document.getElementById("registration-form");
+        const msg = document.getElementById("registration-message");
+        const overlay = document.getElementById("registration-modal-overlay");
+        const regSection = document.getElementById("registration-section");
+        let isRegistered = localStorage.getItem("interlearn_registered") === "yes";
+
+        // Hide form if already registered
+        if (isRegistered) {
+            regSection.style.display = "none";
+        }
+
+        // Block navigation until registered, except navbar/hamburger and form
+        document.addEventListener("click", function (e) {
+            const target = e.target.closest("a, button, .btn, .menu-toggle");
+            if (!target) return;
+
+            if (regSection.contains(target) || target.closest("#registration-section")) return;
+            if (target.closest(".navbar")) return;
+
+            if (!isRegistered) {
+                e.preventDefault();
+                regSection.scrollIntoView({ behavior: "smooth" });
+                overlay.style.display = "flex";
+                document.body.classList.add("lock-scroll");
+            }
+        });
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("reg-name").value.trim();
+            const email = document.getElementById("reg-email").value.trim();
+            const level = document.getElementById("reg-level").value;
+
+            if (!name || !email || !level) {
+                msg.textContent = "Please fill in all fields.";
+                msg.style.display = "block";
+                return;
+            }
+
+            msg.style.display = "none";
+
+            // 1) mark as registered
+            isRegistered = true;
+            localStorage.setItem("interlearn_registered", "yes");
+
+            // 2) save registration to list
+            const registrations = JSON.parse(localStorage.getItem("userRegistrations") || "[]");
+            registrations.push({
+                name,
+                email,
+                level,
+                date: new Date().toLocaleString()
+            });
+            localStorage.setItem("userRegistrations", JSON.stringify(registrations));
+
+            // 3) hide overlay + form
+            overlay.style.display = "none";
+            document.body.classList.remove("lock-scroll");
+            regSection.style.display = "none";
+        });
+    </script>
 </body>
 </html>
