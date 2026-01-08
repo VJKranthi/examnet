@@ -19,7 +19,7 @@
     --text-light: #718096;
     --shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     --success: #00BFA6;
-    --nav-bg: #f8f8fa; /* Light background for the navigator section */
+    --nav-bg: #f8f8fa;
 }
 
 body {
@@ -29,15 +29,100 @@ body {
     margin: 0;
     padding: 20px;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Changed from flex-start to center to align the quiz */
     box-sizing: border-box;
 }
 
+/* Test Selection Panel - Like the image */
+.test-selection {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.test-selection h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.test-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.test-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.free-badge {
+    background-color: var(--secondary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.test-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 10px 0;
+}
+
+.test-info {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.test-info div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.start-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.start-btn:hover {
+    background-color: var(--primary-light);
+    transform: scale(1.05);
+}
 
 .menu-toggle {
-    display: none; /* Hide toggle by default on desktop */
+    display: none;
 }
 
 /* --- Quiz and General Styles --- */
@@ -45,11 +130,11 @@ body {
     display: none !important;
 }
 
-/* --- Main Quiz Container (Centered) --- */
+/* --- Main Quiz Container --- */
 .quiz-wrapper {
     width: 100%;
-    max-width: 700px; /* Standard card width */
-    margin-top: 50px; /* Keeps separation from the navbar */
+    max-width: 700px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -59,7 +144,7 @@ body {
     background-color: var(--card);
     padding: 30px;
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.08); /* Soft border */
+    border: 1px solid rgba(0, 0, 0, 0.08);
     min-height: 400px;
 }
 
@@ -71,12 +156,14 @@ body {
     .quiz-container {
         padding: 20px;
     }
+    .test-grid {
+        grid-template-columns: 1fr;
+    }
 }
-
 
 h1 {
     text-align: center;
-    color: var(--primary); /* Primary for Quiz Title */
+    color: var(--primary);
     margin-bottom: 20px;
     font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: 700;
@@ -105,7 +192,7 @@ h1 {
 
 .progress-bar {
     height: 100%;
-    background-color: var(--primary); /* Primary color for progress */
+    background-color: var(--primary);
     border-radius: 5px;
     width: 0%;
     transition: width 0.5s ease;
@@ -122,7 +209,7 @@ h1 {
 
 .question-meta {
     font-size: 0.9rem;
-    color: var(--primary); /* Primary color for subject/topic */
+    color: var(--primary);
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -162,19 +249,19 @@ h1 {
 }
 
 .option:hover {
-    background: #fff0f3; /* Light pink on hover */
+    background: #fff0f3;
     border-color: var(--primary-light);
 }
 
 .option input {
     margin-right: 15px;
     transform: scale(1.1);
-    accent-color: var(--primary); /* Primary radio button color */
+    accent-color: var(--primary);
 }
 
 /* --- Question Navigator (Bottom Section) --- */
 .quiz-navigator {
-    background-color: var(--nav-bg); /* Use the defined variable */
+    background-color: var(--nav-bg);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -184,24 +271,24 @@ h1 {
 .nav-title {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-light); /* Darker grey text for the title */
-    margin-bottom: 15px; /* Space between title and grid */
+    color: var(--text-light);
+    margin-bottom: 15px;
 }
 
 .nav-grid {
     display: flex;
-    flex-wrap: wrap; /* Allows the items to wrap to the next line */
-    gap: 10px; /* Space between question number circles */
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .nav-item {
-    width: 40px; /* Fixed size for the circle */
+    width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* Makes it a circle */
-    background-color: #e2e8f0; /* Light background for unvisited */
+    border-radius: 50%;
+    background-color: #e2e8f0;
     color: var(--text);
     font-size: 1rem;
     font-weight: 500;
@@ -211,27 +298,24 @@ h1 {
 }
 
 .nav-item:hover {
-    background-color: #f7fafc; /* Lighter on hover */
+    background-color: #f7fafc;
     border-color: var(--primary);
 }
 
-/* Style for the currently active question */
 .nav-item.current {
-    background-color: var(--primary); /* Primary background */
-    color: white; /* White text */
+    background-color: var(--primary);
+    color: white;
     font-weight: 700;
     border-color: var(--primary);
     box-shadow: 0 4px 8px rgba(255, 101, 132, 0.3);
     transform: scale(1.05);
 }
 
-/* Optional: Style for answered/unanswered */
 .nav-item.answered {
-    background-color: #fcd5df; /* Lighter primary color for answered */
+    background-color: #fcd5df;
     border-color: var(--primary);
     color: var(--text);
 }
-
 
 /* --- Buttons Area (Bottom) --- */
 .buttons-area {
@@ -254,7 +338,7 @@ button {
 
 .submit-btn { background: var(--primary); color: white; flex-grow: 1;}
 .submit-btn:hover { background-color: var(--primary-light); }
-.skip-btn { background-color: var(--secondary); color: white; } /* Secondary/Teal for navigation */
+.skip-btn { background-color: var(--secondary); color: white; }
 .skip-btn:hover { background-color: var(--secondary-light); }
 .hint-btn { background-color: var(--accent); color: white; }
 .hint-btn:hover { background-color: var(--accent-light); }
@@ -265,7 +349,7 @@ button {
     color: var(--text-light);
     min-height: 20px;
     padding: 10px;
-    background-color: rgba(255, 101, 132, 0.08); /* Light primary color for hint box */
+    background-color: rgba(255, 101, 132, 0.08);
     border-radius: 8px;
     border-left: 3px solid var(--primary);
     font-size: 0.9rem;
@@ -281,6 +365,25 @@ button {
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;
     z-index: 1000;
+}
+
+/* Back button in quiz */
+.back-to-tests {
+    background-color: var(--text-light);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+.back-to-tests:hover {
+    background-color: var(--text);
 }
 </style>
 </head>
@@ -301,9 +404,19 @@ button {
     </ul>
 </nav>
     
-    <div class="quiz-wrapper" id="quiz-wrapper">
+    <!-- Test Selection Panel - Like the image -->
+    <div class="test-selection" id="test-selection">
+        <h1>Chemistry Mock Tests</h1>
+        <div class="test-grid" id="test-grid">
+            <!-- Test cards will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Quiz Section (Initially hidden) -->
+    <div class="quiz-wrapper hidden" id="quiz-wrapper">
+        <button class="back-to-tests" onclick="showTestSelection()">← Back to Tests</button>
         <div class="quiz-container">
-            <h1 id="quiz-title">Chemistry Mock Test - Session 1 (Q1-20)</h1>
+            <h1 id="quiz-title">Chemistry Mock Test</h1>
             
             <div class="header-info">
                 <span>Score: <span id="score">0</span></span>
@@ -335,6 +448,7 @@ button {
                 <button class="skip-btn" id="previous-btn" disabled>Previous</button>
                 <button class="submit-btn" id="submit-btn">Submit Answer</button>
                 <button class="skip-btn" id="next-btn">Next</button>
+                <button class="hint-btn" id="hint-btn" onclick="showHint()">Hint</button>
             </div>
             
         </div>
@@ -343,14 +457,8 @@ button {
     <div class="emoji-feedback" id="emoji-feedback"></div>
     
     <script>
-        // --- QUIZ CONFIGURATION ---
-        // Changed to start the quiz immediately
-        const SESSION_START_INDEX = 0; 
-        const SESSION_SIZE = 20;
-        // --- END CONFIGURATION ---
-
-        // Data for the 65 chemistry questions (as provided in the input)
-        const rawQuestions = [
+        // --- ALL QUESTIONS DATA ---
+        const allQuestions = [
             {
           "id": 1,
           "question": "Which concentration unit is independent of temperature?",
@@ -787,17 +895,20 @@ button {
         }
         ];
         
-        // Filter the questions to create a session of the first 20 questions
-        const quizQuestions = rawQuestions.slice(SESSION_START_INDEX, SESSION_START_INDEX + SESSION_SIZE);
-
+        // Global variables
+        let quizQuestions = [];
         let currentQuestionIndex = 0;
-        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let userAnswers = [];
         let score = 0;
-        let submitted = new Array(quizQuestions.length).fill(false);
+        let submitted = [];
         let quizActive = true;
+        let currentTest = 1;
 
         // Element IDs
+        const testSelection = document.getElementById('test-selection');
+        const testGrid = document.getElementById('test-grid');
         const quizWrapper = document.getElementById('quiz-wrapper');
+        const quizTitle = document.getElementById('quiz-title');
         const scoreDisplay = document.getElementById('score');
         const currentQDisplay = document.getElementById('current-q');
         const totalQDisplay = document.getElementById('total-q');
@@ -809,215 +920,341 @@ button {
         const previousBtn = document.getElementById('previous-btn');
         const nextBtn = document.getElementById('next-btn');
         const submitBtn = document.getElementById('submit-btn');
+        const hintBtn = document.getElementById('hint-btn');
         const navGrid = document.getElementById('nav-grid');
         const emojiFeedback = document.getElementById('emoji-feedback');
 
-
-        // Set total questions display
-        totalQDisplay.textContent = quizQuestions.length;
-
-
-        // --- Navigation Toggle (from original HTML) ---
+        // --- Navigation Toggle ---
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
             navMenu.classList.toggle('active');
         }
+        
         function closeMenu() {
              const navMenu = document.getElementById('navMenu');
              navMenu.classList.remove('active');
         }
 
+        // --- Generate Test Cards ---
+        function generateTestCards() {
+            testGrid.innerHTML = '';
+            
+            // Create 5 test cards (Test 1-5)
+            for (let i = 1; i <= 5; i++) {
+                const testCard = document.createElement('div');
+                testCard.className = 'test-card';
+                
+                testCard.innerHTML = `
+                    <div class="free-badge">FREE</div>
+                    <div class="test-title">Test ${i}</div>
+                    <div class="test-info">
+                        <div>📊 <span>20 Marks</span></div>
+                        <div>⏱️ <span>30 Min</span></div>
+                    </div>
+                    <button class="start-btn" onclick="loadTest(${i})">Start</button>
+                `;
+                
+                testGrid.appendChild(testCard);
+            }
+        }
+
+        // --- Load Test Function ---
+        function loadTest(testNumber) {
+            currentTest = testNumber;
+            
+            // Determine which questions to use based on test number
+            const startIndex = (testNumber - 1) * 20;
+            const endIndex = startIndex + 20;
+            
+            // Use available questions or wrap around if needed
+            if (endIndex <= allQuestions.length) {
+                quizQuestions = allQuestions.slice(startIndex, endIndex);
+            } else {
+                // If not enough questions, start from beginning
+                const remaining = allQuestions.length - startIndex;
+                quizQuestions = allQuestions.slice(startIndex);
+                
+                // If still not enough, pad with questions from start
+                if (quizQuestions.length < 20) {
+                    quizQuestions = quizQuestions.concat(allQuestions.slice(0, 20 - quizQuestions.length));
+                }
+            }
+            
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            score = 0;
+            submitted = new Array(quizQuestions.length).fill(false);
+            quizActive = true;
+            
+            // Update UI
+            quizTitle.textContent = `Chemistry Test ${testNumber}`;
+            totalQDisplay.textContent = quizQuestions.length;
+            
+            // Show quiz and hide test selection
+            testSelection.classList.add('hidden');
+            quizWrapper.classList.remove('hidden');
+            
+            // Initialize quiz
+            initializeQuiz();
+        }
+
+        // --- Show Test Selection ---
+        function showTestSelection() {
+            if (confirm('Are you sure you want to exit the test? Your progress will be lost.')) {
+                testSelection.classList.remove('hidden');
+                quizWrapper.classList.add('hidden');
+            }
+        }
+
+        // --- Initialize Quiz ---
+        function initializeQuiz() {
+            // Load first question
+            loadQuestion(currentQuestionIndex);
+            
+            // Create navigation grid
+            createNavigationGrid();
+            
+            // Update progress bar
+            updateProgressBar();
+            
+            // Set button states
+            updateButtonStates();
+        }
+
         // --- Utility Functions ---
 
-        // Simple MathJax/LaTeX rendering simulation (to show formatted text)
         function formatLatex(text) {
-            // Very simple replacement for the sake of demo, a full implementation would use a library like MathJax
+            // Simple LaTeX formatting
             return text.replace(/\$(.*?)\$/g, (match, p1) => `<span class="latex-formula">${p1}</span>`);
         }
 
         function loadQuestion(index) {
             if (index < 0 || index >= quizQuestions.length) return;
-
+            
             currentQuestionIndex = index;
-            const q = quizQuestions[currentQuestionIndex];
-
-            // 1. Update Header Info
-            currentQDisplay.textContent = currentQuestionIndex + 1;
-            topicDisplay.textContent = q.topic || 'General Chemistry';
-
-            // 2. Load Question Text
-            questionTextElement.innerHTML = formatLatex(q.question);
-
-            // 3. Load Answer Options
+            const question = quizQuestions[index];
+            
+            // Update displays
+            questionTextElement.innerHTML = formatLatex(question.question);
+            topicDisplay.textContent = question.topic;
+            currentQDisplay.textContent = index + 1;
+            
+            // Clear previous options
             answerOptionsContainer.innerHTML = '';
-            q.options.forEach((optionText, i) => {
-                const optionDiv = document.createElement('label');
-                optionDiv.classList.add('option');
-                optionDiv.innerHTML = `
-                    <input type="radio" name="answer" value="${i}" ${userAnswers[currentQuestionIndex] === i ? 'checked' : ''} ${submitted[currentQuestionIndex] ? 'disabled' : ''}>
-                    ${formatLatex(optionText)}
-                `;
-                optionDiv.onclick = () => {
-                    if (!submitted[currentQuestionIndex]) {
-                        userAnswers[currentQuestionIndex] = i;
-                        // Visually mark selection for better UX (optional, but good)
-                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-                        optionDiv.classList.add('selected');
-                    }
-                };
-                answerOptionsContainer.appendChild(optionDiv);
+            
+            // Create new options
+            question.options.forEach((option, optionIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'answer';
+                input.value = optionIndex;
+                input.id = `option-${optionIndex}`;
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestionIndex] === optionIndex) {
+                    input.checked = true;
+                }
+                
+                const label = document.createElement('label');
+                label.htmlFor = `option-${optionIndex}`;
+                label.innerHTML = formatLatex(option);
+                
+                optionElement.appendChild(input);
+                optionElement.appendChild(label);
+                
+                // Add click event to select option
+                optionElement.addEventListener('click', () => {
+                    input.checked = true;
+                    userAnswers[currentQuestionIndex] = optionIndex;
+                    
+                    // Update navigation grid
+                    updateNavigationGrid();
+                    updateButtonStates();
+                });
+                
+                answerOptionsContainer.appendChild(optionElement);
+            });
+            
+            // Clear hint
+            hintTextElement.textContent = '';
+            
+            // Update navigation grid
+            updateNavigationGrid();
+            
+            // Update button states
+            updateButtonStates();
+            
+            // Update progress bar
+            updateProgressBar();
+        }
 
-                // Apply visual feedback if submitted
-                if (submitted[currentQuestionIndex]) {
-                    if (i === q.answer) {
-                        optionDiv.classList.add('correct-answer');
-                        optionDiv.style.backgroundColor = 'rgba(0, 191, 166, 0.1)'; // Success light color
-                    } else if (userAnswers[currentQuestionIndex] === i) {
-                        optionDiv.classList.add('incorrect-answer');
-                        optionDiv.style.backgroundColor = 'rgba(255, 101, 132, 0.1)'; // Primary light color (for incorrect choice)
-                    }
+        function createNavigationGrid() {
+            navGrid.innerHTML = '';
+            
+            for (let i = 0; i < quizQuestions.length; i++) {
+                const navItem = document.createElement('div');
+                navItem.className = 'nav-item';
+                navItem.textContent = i + 1;
+                
+                // Set current question
+                if (i === currentQuestionIndex) {
+                    navItem.classList.add('current');
+                }
+                
+                // Set answered questions
+                if (userAnswers[i] !== null) {
+                    navItem.classList.add('answered');
+                }
+                
+                navItem.addEventListener('click', () => {
+                    loadQuestion(i);
+                });
+                
+                navGrid.appendChild(navItem);
+            }
+        }
+
+        function updateNavigationGrid() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.classList.remove('current', 'answered');
+                
+                if (index === currentQuestionIndex) {
+                    item.classList.add('current');
+                }
+                
+                if (userAnswers[index] !== null) {
+                    item.classList.add('answered');
                 }
             });
-
-            // 4. Update Hint (hide or show) - currently no hints in data, so just hide
-            hintTextElement.classList.add('hidden'); 
-            hintTextElement.innerHTML = '';
-
-            // 5. Update Navigator Grid
-            updateNavGrid(index);
-
-            // 6. Update Buttons
-            previousBtn.disabled = index === 0;
-            nextBtn.disabled = index === quizQuestions.length - 1;
-            submitBtn.style.display = submitted[currentQuestionIndex] ? 'none' : 'block';
-            
-            // Check if all questions are answered/submitted
-            if (submitted.every(s => s)) {
-                submitBtn.textContent = 'Finish Test';
-            } else {
-                submitBtn.textContent = 'Submit Answer';
-            }
         }
 
         function updateProgressBar() {
-            const progress = (currentQuestionIndex + 1) / quizQuestions.length * 100;
+            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
             progressBar.style.width = `${progress}%`;
         }
 
-        function updateNavGrid(activeIndex) {
-            if (navGrid.children.length === 0) {
-                // Initialize the grid if it's empty
-                for (let i = 0; i < quizQuestions.length; i++) {
-                    const navItem = document.createElement('div');
-                    navItem.classList.add('nav-item');
-                    navItem.textContent = i + 1;
-                    navItem.dataset.index = i;
-                    navItem.onclick = () => loadQuestion(i);
-                    navGrid.appendChild(navItem);
-                }
+        function updateButtonStates() {
+            previousBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = currentQuestionIndex === quizQuestions.length - 1;
+            
+            // Change submit button text based on whether answer is already submitted
+            if (submitted[currentQuestionIndex]) {
+                submitBtn.textContent = 'Already Submitted';
+                submitBtn.disabled = true;
+                submitBtn.style.backgroundColor = '#ccc';
+            } else {
+                submitBtn.textContent = 'Submit Answer';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === null;
+                submitBtn.style.backgroundColor = '';
             }
-
-            // Update classes for current, answered, and submitted states
-            document.querySelectorAll('.nav-item').forEach((item, i) => {
-                item.classList.remove('current', 'answered', 'submitted');
-                if (i === activeIndex) {
-                    item.classList.add('current');
-                }
-                if (userAnswers[i] !== null) {
-                    item.classList.add('answered');
-                }
-                if (submitted[i]) {
-                    item.classList.add('submitted'); // Use a different class for submitted if needed
-                    item.style.backgroundColor = quizQuestions[i].answer === userAnswers[i] ? '#00BFA6' : '#FF6584';
-                    item.style.color = 'white';
-                } else if (userAnswers[i] !== null) {
-                    // Show answered questions as light primary color if not submitted
-                    item.style.backgroundColor = '#fcd5df'; 
-                    item.style.color = 'var(--text)';
-                } else {
-                    item.style.backgroundColor = '#e2e8f0'; 
-                    item.style.color = 'var(--text)';
-                }
-            });
         }
-        
-        function showEmojiFeedback(isCorrect) {
-            emojiFeedback.textContent = isCorrect ? '✅' : '❌';
-            emojiFeedback.style.opacity = '1';
-            setTimeout(() => {
-                emojiFeedback.style.opacity = '0';
-            }, 800);
+
+        function showHint() {
+            // Simple hint - shows the topic
+            const question = quizQuestions[currentQuestionIndex];
+            hintTextElement.textContent = `Hint: This question relates to ${question.topic}. Review concepts related to this topic.`;
         }
 
         function submitAnswer() {
-            const q = quizQuestions[currentQuestionIndex];
-            const selectedOptionIndex = userAnswers[currentQuestionIndex];
+            if (!quizActive || submitted[currentQuestionIndex]) return;
             
-            if (selectedOptionIndex === null || submitted[currentQuestionIndex]) {
-                if (submitted.every(s => s)) {
-                    showResults();
-                    return;
-                }
-                // Optional: Alert the user to select an answer before submitting if not already submitted
+            const selectedOption = userAnswers[currentQuestionIndex];
+            if (selectedOption === null) {
+                alert('Please select an answer first!');
                 return;
             }
-
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption === question.answer;
+            
+            // Mark as submitted
             submitted[currentQuestionIndex] = true;
             
-            const isCorrect = selectedOptionIndex === q.answer;
-            
+            // Update score
             if (isCorrect) {
                 score++;
                 scoreDisplay.textContent = score;
+                showEmojiFeedback('✅');
+            } else {
+                showEmojiFeedback('❌');
             }
             
-            showEmojiFeedback(isCorrect);
+            // Disable all options
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                
+                // Highlight correct answer in green
+                const input = option.querySelector('input');
+                if (parseInt(input.value) === question.answer) {
+                    option.style.backgroundColor = '#d4edda';
+                    option.style.borderColor = '#c3e6cb';
+                }
+                // Highlight wrong answer in red
+                else if (parseInt(input.value) === selectedOption) {
+                    option.style.backgroundColor = '#f8d7da';
+                    option.style.borderColor = '#f5c6cb';
+                }
+            });
             
-            // Reload the question to show feedback (disable radio, highlight correct/incorrect)
-            loadQuestion(currentQuestionIndex);
+            // Update button states
+            updateButtonStates();
             
-            // Check if all questions are submitted
-            if (submitted.every(s => s)) {
-                 submitBtn.textContent = 'Finish Test';
-            }
-        }
-
-        function showResults() {
-            quizActive = false;
-            quizWrapper.innerHTML = `
-                <div class="quiz-container" style="text-align: center; padding: 50px;">
-                    <h1>Quiz Session Complete!</h1>
-                    <p style="font-size: 1.2rem; color: var(--text-light);">Thank you for taking the Chemistry Mock Test.</p>
-                    <div style="margin: 30px 0; padding: 20px; background-color: var(--primary-light); color: white; border-radius: 12px;">
-                        <h2 style="margin: 0; font-size: 3rem;">Your Final Score:</h2>
-                        <p style="font-size: 4rem; font-weight: 700;">${score} / ${quizQuestions.length}</p>
-                    </div>
-                    <p style="font-size: 1.1rem;">Review your answers by clicking the links in the navigation menu (which would be implemented here in a real application).</p>
-                    <button class="register-btn" onclick="window.location.reload();" style="margin-top: 20px;">Restart Session</button>
-                </div>
-            `;
-        }
-
-        // --- Event Listeners ---
-        submitBtn.addEventListener('click', submitAnswer);
-        
-        nextBtn.addEventListener('click', () => {
+            // Update navigation grid
+            updateNavigationGrid();
+            
+            // Auto-advance to next question after 1.5 seconds if not last question
             if (currentQuestionIndex < quizQuestions.length - 1) {
-                loadQuestion(currentQuestionIndex + 1);
+                setTimeout(() => {
+                    loadQuestion(currentQuestionIndex + 1);
+                }, 1500);
             }
-            updateProgressBar();
-        });
+        }
 
-        previousBtn.addEventListener('click', () => {
+        function showEmojiFeedback(emoji) {
+            emojiFeedback.textContent = emoji;
+            emojiFeedback.style.opacity = '1';
+            
+            setTimeout(() => {
+                emojiFeedback.style.opacity = '0';
+            }, 1000);
+        }
+
+        function goToPrevious() {
             if (currentQuestionIndex > 0) {
                 loadQuestion(currentQuestionIndex - 1);
             }
-            updateProgressBar();
+        }
+
+        function goToNext() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        // --- Event Listeners ---
+        previousBtn.addEventListener('click', goToPrevious);
+        nextBtn.addEventListener('click', goToNext);
+        submitBtn.addEventListener('click', submitAnswer);
+
+        // --- Keyboard Navigation ---
+        document.addEventListener('keydown', (e) => {
+            if (!quizWrapper.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') goToPrevious();
+                if (e.key === 'ArrowRight') goToNext();
+                if (e.key === 'Enter') submitAnswer();
+                if (e.key === 'h' || e.key === 'H') showHint();
+                if (e.key === 'Escape') showTestSelection();
+            }
         });
 
-        // --- START THE QUIZ DIRECTLY ---
-        loadQuestion(currentQuestionIndex);
-        updateProgressBar();
+        // Initialize page
+        generateTestCards();
     </script>
 </body>
 </html>

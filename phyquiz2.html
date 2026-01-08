@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <link rel="stylesheet" href="styles.css">
     <title>AP Inter 2nd Year Physics Quiz Session</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-Gvr4r2W5tQ1T9p1j9O9m/kK/mXoN4GgJ4vA1O1uC7S/wL2+5tQo9wP9n/jF+7jH/" crossorigin="anonymous">
@@ -36,14 +35,25 @@
             margin: 0;
             padding: 20px;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center; 
             box-sizing: border-box;
             padding-top: 80px; /* Space for fixed navbar */
         }
         
-       
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
@@ -54,7 +64,24 @@
             color: var(--secondary);
         }
 
-       
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
 
         .menu-toggle {
             display: none;
@@ -63,38 +90,112 @@
             cursor: pointer;
         }
         
-        .hamburger {
-            width: 20px;
-            height: 20px;
-            position: relative;
-            transform: rotate(0deg);
-            transition: .5s ease-in-out;
+        /* Test Selection Panel - Like the Chemistry quiz */
+        .test-selection {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .test-selection h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .test-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .free-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .test-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 10px 0;
+        }
+
+        .test-info {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-info div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-        }
-        
-        .hamburger span {
-            display: block;
-            position: absolute;
-            height: 2px;
+            transition: all 0.3s ease;
             width: 100%;
-            background: var(--text);
-            border-radius: 9px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: .25s ease-in-out;
+            margin-top: 15px;
         }
 
-        .hamburger span:nth-child(1) {
-            top: 0px;
+        .start-btn:hover {
+            background-color: var(--primary-light);
+            transform: scale(1.05);
         }
 
-        .hamburger span:nth-child(2) {
-            top: 9px;
+        .back-to-tests {
+            background-color: var(--text-light);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            align-self: flex-start;
         }
 
-        .hamburger span:nth-child(3) {
-            top: 18px;
+        .back-to-tests:hover {
+            background-color: var(--text);
         }
 
         @media (max-width: 768px) {
@@ -118,6 +219,19 @@
             .menu-toggle {
                 display: block;
             }
+            
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-selection {
+                padding: 10px;
+            }
+            
+            body {
+                padding: 10px;
+                padding-top: 70px;
+            }
         }
 
 
@@ -130,7 +244,7 @@
         .quiz-wrapper {
             width: 100%;
             max-width: 700px; /* Standard card width */
-            margin-top: 0px; 
+            margin: 20px auto;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -146,11 +260,6 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-                padding-top: 70px;
-                align-items: flex-start;
-            }
             .quiz-wrapper {
                 margin-top: 0;
                 padding: 0;
@@ -424,30 +533,36 @@
         }
     </style>
 </head>
-<body onload="startQuiz()">
+<body>
     <nav class="navbar">
-        <div class="logo">🎓 <span>Inter</span>Learn</div>
-        
-        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+    <div class="logo">🎓 <span>VJ</span>Kranthi</div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
         </button> 
 
-        <ul class="nav-links" id="navMenu">
-            <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
-            <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
-            <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
-            <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
-            <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
-        </ul>
-    </nav>
+    <ul class="nav-links" id="navMenu">
+        <li><a class="active" href="index.html" onclick="closeMenu()">Home</a></li>
+        <li><a href="study-materials.html" onclick="closeMenu()">Study Materials</a></li>
+        <li><a href="eamcet-papers.html" onclick="closeMenu()">EAMCET Papers</a></li> 
+        <li><a href="mock-tests.html" onclick="closeMenu()">Mock Tests</a></li>
+        <li><a href="admin.html" onclick="closeMenu()">Admin Portal</a></li>
+    </ul>
+</nav>
     
-    <div class="quiz-wrapper" id="quiz-wrapper">
-        <div class="quiz-container">
-            <h1 id="quiz-title">AP Inter 2nd Year Physics Quiz Session (20 Qs)</h1>
+    <!-- Test Selection Panel - Like the Chemistry quiz -->
+    <div class="test-selection" id="test-selection">
+        <h1>AP Inter 2nd Year Physics Tests</h1>
+        <div class="test-grid" id="test-grid">
+            <!-- Test cards will be generated here -->
+        </div>
+    </div>
+    
+    <!-- Quiz Section (Initially hidden) -->
+    <div class="quiz-wrapper hidden" id="quiz-wrapper">
+        <button class="back-to-tests" onclick="showTestSelection()">← Back to Tests</button>
+        <div class="quiz-container" id="quiz-container">
+            <h1 id="quiz-title">AP Inter 2nd Year Physics Quiz</h1>
             
             <div class="header-info">
                 <span>Score: <span id="score">0</span></span>
@@ -465,6 +580,7 @@
                 <div class="answer-options" id="answer-options"></div>
                 
                 <div class="feedback-text" id="feedback-text"></div>
+                <div class="hint-text" id="hint-text"></div>
             </div>
             
             <div class="quiz-navigator" id="quiz-navigator">
@@ -473,9 +589,9 @@
             </div>
 
             <div class="buttons-area">
-                <button class="skip-btn" id="previous-btn" disabled>Previous</button>
-                <button class="submit-btn" id="submit-btn">Submit Answer</button>
-                <button class="skip-btn" id="next-btn">Next Question</button>
+                <button class="skip-btn" id="previous-btn" disabled onclick="navigateQuestion(-1)">Previous</button>
+                <button class="submit-btn" id="submit-btn" onclick="checkAnswer()">Submit Answer</button>
+                <button class="skip-btn" id="next-btn" onclick="navigateQuestion(1)">Next Question</button>
             </div>
             
         </div>
@@ -484,359 +600,721 @@
     <div class="emoji-feedback" id="emoji-feedback"></div>
     
     <script>
-        // --- QUIZ CONFIGURATION AND DATA ---
-        
-        // **UPDATED: To meet the requirement of 20 questions per session**
-        const TOTAL_QUESTIONS = 60; // Total number of questions available
-        const SESSION_SIZE = 20; // Number of questions to be displayed in the quiz session
-        
-        let currentQuestionIndex = 0; 
+        // --- ALL PHYSICS QUESTIONS DATA ---
+        const ALL_PHYSICS_QUESTIONS = [
+            { "id": 1, "question": "What is the SI unit of electric flux, $\\Phi_E$?", "options": [
+                {"text": "Coulomb ($C$)", "isCorrect": false, "rationale": "This is the SI unit of electric charge."}, 
+                {"text": "Newton per Coulomb ($N/C$)", "isCorrect": false, "rationale": "This is the SI unit of electric field strength."}, 
+                {"text": "Volt meter ($V \\cdot m$)", "isCorrect": true, "rationale": "Electric flux is defined as $\\Phi_E = E \\cdot A$. Since $E = V/d$ and $A$ is area, the unit is $(V/m) \\cdot m^2 = V \\cdot m$."}, 
+                {"text": "Joule per Coulomb ($J/C$)", "isCorrect": false, "rationale": "This is the unit of electric potential (Volt)."}
+            ], "topic": "Electric Charges and Fields", "hint": "Recall the relationship between electric flux, electric field, and area, or the unit of electric field in terms of potential." },
+            
+            { "id": 2, "question": "Gauss's Law relates the electric flux through a closed surface to which quantity inside the surface?", "options": [
+                {"text": "Total electric field", "isCorrect": false, "rationale": "Gauss's law deals with the flux, not the field itself, and only the flux through the closed surface."}, 
+                {"text": "Total potential difference", "isCorrect": false, "rationale": "This is related to potential, not directly to Gauss's Law."}, 
+                {"text": "Total charge enclosed", "isCorrect": true, "rationale": "Gauss's Law states that $\\Phi_E = Q_{enclosed}/\\epsilon_0$, making the flux directly proportional to the total charge enclosed."}, 
+                {"text": "Total number of field lines", "isCorrect": false, "rationale": "While flux is proportional to the number of lines, the law is formally stated in terms of charge."}
+            ], "topic": "Electric Charges and Fields", "hint": "The constant $\\epsilon_0$ appears in the formula, which suggests a relationship involving charge." },
+            
+            { "id": 3, "question": "If the distance between two charges is doubled, the force between them, according to Coulomb's Law, changes by a factor of:", "options": [
+                {"text": "$1/2$", "isCorrect": false, "rationale": "The force is inversely proportional to the square of the distance, not just the distance."}, 
+                {"text": "$1/4$", "isCorrect": true, "rationale": "Coulomb's Law states $F \\propto 1/r^2$. If $r$ is doubled ($2r$), the new force $F' \\propto 1/(2r)^2 = 1/4r^2 = F/4$."}, 
+                {"text": "2", "isCorrect": false, "rationale": "The force would be doubled if the distance was halved, not doubled."}, 
+                {"text": "4", "isCorrect": false, "rationale": "The force would be quadrupled if the distance was halved."}
+            ], "topic": "Electric Charges and Fields", "hint": "Remember the inverse square relationship in Coulomb's Law ($F \\propto 1/r^2$)."},
+            
+            { "id": 4, "question": "Electric field lines always originate from a positive charge and terminate at a:", "options": [
+                {"text": "Positive charge", "isCorrect": false, "rationale": "Field lines repel from positive charges and never intersect."}, 
+                {"text": "Infinite distance", "isCorrect": false, "rationale": "Field lines from an isolated charge may extend to infinity, but lines terminate at negative charges."}, 
+                {"text": "Negative charge", "isCorrect": true, "rationale": "Electric field lines are conventionally drawn starting from positive charges and ending at negative charges or at infinity."}, 
+                {"text": "Ground", "isCorrect": false, "rationale": "Grounding is related to potential, not the geometric rule for field lines."}
+            ], "topic": "Electric Charges and Fields", "hint": "Field lines indicate the direction of the force on a positive test charge." },
+            
+            { "id": 5, "question": "What is the electric field inside a uniformly charged spherical shell?", "options": [
+                {"text": "$E = kQ/r^2$", "isCorrect": false, "rationale": "This is the field for a point charge or outside the shell."}, 
+                {"text": "$E = 0$", "isCorrect": true, "rationale": "By Gauss's Law, the flux through any Gaussian surface inside the shell is zero because the enclosed charge ($Q_{enc}$) is zero. Thus, the electric field ($E$) is zero."}, 
+                {"text": "$E$ is constant but non-zero", "isCorrect": false, "rationale": "The field is zero inside the shell."}, 
+                {"text": "Depends on the radius", "isCorrect": false, "rationale": "It is zero, independent of the internal radius."}
+            ], "topic": "Electric Charges and Fields", "hint": "Apply Gauss's Law with a Gaussian surface drawn entirely inside the shell." },
+            
+            { "id": 6, "question": "The work done in moving a charge from one point to another in an equipotential surface is:", "options": [
+                {"text": "Positive", "isCorrect": false, "rationale": "Work is only positive if the charge moves in the direction of the field."}, 
+                {"text": "Negative", "isCorrect": false, "rationale": "Work is only negative if the charge moves against the direction of the field."}, 
+                {"text": "Zero", "isCorrect": true, "rationale": "An equipotential surface means the potential ($V$) is constant. Since work done $W = q \\Delta V$, and $\\Delta V = 0$, the work done must be zero."}, 
+                {"text": "Depends on the path", "isCorrect": false, "rationale": "Electrostatic forces are conservative, so the work done is path-independent."}
+            ], "topic": "Electrostatic Potential and Capacitance", "hint": "The work done is proportional to the potential difference between the start and end points."},
+            
+            { "id": 7, "question": "What is the unit of capacitance?", "options": [
+                {"text": "Volt ($V$)", "isCorrect": false, "rationale": "Volt is the unit of potential difference."}, 
+                {"text": "Ohm ($\\Omega$)", "isCorrect": false, "rationale": "Ohm is the unit of electrical resistance."}, 
+                {"text": "Farad ($F$)", "isCorrect": true, "rationale": "The SI unit of capacitance ($C$) is the Farad, defined as one Coulomb per Volt ($1 \\text{ F} = 1 \\text{ C}/V$)."}, 
+                {"text": "Henry ($H$)", "isCorrect": false, "rationale": "Henry is the unit of inductance."}
+            ], "topic": "Electrostatic Potential and Capacitance", "hint": "Capacitance is defined as the ratio of charge to potential difference ($C = Q/V$)." },
+            
+            { "id": 8, "question": "If a dielectric slab is inserted between the plates of a capacitor, the capacitance generally:", "options": [
+                {"text": "Decreases", "isCorrect": false, "rationale": "A dielectric always increases the capacitance."}, 
+                {"text": "Increases", "isCorrect": true, "rationale": "When a dielectric of constant $K$ is inserted, the capacitance increases by a factor of $K$. ($C' = K C_0$ where $K>1$ for all dielectrics)."}, 
+                {"text": "Remains the same", "isCorrect": false, "rationale": "The dielectric changes the electric field and thus the capacitance."}, 
+                {"text": "Becomes zero", "isCorrect": false, "rationale": "This would only happen if the plates were connected."}
+            ], "topic": "Electrostatic Potential and Capacitance", "hint": "Recall the effect of the dielectric constant ($K$) on the electric field between the plates." },
+            
+            { "id": 9, "question": "The energy stored in a capacitor with capacitance $C$ and potential difference $V$ is given by:", "options": [
+                {"text": "$CV$", "isCorrect": false, "rationale": "This is a formula for charge ($Q$)."}, 
+                {"text": "$CV^2$", "isCorrect": false, "rationale": "This is proportional to the energy, but missing the factor of $1/2$."}, 
+                {"text": "$1/2 CV^2$", "isCorrect": true, "rationale": "The potential energy stored is given by $U = 1/2 CV^2$. Other equivalent forms are $Q^2/(2C)$ and $1/2 QV$."}, 
+                {"text": "$V/C$", "isCorrect": false, "rationale": "This is related to the reciprocal of charge/potential relationship."}
+            ], "topic": "Electrostatic Potential and Capacitance", "hint": "The formula involves a square term and a factor of one-half." },
+            
+            { "id": 10, "question": "Which device is used for building up high potential differences of the order of a few million volts?", "options": [
+                {"text": "Parallel plate capacitor", "isCorrect": false, "rationale": "This is a basic component for storing charge, not for generation of extremely high potential."}, 
+                {"text": "Wheatstone bridge", "isCorrect": false, "rationale": "This is an instrument for measuring resistance."}, 
+                {"text": "Potentiometer", "isCorrect": false, "rationale": "This is an instrument for measuring EMF and comparing potentials."}, 
+                {"text": "Van de Graaff Generator", "isCorrect": true, "rationale": "The Van de Graaff Generator is an electrostatic machine used to generate very high electrostatic potentials, typically for experiments in nuclear physics."}
+            ], "topic": "Electrostatic Potential and Capacitance", "hint": "This device uses mechanical motion to transfer charge and build up static electricity." },
+            
+            { "id": 11, "question": "The reciprocal of resistivity is known as:", "options": [
+                {"text": "Resistance", "isCorrect": false, "rationale": "Resistance ($R$) is the reciprocal of conductance ($G$)."}, 
+                {"text": "Conductance", "isCorrect": false, "rationale": "Conductance ($G$) is the reciprocal of resistance ($R$)."}, 
+                {"text": "Conductivity", "isCorrect": true, "rationale": "Conductivity ($\\sigma$) is the reciprocal of resistivity ($\\rho$), where $\\sigma = 1/\\rho$."}, 
+                {"text": "Current density", "isCorrect": false, "rationale": "Current density ($J$) is related by $J = \\sigma E$."}
+            ], "topic": "Current Electricity", "hint": "The name of the property describes how well a material can conduct charge." },
+            
+            { "id": 12, "question": "Kirchhoff's Junction Rule (Current Law) is a consequence of the conservation of:", "options": [
+                {"text": "Energy", "isCorrect": false, "rationale": "This is the basis of Kirchhoff's Voltage Rule (Loop Rule)."}, 
+                {"text": "Momentum", "isCorrect": false, "rationale": "Momentum is not directly conserved in circuit analysis."}, 
+                {"text": "Charge", "isCorrect": true, "rationale": "The Junction Rule states that the sum of currents entering a junction equals the sum of currents leaving, which ensures that charge is neither created nor destroyed at the junction."}, 
+                {"text": "Voltage", "isCorrect": false, "rationale": "Voltage is related to the conservation of energy."}
+            ], "topic": "Current Electricity", "hint": "Think about what flows through the wires that must not accumulate at a junction." },
+            
+            { "id": 13, "question": "If a wire is stretched so that its length doubles, what happens to its resistance, assuming the volume remains constant?", "options": [
+                {"text": "Doubles", "isCorrect": false, "rationale": "This would be true if only the length doubled, but the area would change to keep the volume constant."}, 
+                {"text": "Halves", "isCorrect": false, "rationale": "The resistance must increase as length increases and cross-sectional area decreases."}, 
+                {"text": "Becomes four times", "isCorrect": true, "rationale": "Since $V = AL$ is constant, if $L \\to 2L$, then $A \\to A/2$. The new resistance $R' = \\rho (2L)/(A/2) = 4 \\rho (L/A) = 4R$."}, 
+                {"text": "Becomes one-fourth", "isCorrect": false, "rationale": "This is the reciprocal of the correct answer."}
+            ], "topic": "Current Electricity", "hint": "Resistance $R \\propto L/A$. When length doubles, the area of cross-section must be halved to conserve the wire's volume." },
+            
+            { "id": 14, "question": "Which of the following materials has a negative temperature coefficient of resistance?", "options": [
+                {"text": "Copper", "isCorrect": false, "rationale": "Copper is a metal and has a positive temperature coefficient."}, 
+                {"text": "Nichrome", "isCorrect": false, "rationale": "Nichrome is an alloy and has a small positive temperature coefficient."}, 
+                {"text": "Gold", "isCorrect": false, "rationale": "Gold is a metal and has a positive temperature coefficient."}, 
+                {"text": "Semiconductors", "isCorrect": true, "rationale": "As temperature increases in a semiconductor, more charge carriers become available, significantly decreasing resistivity (and resistance), leading to a negative temperature coefficient."}
+            ], "topic": "Current Electricity", "hint": "This class of materials is characterized by an increase in conductivity with an increase in temperature." },
+            
+            { "id": 15, "question": "Ohm's Law, $V = IR$, is strictly applicable to which type of materials?", "options": [
+                {"text": "Semiconductors", "isCorrect": false, "rationale": "Semiconductors are non-Ohmic devices."}, 
+                {"text": "Electrolytes", "isCorrect": false, "rationale": "Electrolytes often do not obey Ohm's law strictly."}, 
+                {"text": "Metallic conductors (Ohmic devices)", "isCorrect": true, "rationale": "Ohm's Law applies to metallic conductors where the resistance $R$ remains constant over a range of applied voltage and temperature."}, 
+                {"text": "Vacuum tubes", "isCorrect": false, "rationale": "Vacuum tubes are non-Ohmic electronic devices."}
+            ], "topic": "Current Electricity", "hint": "The materials must exhibit a linear relationship between voltage and current." },
+            
+            { "id": 16, "question": "What is the direction of the magnetic force on a positive charge moving parallel to a uniform magnetic field?", "options": [
+                {"text": "Perpendicular to the field", "isCorrect": false, "rationale": "This happens when the charge moves perpendicular to the field."}, 
+                {"text": "Opposite to the field", "isCorrect": false, "rationale": "This would require a non-zero force component opposite to the field."}, 
+                {"text": "In the direction of the field", "isCorrect": false, "rationale": "This would require a non-zero force component in the direction of the field."}, 
+                {"text": "Zero force", "isCorrect": true, "rationale": "The magnetic Lorentz force is $\\vec{F} = q(\\vec{v} \\times \\vec{B}) = qvB\\sin\\theta$. If the motion is parallel or anti-parallel ($\\theta = 0^\\circ$ or $180^\\circ$), then $\\sin\\theta = 0$, and the force is zero."}
+            ], "topic": "Moving Charges and Magnetism", "hint": "The magnetic force on a charge is proportional to $\\sin\\theta$, where $\\theta$ is the angle between the velocity vector and the magnetic field vector." },
+            
+            { "id": 17, "question": "The expression for the force per unit length between two parallel current-carrying wires is based on:", "options": [
+                {"text": "Ohm's Law", "isCorrect": false, "rationale": "Ohm's Law relates voltage, current, and resistance."}, 
+                {"text": "Faraday's Law", "isCorrect": false, "rationale": "Faraday's Law relates induced EMF to changing magnetic flux."}, 
+                {"text": "Biot-Savart Law", "isCorrect": false, "rationale": "The Biot-Savart Law calculates the magnetic field generated by a current element."}, 
+                {"text": "Ampere's Circuital Law", "isCorrect": true, "rationale": "Ampere's Law is used to determine the magnetic field generated by one wire, and the force on the second wire is calculated using $\\vec{F} = I(\\vec{L} \\times \\vec{B})$, yielding the final expression for force per unit length."}
+            ], "topic": "Moving Charges and Magnetism", "hint": "This law is used to find the magnetic field of long, straight current-carrying conductors." },
+            
+            { "id": 18, "question": "A cyclotron is used to accelerate which of the following particles?", "options": [
+                {"text": "Neutrons", "isCorrect": false, "rationale": "Neutrons are neutral and cannot be accelerated by electric or magnetic fields."}, 
+                {"text": "Electrons", "isCorrect": false, "rationale": "Electrons are too light and gain energy quickly, making the relativistic mass change significant, which disrupts the synchronous operation of the cyclotron."}, 
+                {"text": "Ions (charged particles)", "isCorrect": true, "rationale": "The cyclotron is designed to accelerate positively charged particles (like protons or other ions) to very high speeds using electric and magnetic fields."}, 
+                {"text": "Photons", "isCorrect": false, "rationale": "Photons are massless and always travel at the speed of light; they cannot be accelerated."}
+            ], "topic": "Moving Charges and Magnetism", "hint": "The principle of the cyclotron requires the particle to interact with both an electric field and a magnetic field." },
+            
+            { "id": 19, "question": "What is a major characteristic of a solenoid's magnetic field inside its core?", "options": [
+                {"text": "It is zero", "isCorrect": false, "rationale": "The magnetic field is maximum inside the core."}, 
+                {"text": "It is non-uniform and weak", "isCorrect": false, "rationale": "The magnetic field is strong and uniform inside an ideal solenoid."}, 
+                {"text": "It is uniform and strong", "isCorrect": true, "rationale": "The magnetic field inside a long, straight solenoid is approximately uniform and its magnitude is given by $B = \\mu_0 n I$, where $n$ is the number of turns per unit length."}, 
+                {"text": "It diverges sharply", "isCorrect": false, "rationale": "The field is nearly parallel to the axis of the solenoid inside the core."}
+            ], "topic": "Moving Charges and Magnetism", "hint": "For an ideal, long solenoid, the field lines are closely packed and parallel inside the coil." },
+            
+            { "id": 20, "question": "The Lorentz force is the total force experienced by a charged particle moving in regions with both an electric field ($E$) and a magnetic field ($B$):", "options": [
+                {"text": "$q(\\vec{E} + \\vec{v} \\times \\vec{B})$", "isCorrect": true, "rationale": "The total Lorentz force is the vector sum of the electric force ($q\\vec{E}$) and the magnetic force ($q(\\vec{v} \\times \\vec{B})$)."}, 
+                {"text": "$q(\\vec{E} + \\vec{v} \\cdot \\vec{B})$", "isCorrect": false, "rationale": "The magnetic force involves a vector cross product ($\times$), not a scalar dot product ($\\cdot$)."}, 
+                {"text": "$q(\\vec{E} + \\vec{B})$", "isCorrect": false, "rationale": "This formula incorrectly adds the velocity vector ($\vec{v}$) and omits the cross product."}, 
+                {"text": "$q(\\vec{v} \\times \\vec{B})$", "isCorrect": false, "rationale": "This only represents the magnetic part of the Lorentz force."}
+            ], "topic": "Moving Charges and Magnetism", "hint": "The total force is the vector sum of the electric force and the magnetic force." },
+            
+            { "id": 21, "question": "Which of the following materials is weakly repelled by a magnetic field?", "options": [
+                {"text": "Ferromagnetic", "isCorrect": false, "rationale": "Ferromagnetic materials are strongly attracted to a magnetic field."}, 
+                {"text": "Paramagnetic", "isCorrect": false, "rationale": "Paramagnetic materials are weakly attracted to a magnetic field."}, 
+                {"text": "Diamagnetic", "isCorrect": true, "rationale": "Diamagnetic substances are weakly repelled by a magnetic field and have a small, negative magnetic susceptibility."}, 
+                {"text": "Ferrimagnetic", "isCorrect": false, "rationale": "Ferrimagnetic materials are attracted to a magnetic field."}
+            ], "topic": "Magnetism and Matter", "hint": "Think about the three main types of magnetic materials and their behavior in an external field." },
+            
+            { "id": 22, "question": "The phenomenon of a substance lagging behind the magnetizing field is known as:", "options": [
+                {"text": "Magnetic permeability", "isCorrect": false, "rationale": "Permeability is a measure of how easily a material can be magnetized."}, 
+                {"text": "Magnetic susceptibility", "isCorrect": false, "rationale": "Susceptibility measures the degree of magnetization of a material in response to an applied magnetic field."}, 
+                {"text": "Hysteresis", "isCorrect": true, "rationale": "Hysteresis is the phenomenon where the magnetic induction ($B$) of a material lags behind the magnetizing field ($H$). This is typically shown on a $B-H$ loop."}, 
+                {"text": "Curie temperature", "isCorrect": false, "rationale": "Curie temperature is the point above which a ferromagnetic material loses its magnetism."}
+            ], "topic": "Magnetism and Matter", "hint": "This term is related to the energy loss in magnetic cycles and is described by a characteristic loop." },
+            
+            { "id": 23, "question": "The element of the Earth's magnetic field that gives the angle between the true geographic meridian and the magnetic meridian is:", "options": [
+                {"text": "Angle of Dip", "isCorrect": false, "rationale": "Angle of dip (or inclination) is the angle the total magnetic field makes with the horizontal component."}, 
+                {"text": "Angle of Declination", "isCorrect": true, "rationale": "The angle of declination ($\\delta$) is the angle between the magnetic north and the true geographic north at a given location."}, 
+                {"text": "Horizontal component", "isCorrect": false, "rationale": "This is a magnitude ($B_H$), not an angle."}, 
+                {"text": "Vertical component", "isCorrect": false, "rationale": "This is a magnitude ($B_V$), not an angle."}
+            ], "topic": "Magnetism and Matter", "hint": "This angle helps navigation by adjusting for the offset between the two 'Norths'." },
+            
+            { "id": 24, "question": "What is the unit of magnetic intensity ($H$)?", "options": [
+                {"text": "Tesla ($T$)", "isCorrect": false, "rationale": "Tesla is the unit of magnetic induction or magnetic field strength ($B$)"}, 
+                {"text": "Weber ($Wb$)", "isCorrect": false, "rationale": "Weber is the unit of magnetic flux ($\\Phi_B$)."}, 
+                {"text": "Ampere per meter ($A/m$)", "isCorrect": true, "rationale": "Magnetic Intensity $H$ has the unit of current per unit length, which is $A/m$."}, 
+                {"text": "Henry ($H$)", "isCorrect": false, "rationale": "Henry is the unit of inductance."}
+            ], "topic": "Magnetism and Matter", "hint": "The magnetic intensity is closely related to the number of turns and current in a solenoid." },
+            
+            { "id": 25, "question": "At the poles of the Earth, the angle of dip (inclination) is approximately:", "options": [
+                {"text": "$0^\\circ$", "isCorrect": false, "rationale": "This angle occurs at the magnetic equator."}, 
+                {"text": "$45^\\circ$", "isCorrect": false, "rationale": "This is an intermediate value."}, 
+                {"text": "$90^\\circ$", "isCorrect": true, "rationale": "At the magnetic poles, the Earth's magnetic field lines are perpendicular to the Earth's surface, meaning the angle of dip is $90^\\circ$ (vertical)."}, 
+                {"text": "$180^\\circ$", "isCorrect": false, "rationale": "This is not a physically meaningful value for dip angle."}
+            ], "topic": "Magnetism and Matter", "hint": "Consider the orientation of the Earth's magnetic field lines relative to the surface at the poles." },
+            
+            { "id": 26, "question": "Faraday's Law of Electromagnetic Induction states that the induced EMF is proportional to the rate of change of:", "options": [
+                {"text": "Electric field", "isCorrect": false, "rationale": "The induced EMF is proportional to the change in magnetic quantity."}, 
+                {"text": "Magnetic field intensity", "isCorrect": false, "rationale": "While related, the law is formally stated in terms of flux."}, 
+                {"text": "Magnetic flux", "isCorrect": true, "rationale": "Faraday's Law states $\\mathcal{E} = -d\\Phi_B/dt$, where $\\mathcal{E}$ is the induced EMF and $\\Phi_B$ is the magnetic flux."}, 
+                {"text": "Current", "isCorrect": false, "rationale": "A change in current can cause a change in flux, but flux is the primary term."}
+            ], "topic": "Electromagnetic Induction", "hint": "The formula involves a time derivative of a magnetic quantity." },
+            
+            { "id": 27, "question": "Lenz's Law, which determines the direction of the induced current, is a consequence of the conservation of:", "options": [
+                {"text": "Momentum", "isCorrect": false, "rationale": "Lenz's Law relates to energy and work."}, 
+                {"text": "Energy", "isCorrect": true, "rationale": "Lenz's law states that the induced current's direction opposes the change in magnetic flux that produced it, which ensures that energy must be supplied to create the induced current, thus upholding the law of conservation of energy."}, 
+                {"text": "Charge", "isCorrect": false, "rationale": "Charge conservation is the basis of Kirchhoff's Current Law."}, 
+                {"text": "Magnetic field", "isCorrect": false, "rationale": "The law opposes a change in the field (flux), but the underlying principle is energy conservation."}
+            ], "topic": "Electromagnetic Induction", "hint": "The opposition described by this law requires an external agent to do work." },
+            
+            { "id": 28, "question": "The self-inductance ($L$) of a coil is defined as the ratio of magnetic flux linked with the coil to the:", "options": [
+                {"text": "Induced EMF", "isCorrect": false, "rationale": "Induced EMF is related to the rate of change of current, not just the current."}, 
+                {"text": "Rate of change of flux", "isCorrect": false, "rationale": "This is related to the induced EMF."}, 
+                {"text": "Current flowing in the coil", "isCorrect": true, "rationale": "Self-inductance is defined by the relation $\\Phi_B = L I$, where $L$ is the proportionality constant between the magnetic flux ($\\Phi_B$) and the current ($I$)."}, 
+                {"text": "Number of turns", "isCorrect": false, "rationale": "The number of turns is a factor in the value of $L$, but $L$ is not the ratio of flux to turns."}
+            ], "topic": "Electromagnetic Induction", "hint": "Recall the defining equation $\\Phi_B = LI$." },
+            
+            { "id": 29, "question": "Which principle is utilized in the working of an AC Generator?", "options": [
+                {"text": "Ohm's Law", "isCorrect": false, "rationale": "Ohm's Law describes the relationship between voltage, current, and resistance."}, 
+                {"text": "Biot-Savart Law", "isCorrect": false, "rationale": "This law calculates the magnetic field of a current element."}, 
+                {"text": "Electromagnetic Induction", "isCorrect": true, "rationale": "An AC Generator works by rotating a coil in a magnetic field, continuously changing the magnetic flux through the coil, which, according to Faraday's law of E.M.I., induces an alternating EMF."}, 
+                {"text": "Photoelectric Effect", "isCorrect": false, "rationale": "The Photoelectric Effect is related to the particle nature of light."}, 
+            ], "topic": "Electromagnetic Induction", "hint": "The device generates electricity by creating a relative motion between a conductor and a magnetic field." },
+            
+            { "id": 30, "question": "In a purely capacitive AC circuit, the current leads the applied voltage by a phase angle of:", "options": [
+                {"text": "$0^\\circ$", "isCorrect": false, "rationale": "This occurs in a purely resistive circuit."}, 
+                {"text": "$45^\\circ$", "isCorrect": false, "rationale": "This can occur in an $R-C$ or $R-L$ circuit."}, 
+                {"text": "$90^\\circ$ (or $\\pi/2$ radians)", "isCorrect": true, "rationale": "In a purely capacitive circuit, the capacitor voltage is maximum when the current is zero, and vice-versa. This results in the current leading the voltage by $\\pi/2$ radians."}, 
+                {"text": "$180^\\circ$ (or $\\pi$ radians)", "isCorrect": false, "rationale": "This represents being completely out of phase."}
+            ], "topic": "Alternating Current (AC)", "hint": "Remember the mnemonic 'ELI the ICE man.' The 'I' (current) comes before 'E' (voltage) in 'ICE' (capacitive)." },
+            
+            { "id": 31, "question": "What is the phenomenon called when the inductive reactance ($X_L$) equals the capacitive reactance ($X_C$) in a series $LCR$ circuit?", "options": [
+                {"text": "Impedance matching", "isCorrect": false, "rationale": "Impedance matching is about maximizing power transfer between source and load."}, 
+                {"text": "Power dissipation", "isCorrect": false, "rationale": "Power dissipation occurs through the resistor."}, 
+                {"text": "Resonance", "isCorrect": true, "rationale": "At resonance, the frequency is such that $X_L = X_C$, making the impedance ($Z = \\sqrt{R^2 + (X_L - X_C)^2}$) minimum and equal to $R$, resulting in maximum current."}, 
+                {"text": "Phase shift", "isCorrect": false, "rationale": "Phase shift is a general characteristic of AC circuits."}
+            ], "topic": "Alternating Current (AC)", "hint": "At this condition, the circuit behaves purely resistively, and the phase angle is zero." },
+            
+            { "id": 32, "question": "The average power dissipated in a purely inductive AC circuit is:", "options": [
+                {"text": "Maximum", "isCorrect": false, "rationale": "Power is only maximum in a purely resistive circuit."}, 
+                {"text": "Minimum", "isCorrect": false, "rationale": "This is a vague term; it is specifically zero."}, 
+                {"text": "Zero", "isCorrect": true, "rationale": "The current lags the voltage by $90^\\circ$ ($\\phi = 90^\\circ$). The average power is $P_{avg} = V_{rms} I_{rms} \\cos\\phi = V_{rms} I_{rms} \\cos(90^\\circ) = 0$. The inductor only stores and releases energy."}, 
+                {"text": "Proportional to $V_{rms} I_{rms}$", "isCorrect": false, "rationale": "This would be true if the power factor ($\cos\\phi$) was 1."}
+            ], "topic": "Alternating Current (AC)", "hint": "Recall the phase angle between voltage and current for a pure inductor and the power factor formula." },
+            
+            { "id": 33, "question": "The ratio of the RMS value of AC voltage to the peak value ($V_0$) is:", "options": [
+                {"text": "$1/\\sqrt{2}$", "isCorrect": true, "rationale": "The RMS value is $V_{rms} = V_0/\\sqrt{2}$. Therefore, the ratio $V_{rms}/V_0 = 1/\\sqrt{2} \\approx 0.707$."}, 
+                {"text": "$\\sqrt{2}$", "isCorrect": false, "rationale": "This is the ratio of the peak value to the RMS value ($V_0/V_{rms}$)."}, 
+                {"text": "$1/2$", "isCorrect": false, "rationale": "This is the ratio of the average value over a half cycle to the peak value."}, 
+                {"text": "2", "isCorrect": false, "rationale": "This is the ratio of peak-to-peak voltage to the peak voltage."}
+            ], "topic": "Alternating Current (AC)", "hint": "The RMS value is sometimes called the 'effective' value and is related to the square root of two." },
+            
+            { "id": 34, "question": "In a series $LCR$ circuit, the voltage across $L$ and $C$ are $V_L$ and $V_C$. The voltage across the two together is:", "options": [
+                {"text": "$V_L + V_C$", "isCorrect": false, "rationale": "Voltages must be added as vectors (phasors)."}, 
+                {"text": "$V_L - V_C$", "isCorrect": false, "rationale": "This expression is not generally correct and should use the absolute difference."}, 
+                {"text": "$\\sqrt{V_L^2 + V_C^2}$", "isCorrect": false, "rationale": "This would be correct if $V_L$ and $V_C$ were $90^\\circ$ out of phase, but they are $180^\\circ$ out of phase."}, 
+                {"text": "$|V_L - V_C|$", "isCorrect": true, "rationale": "Since $V_L$ and $V_C$ are $180^\\circ$ out of phase, they subtract from each other. The magnitude is the absolute difference $|V_L - V_C|$."}, 
+            ], "topic": "Alternating Current (AC)", "hint": "The voltage phasors for $L$ and $C$ are directed oppositely along the imaginary axis in the phasor diagram." },
+            
+            { "id": 35, "question": "Which part of the electromagnetic spectrum is used for television remote controls?", "options": [
+                {"text": "Radio waves", "isCorrect": false, "rationale": "Radio waves are used for broadcasting (AM/FM, cellular communication)."}, 
+                {"text": "Microwaves", "isCorrect": false, "rationale": "Microwaves are used in ovens and satellite communication."}, 
+                {"text": "Infrared waves", "isCorrect": true, "rationale": "Infrared (IR) radiation is commonly used in short-range wireless communication, such as TV remotes, due to its low power and ability to pass through non-transparent enclosures."}, 
+                {"text": "Ultraviolet waves", "isCorrect": false, "rationale": "UV waves are higher energy and used in sterilization or forensic applications."}
+            ], "topic": "Electromagnetic Waves", "hint": "These waves are just beyond the red end of the visible light spectrum." },
+            
+            { "id": 36, "question": "In free space, the velocity of electromagnetic waves is given by:", "options": [
+                {"text": "$c = 1/\\mu_0 \\epsilon_0$", "isCorrect": false, "rationale": "The inverse of this expression would give the square of the speed of light."}, 
+                {"text": "$c = \\sqrt{\\mu_0 \\epsilon_0}$", "isCorrect": false, "rationale": "The inverse of this expression would give the speed of light."}, 
+                {"text": "$c = 1/\\sqrt{\\mu_0 \\epsilon_0}$", "isCorrect": true, "rationale": "Maxwell's equations show that the speed of light in vacuum is $c = 1/\\sqrt{\\mu_0 \\epsilon_0}$, where $\\mu_0$ is the permeability and $\\epsilon_0$ is the permittivity of free space."}, 
+                {"text": "$c = \\mu_0 \\epsilon_0$", "isCorrect": false, "rationale": "This expression is dimensionally incorrect for velocity."}
+            ], "topic": "Electromagnetic Waves", "hint": "The formula involves the square root and is inversely proportional to the product of the permeability and permittivity constants." },
+            
+            { "id": 37, "question": "The electric field vector ($\\vec{E}$) and magnetic field vector ($\\vec{B}$) in an EM wave are always in phase and oriented at:", "options": [
+                {"text": "$0^\\circ$ to each other", "isCorrect": false, "rationale": "The fields must be perpendicular to each other."}, 
+                {"text": "$45^\\circ$ to each other", "isCorrect": false, "rationale": "They are mutually perpendicular."}, 
+                {"text": "$90^\\circ$ to each other", "isCorrect": true, "rationale": "EM waves are transverse. The electric field, magnetic field, and the direction of wave propagation are all mutually perpendicular, with $\\vec{E}$ and $\\vec{B}$ being in phase."}, 
+                {"text": "$180^\\circ$ to each other", "isCorrect": false, "rationale": "This would mean they are anti-parallel."}
+            ], "topic": "Electromagnetic Waves", "hint": "The three components—$\\vec{E}$, $\\vec{B}$, and the direction of propagation ($\\vec{k}$ or $\\vec{c}$)—form an orthogonal set." },
+            
+            { "id": 38, "question": "The brilliant glittering of a diamond is primarily due to which phenomenon?", "options": [
+                {"text": "Reflection", "isCorrect": false, "rationale": "Reflection is part of the process, but not the primary cause of the 'fire'."}, 
+                {"text": "Refraction", "isCorrect": false, "rationale": "Refraction is necessary to get the light inside the diamond."}, 
+                {"text": "Total internal reflection (TIR)", "isCorrect": true, "rationale": "Due to diamond's high refractive index and small critical angle, light entering it undergoes multiple total internal reflections, which causes the light to be trapped and intensely reflected back, resulting in its glittering brilliance."}, 
+                {"text": "Dispersion", "isCorrect": false, "rationale": "Dispersion separates colors, contributing to the 'fire,' but TIR contributes to the brightness and light return."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "This phenomenon depends on the critical angle, which is very small for diamond." },
+            
+            { "id": 39, "question": "For a convex lens, when an object is placed at $2F$, the image formed is:", "options": [
+                {"text": "Real, inverted, and enlarged", "isCorrect": false, "rationale": "Enlarged only occurs between $F$ and $2F$."}, 
+                {"text": "Virtual, erect, and enlarged", "isCorrect": false, "rationale": "Virtual and erect only occurs between $F$ and the pole."}, 
+                {"text": "Real, inverted, and same size", "isCorrect": true, "rationale": "When an object is placed at $2F$, the image is formed at $2F$ on the other side, is real, inverted, and has the same size as the object."}, 
+                {"text": "Virtual, erect, and diminished", "isCorrect": false, "rationale": "Diminished occurs beyond $2F$."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "This is a symmetrical case in lens formation, where the image distance equals the object distance from the lens center." },
+            
+            { "id": 40, "question": "The astronomical telescope produces an image that is:", "options": [
+                {"text": "Real and inverted", "isCorrect": false, "rationale": "The final image is virtual, not real."}, 
+                {"text": "Virtual and erect", "isCorrect": false, "rationale": "The final image is inverted with respect to the object."}, 
+                {"text": "Real and erect", "isCorrect": false, "rationale": "The final image is virtual, not real, and inverted."}, 
+                {"text": "Virtual and inverted", "isCorrect": true, "rationale": "In a normal adjustment, the objective lens forms a real, inverted image. The eyepiece acts as a simple microscope, which magnifies this image to form a final virtual and inverted image (relative to the original object)."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "The final image is formed by the eyepiece acting as a simple magnifier." },
+            
+            { "id": 41, "question": "The mirror formula relating object distance ($u$), image distance ($v$), and focal length ($f$) is:", "options": [
+                {"text": "$1/u + 1/v = f$", "isCorrect": false, "rationale": "The focal length term is also a reciprocal."}, 
+                {"text": "$1/u - 1/v = 1/f$", "isCorrect": false, "rationale": "This formula uses a minus sign, which is incorrect for mirrors (and lenses)."}, 
+                {"text": "$1/u + 1/v = 1/f$", "isCorrect": true, "rationale": "The mirror formula is a relationship between object distance ($u$), image distance ($v$), and focal length ($f$) that holds for spherical mirrors."}, 
+                {"text": "$u + v = f$", "isCorrect": false, "rationale": "This is dimensionally incorrect."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "The formula involves the sum of the reciprocals of the distances." },
+            
+            { "id": 42, "question": "Chromatic aberration in lenses can be minimized by using:", "options": [
+                {"text": "A single thick lens", "isCorrect": false, "rationale": "Thick lenses tend to exhibit greater aberrations."}, 
+                {"text": "An achromatic combination of lenses", "isCorrect": true, "rationale": "An achromatic doublet, formed by combining a convex and a concave lens made of different materials (e.g., Crown and Flint glass), is designed to minimize chromatic aberration for two colors."}, 
+                {"text": "A mirror", "isCorrect": false, "rationale": "Mirrors do not suffer from chromatic aberration, but this is a solution for lenses."}, 
+                {"text": "A prism", "isCorrect": false, "rationale": "A prism is used to demonstrate dispersion, which causes chromatic aberration."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "The solution involves combining two different types of lenses to counteract the dispersion effect." },
+            
+            { "id": 43, "question": "The least distance of distinct vision (near point) for a normal human eye is generally considered to be:", "options": [
+                {"text": "$10 \\text{ cm}$", "isCorrect": false, "rationale": "This is too close for a normal eye."}, 
+                {"text": "$25 \\text{ cm}$", "isCorrect": true, "rationale": "The near point (or least distance of distinct vision) is the closest distance at which an object can be seen clearly by a normal eye, which is conventionally taken as $25 \\text{ cm}$."}, 
+                {"text": "$50 \\text{ cm}$", "isCorrect": false, "rationale": "This is too far for the standard near point."}, 
+                {"text": "$100 \\text{ cm}$", "isCorrect": false, "rationale": "This is the far point for some myopic eyes."}
+            ], "topic": "Ray Optics and Optical Instruments", "hint": "This is the standard minimum distance for comfortable reading." },
+            
+            { "id": 44, "question": "The dark fringes in Young's Double Slit Experiment (YDSE) correspond to:", "options": [
+                {"text": "Constructive interference", "isCorrect": false, "rationale": "Constructive interference leads to bright fringes."}, 
+                {"text": "Destructive interference", "isCorrect": true, "rationale": "Dark fringes are formed when the waves from the two slits meet out of phase, leading to destructive interference and a minimum intensity."}, 
+                {"text": "Diffraction", "isCorrect": false, "rationale": "Diffraction is the bending of light, which occurs at the single slit, but the pattern itself is an interference/diffraction combination."}, 
+                {"text": "Polarization", "isCorrect": false, "rationale": "Polarization deals with the orientation of the electric field vector."}
+            ], "topic": "Wave Optics", "hint": "The condition for dark fringes is a path difference of $(n + 1/2)\\lambda$."}, 
+            
+            { "id": 45, "question": "According to Huygens' Principle, every point on a wavefront is a source of secondary:", "options": [
+                {"text": "Rays", "isCorrect": false, "rationale": "Rays are perpendicular to wavefronts."}, 
+                {"text": "Waves", "isCorrect": true, "rationale": "Every point on a primary wavefront is the source of secondary wavelets, and the new wavefront is the forward envelope of these wavelets."}, 
+                {"text": "Particles", "isCorrect": false, "rationale": "Huygens' principle is based on the wave theory of light."}, 
+                {"text": "Disturbances", "isCorrect": false, "rationale": "While a wave is a disturbance, the principle is more specific to secondary wavelets (waves)."}
+            ], "topic": "Wave Optics", "hint": "The term for these secondary sources is 'wavelets'." },
+            
+            { "id": 46, "question": "The phenomenon of light bending around the corners of an obstacle is called:", "options": [
+                {"text": "Interference", "isCorrect": false, "rationale": "Interference is the superposition of waves."}, 
+                {"text": "Refraction", "isCorrect": false, "rationale": "Refraction is the change in direction of light when it passes from one medium to another."}, 
+                {"text": "Polarization", "isCorrect": false, "rationale": "Polarization is the restriction of the electric field vibrations to a single plane."}, 
+                {"text": "Diffraction", "isCorrect": true, "rationale": "Diffraction is the bending of waves around the corners of an obstacle or aperture into the region of geometrical shadow."}
+            ], "topic": "Wave Optics", "hint": "This effect is most noticeable when the size of the obstacle is comparable to the wavelength of light." },
+            
+            { "id": 47, "question": "Malus' Law describes the intensity of light transmitted through an analyzer in terms of the angle $\\theta$ between the transmission axes:", "options": [
+                {"text": "$I = I_0 \\sin^2 \\theta$", "isCorrect": false, "rationale": "This formula uses $\\sin^2 \\theta$, which is incorrect; the intensity is maximum when the axes are parallel, so $\\cos 0 = 1$ is needed."}, 
+                {"text": "$I = I_0 \\cos^2 \\theta$", "isCorrect": true, "rationale": "Malus' Law is $I = I_0 \\cos^2 \\theta$, where $I_0$ is the intensity of the incident plane-polarized light and $I$ is the transmitted intensity."}, 
+                {"text": "$I = I_0 \\sin \\theta$", "isCorrect": false, "rationale": "This form is dimensionally incorrect for intensity."}, 
+                {"text": "$I = I_0 \\cos \\theta$", "isCorrect": false, "rationale": "This form is dimensionally incorrect for intensity."}
+            ], "topic": "Wave Optics", "hint": "The intensity is maximum when the polarizer and analyzer are parallel, meaning $\\theta = 0^\\circ$." },
+            
+            { "id": 48, "question": "In the phenomenon of polarization, which nature of light is conclusively proved?", "options": [
+                {"text": "Particle nature", "isCorrect": false, "rationale": "Particle nature is supported by the photoelectric effect."}, 
+                {"text": "Longitudinal wave nature", "isCorrect": false, "rationale": "Polarization cannot occur in longitudinal waves."}, 
+                {"text": "Transverse wave nature", "isCorrect": true, "rationale": "Only transverse waves can be polarized, as polarization is the restriction of the wave's oscillations to a single direction perpendicular to the direction of propagation."}, 
+                {"text": "None of the above", "isCorrect": false, "rationale": "Polarization definitively proves the transverse nature of light."}
+            ], "topic": "Wave Optics", "hint": "The ability to restrict the direction of oscillation proves that the oscillations are perpendicular to the direction of travel." },
+            
+            { "id": 49, "question": "The minimum energy required for a photon to eject an electron from a metal surface is called the:", "options": [
+                {"text": "Kinetic energy", "isCorrect": false, "rationale": "Kinetic energy is the energy of the ejected electron."}, 
+                {"text": "Work function", "isCorrect": true, "rationale": "The work function ($\\Phi_0$ or $W$) is the minimum energy a photon must possess to liberate an electron from the metal surface."}, 
+                {"text": "Threshold frequency", "isCorrect": false, "rationale": "Threshold frequency ($\\nu_0$) is related to the work function ($\\Phi_0 = h\\nu_0$)."}, 
+                {"text": "Stopping potential", "isCorrect": false, "rationale": "Stopping potential is the potential required to stop the most energetic photoelectrons."}
+            ], "topic": "Dual Nature of Radiation and Matter", "hint": "This term represents the 'energy cost' to remove an electron from the surface." },
+            
+            { "id": 50, "question": "The de Broglie wavelength ($\\lambda$) associated with a particle of momentum ($p$) is given by:", "options": [
+                {"text": "$\\lambda = p/h$", "isCorrect": false, "rationale": "This is the reciprocal of the correct relationship."}, 
+                {"text": "$\\lambda = h/p$", "isCorrect": true, "rationale": "The de Broglie hypothesis states that $\\lambda = h/p$, where $h$ is Planck's constant and $p$ is the momentum of the particle."}, 
+                {"text": "$\\lambda = h \\cdot p$", "isCorrect": false, "rationale": "This formula is dimensionally incorrect."}, 
+                {"text": "$\\lambda = h^2/p$", "isCorrect": false, "rationale": "This is not the de Broglie wavelength formula."}
+            ], "topic": "Dual Nature of Radiation and Matter", "hint": "The relationship involves Planck's constant ($h$) and is inversely proportional to momentum." },
+            
+            { "id": 51, "question": "According to Einstein's photoelectric equation, the maximum kinetic energy ($K_{max}$) of the photoelectrons is:", "options": [
+                {"text": "$h\\nu + \\Phi_0$", "isCorrect": false, "rationale": "The work function ($\\Phi_0$) must be subtracted from the photon energy ($h\\nu$), not added."}, 
+                {"text": "$h\\nu - \\Phi_0$", "isCorrect": true, "rationale": "Einstein's equation is $K_{max} = h\\nu - \\Phi_0$, which represents the conservation of energy: (Photon energy) = (Work function) + (Max Kinetic Energy)."}, 
+                {"text": "$\\Phi_0 - h\\nu$", "isCorrect": false, "rationale": "The photon energy must be greater than the work function for emission, so this would give a negative value."}, 
+                {"text": "$h\\nu / \\Phi_0$", "isCorrect": false, "rationale": "This formula is dimensionally incorrect."}
+            ], "topic": "Dual Nature of Radiation and Matter", "hint": "The photon's energy is used to overcome the work function, with the remainder becoming kinetic energy." },
+            
+            { "id": 52, "question": "What is the phenomenon called when light behaves as both a wave and a particle?", "options": [
+                {"text": "Uncertainty Principle", "isCorrect": false, "rationale": "The Uncertainty Principle is related to the limits of simultaneous measurement of position and momentum."}, 
+                {"text": "Quantum Entanglement", "isCorrect": false, "rationale": "Entanglement is a phenomenon where the quantum states of two or more particles are linked."}, 
+                {"text": "Dual Nature", "isCorrect": true, "rationale": "The wave-particle duality (or dual nature) is the concept that every elementary particle or quantum entity may be partly described in terms of waves and partly in terms of particles."}, 
+                {"text": "Relativity", "isCorrect": false, "rationale": "Relativity deals with space, time, mass, and energy."}
+            ], "topic": "Dual Nature of Radiation and Matter", "hint": "De Broglie's hypothesis is a key component of this concept." },
 
-        // Store answers for the session questions {qId: { selectedIndex: number, isCorrect: boolean | null }}
-        let userAnswers = {}; 
-        let totalScore = 0; 
-        
-        // This array will hold the 20 randomly selected questions for the current session
-        let currentSessionQuestions = []; 
-
-        // Data for the 60 AP Inter 2nd Year Physics questions (Full Data provided by user)
-        const ALL_QUESTIONS = [
-            { "id": 1, "question": "What is the SI unit of electric flux, $\\Phi_E$?", "options": ["Coulomb ($C$)", "Newton per Coulomb ($N/C$)", "Volt meter ($V \\cdot m$)", "Joule per Coulomb ($J/C$)"], "answer": 2, "topic": "Electric Charges and Fields" },
-            { "id": 2, "question": "Gauss's Law relates the electric flux through a closed surface to which quantity inside the surface?", "options": ["Total electric field", "Total potential difference", "Total charge enclosed", "Total number of field lines"], "answer": 2, "topic": "Electric Charges and Fields" },
-            { "id": 3, "question": "If the distance between two charges is doubled, the force between them, according to Coulomb's Law, changes by a factor of:", "options": ["$1/2$", "$1/4$", "2", "4"], "answer": 1, "topic": "Electric Charges and Fields" },
-            { "id": 4, "question": "Electric field lines always originate from a positive charge and terminate at a:", "options": ["Positive charge", "Infinite distance", "Negative charge", "Ground"], "answer": 2, "topic": "Electric Charges and Fields" },
-            { "id": 5, "question": "What is the electric field inside a uniformly charged spherical shell?", "options": ["$E = kQ/r^2$", "$E = 0$", "$E$ is constant but non-zero", "Depends on the radius"], "answer": 1, "topic": "Electric Charges and Fields" },
-            { "id": 6, "question": "The work done in moving a charge from one point to another in an equipotential surface is:", "options": ["Positive", "Negative", "Zero", "Depends on the path"], "answer": 2, "topic": "Electrostatic Potential and Capacitance" },
-            { "id": 7, "question": "What is the unit of capacitance?", "options": ["Volt ($V$)", "Ohm ($\\Omega$)", "Farad ($F$)", "Henry ($H$)"], "answer": 2, "topic": "Electrostatic Potential and Capacitance" },
-            { "id": 8, "question": "If a dielectric slab is inserted between the plates of a capacitor, the capacitance generally:", "options": ["Decreases", "Increases", "Remains the same", "Becomes zero"], "answer": 1, "topic": "Electrostatic Potential and Capacitance" },
-            { "id": 9, "question": "The energy stored in a capacitor with capacitance $C$ and potential difference $V$ is given by:", "options": ["$CV$", "$CV^2$", "$1/2 CV^2$", "$V/C$"], "answer": 2, "topic": "Electrostatic Potential and Capacitance" },
-            { "id": 10, "question": "Which device is used for building up high potential differences of the order of a few million volts?", "options": ["Parallel plate capacitor", "Wheatstone bridge", "Potentiometer", "Van de Graaff Generator"], "answer": 3, "topic": "Electrostatic Potential and Capacitance" },
-            { "id": 11, "question": "The reciprocal of resistivity is known as:", "options": ["Resistance", "Conductance", "Conductivity", "Current density"], "answer": 2, "topic": "Current Electricity" },
-            { "id": 12, "question": "Kirchhoff's Junction Rule (Current Law) is a consequence of the conservation of:", "options": ["Energy", "Momentum", "Charge", "Voltage"], "answer": 2, "topic": "Current Electricity" },
-            { "id": 13, "question": "If a wire is stretched so that its length doubles, what happens to its resistance, assuming the volume remains constant?", "options": ["Doubles", "Halves", "Becomes four times", "Becomes one-fourth"], "answer": 2, "topic": "Current Electricity" },
-            { "id": 14, "question": "Which of the following materials has a negative temperature coefficient of resistance?", "options": ["Copper", "Nichrome", "Gold", "Semiconductors"], "answer": 3, "topic": "Current Electricity" },
-            { "id": 15, "question": "Ohm's Law, $V = IR$, is strictly applicable to which type of materials?", "options": ["Semiconductors", "Electrolytes", "Metallic conductors (Ohmic devices)", "Vacuum tubes"], "answer": 2, "topic": "Current Electricity" },
-            { "id": 16, "question": "What is the direction of the magnetic force on a positive charge moving parallel to a uniform magnetic field?", "options": ["Perpendicular to the field", "Opposite to the field", "In the direction of the field", "Zero force"], "answer": 3, "topic": "Moving Charges and Magnetism" },
-            { "id": 17, "question": "The expression for the force per unit length between two parallel current-carrying wires is based on:", "options": ["Ohm's Law", "Faraday's Law", "Biot-Savart Law", "Ampere's Circuital Law"], "answer": 3, "topic": "Moving Charges and Magnetism" },
-            { "id": 18, "question": "A cyclotron is used to accelerate which of the following particles?", "options": ["Neutrons", "Electrons", "Ions (charged particles)", "Photons"], "answer": 2, "topic": "Moving Charges and Magnetism" },
-            { "id": 19, "question": "What is a major characteristic of a solenoid's magnetic field inside its core?", "options": ["It is zero", "It is non-uniform and weak", "It is uniform and strong", "It diverges sharply"], "answer": 2, "topic": "Moving Charges and Magnetism" },
-            { "id": 20, "question": "The Lorentz force is the total force experienced by a charged particle moving in regions with both an electric field ($E$) and a magnetic field ($B$):", "options": ["$q(\\vec{E} + \\vec{v} \\times \\vec{B})$", "$q(\\vec{E} + \\vec{v} \\cdot \\vec{B})$", "$q(\\vec{E} + \\vec{B})$", "$q(\\vec{v} \\times \\vec{B})$"], "answer": 0, "topic": "Moving Charges and Magnetism" },
-            { "id": 21, "question": "Which of the following materials is weakly repelled by a magnetic field?", "options": ["Ferromagnetic", "Paramagnetic", "Diamagnetic", "Ferrimagnetic"], "answer": 2, "topic": "Magnetism and Matter" },
-            { "id": 22, "question": "The phenomenon of a substance lagging behind the magnetizing field is known as:", "options": ["Magnetic permeability", "Magnetic susceptibility", "Hysteresis", "Curie temperature"], "answer": 2, "topic": "Magnetism and Matter" },
-            { "id": 23, "question": "The element of the Earth's magnetic field that gives the angle between the true geographic meridian and the magnetic meridian is:", "options": ["Angle of Dip", "Angle of Declination", "Horizontal component", "Vertical component"], "answer": 1, "topic": "Magnetism and Matter" },
-            { "id": 24, "question": "What is the unit of magnetic intensity ($H$)?", "options": ["Tesla ($T$)", "Weber ($Wb$)", "Ampere per meter ($A/m$)", "Henry ($H$)"], "answer": 2, "topic": "Magnetism and Matter" },
-            { "id": 25, "question": "At the poles of the Earth, the angle of dip (inclination) is approximately:", "options": ["$0^\\circ$", "$45^\\circ$", "$90^\\circ$", "$180^\\circ$"], "answer": 2, "topic": "Magnetism and Matter" },
-            { "id": 26, "question": "Faraday's Law of Electromagnetic Induction states that the induced EMF is proportional to the rate of change of:", "options": ["Electric field", "Magnetic field intensity", "Magnetic flux", "Current"], "answer": 2, "topic": "Electromagnetic Induction" },
-            { "id": 27, "question": "Lenz's Law, which determines the direction of the induced current, is a consequence of the conservation of:", "options": ["Momentum", "Energy", "Charge", "Magnetic field"], "answer": 1, "topic": "Electromagnetic Induction" },
-            { "id": 28, "question": "The self-inductance ($L$) of a coil is defined as the ratio of magnetic flux linked with the coil to the:", "options": ["Induced EMF", "Rate of change of flux", "Current flowing in the coil", "Number of turns"], "answer": 2, "topic": "Electromagnetic Induction" },
-            { "id": 29, "question": "Which principle is utilized in the working of an AC Generator?", "options": ["Ohm's Law", "Biot-Savart Law", "Electromagnetic Induction", "Photoelectric Effect"], "answer": 2, "topic": "Electromagnetic Induction" },
-            { "id": 30, "question": "In a purely capacitive AC circuit, the current leads the applied voltage by a phase angle of:", "options": ["$0^\\circ$", "$45^\\circ$", "$90^\\circ$ (or $\\pi/2$ radians)", "$180^\\circ$ (or $\\pi$ radians)"], "answer": 2, "topic": "Alternating Current (AC)" },
-            { "id": 31, "question": "What is the phenomenon called when the inductive reactance equals the capacitive reactance in a series $LCR$ circuit?", "options": ["Impedance matching", "Power dissipation", "Resonance", "Phase shift"], "answer": 2, "topic": "Alternating Current (AC)" },
-            { "id": 32, "question": "The average power dissipated in a purely inductive AC circuit is:", "options": ["Maximum", "Minimum", "Zero", "Proportional to $V_{rms} I_{rms}$"], "answer": 2, "topic": "Alternating Current (AC)" },
-            { "id": 33, "question": "The ratio of the RMS value of AC voltage to the peak value ($V_0$) is:", "options": ["$1/\sqrt{2}$", "$\sqrt{2}$", "$1/2$", "2"], "answer": 0, "topic": "Alternating Current (AC)" },
-            { "id": 34, "question": "In a series $LCR$ circuit, the voltage across $L$ and $C$ are $V_L$ and $V_C$. The voltage across the two together is:", "options": ["$V_L + V_C$", "$V_L - V_C$", "$\sqrt{V_L^2 + V_C^2}$", "$|V_L - V_C|$"], "answer": 3, "topic": "Alternating Current (AC)" },
-            { "id": 35, "question": "Which part of the electromagnetic spectrum is used for television remote controls?", "options": ["Radio waves", "Microwaves", "Infrared waves", "Ultraviolet waves"], "answer": 2, "topic": "Electromagnetic Waves" },
-            { "id": 36, "question": "In free space, the velocity of electromagnetic waves is given by:", "options": ["$c = 1/\mu_0 \epsilon_0$", "$c = \sqrt{\mu_0 \epsilon_0}$", "$c = 1/\sqrt{\mu_0 \epsilon_0}$", "$c = \mu_0 \epsilon_0$"], "answer": 2, "topic": "Electromagnetic Waves" },
-            { "id": 37, "question": "The electric field vector ($\\vec{E}$) and magnetic field vector ($\\vec{B}$) in an EM wave are always in phase and oriented at:", "options": ["$0^\\circ$ to each other", "$45^\\circ$ to each other", "$90^\\circ$ to each other", "$180^\\circ$ to each other"], "answer": 2, "topic": "Electromagnetic Waves" },
-            { "id": 38, "question": "The brilliant glittering of a diamond is primarily due to which phenomenon?", "options": ["Reflection", "Refraction", "Total internal reflection (TIR)", "Dispersion"], "answer": 2, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 39, "question": "For a convex lens, when an object is placed at $2F$, the image formed is:", "options": ["Real, inverted, and enlarged", "Virtual, erect, and enlarged", "Real, inverted, and same size", "Virtual, erect, and diminished"], "answer": 2, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 40, "question": "The astronomical telescope produces an image that is:", "options": ["Real and inverted", "Virtual and erect", "Real and erect", "Virtual and inverted"], "answer": 3, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 41, "question": "The mirror formula relating object distance ($u$), image distance ($v$), and focal length ($f$) is:", "options": ["$1/u + 1/v = f$", "$1/u - 1/v = 1/f$", "$1/u + 1/v = 1/f$", "$u + v = f$"], "answer": 2, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 42, "question": "Chromatic aberration in lenses can be minimized by using:", "options": ["A single thick lens", "An achromatic combination of lenses", "A mirror", "A prism"], "answer": 1, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 43, "question": "The least distance of distinct vision (near point) for a normal human eye is generally considered to be:", "options": ["$10 \text{ cm}$", "$25 \text{ cm}$", "$50 \text{ cm}$", "$100 \text{ cm}$"], "answer": 1, "topic": "Ray Optics and Optical Instruments" },
-            { "id": 44, "question": "The dark fringes in Young's Double Slit Experiment (YDSE) correspond to:", "options": ["Constructive interference", "Destructive interference", "Diffraction", "Polarization"], "answer": 1, "topic": "Wave Optics" },
-            { "id": 45, "question": "According to Huygens' Principle, every point on a wavefront is a source of secondary:", "options": ["Rays", "Waves", "Particles", "Disturbances"], "answer": 1, "topic": "Wave Optics" },
-            { "id": 46, "question": "The phenomenon of light bending around the corners of an obstacle is called:", "options": ["Interference", "Refraction", "Polarization", "Diffraction"], "answer": 3, "topic": "Wave Optics" },
-            { "id": 47, "question": "Malus' Law describes the intensity of light transmitted through an analyzer in terms of the angle $\\theta$ between the transmission axes:", "options": ["$I = I_0 \\sin^2 \\theta$", "$I = I_0 \\cos^2 \\theta$", "$I = I_0 \\sin \\theta$", "$I = I_0 \\cos \\theta$"], "answer": 1, "topic": "Wave Optics" },
-            { "id": 48, "question": "In the phenomenon of polarization, which nature of light is conclusively proved?", "options": ["Particle nature", "Longitudinal wave nature", "Transverse wave nature", "None of the above"], "answer": 2, "topic": "Wave Optics" },
-            { "id": 49, "question": "The minimum energy required for a photon to eject an electron from a metal surface is called the:", "options": ["Kinetic energy", "Work function", "Threshold frequency", "Stopping potential"], "answer": 1, "topic": "Dual Nature of Radiation and Matter" },
-            { "id": 50, "question": "The de Broglie wavelength ($\\lambda$) associated with a particle of momentum ($p$) is given by:", "options": ["$\\lambda = p/h$", "$\\lambda = h/p$", "$\\lambda = h \cdot p$", "$\\lambda = h^2/p$"], "answer": 1, "topic": "Dual Nature of Radiation and Matter" },
-            { "id": 51, "question": "According to Einstein's photoelectric equation, the maximum kinetic energy ($K_{max}$) of the photoelectrons is:", "options": ["$h\\nu + \\Phi_0$", "$h\\nu - \\Phi_0$", "$\\Phi_0 - h\\nu$", "$h\\nu / \\Phi_0$"], "answer": 1, "topic": "Dual Nature of Radiation and Matter" },
-            { "id": 52, "question": "What is the phenomenon called when light behaves as both a wave and a particle?", "options": ["Uncertainty Principle", "Quantum Entanglement", "Dual Nature", "Relativity"], "answer": 2, "topic": "Dual Nature of Radiation and Matter" },
-            { "id": 53, "question": "In the Bohr model of the atom, the angular momentum of an electron in a stationary orbit is quantized as:", "options": ["$L = n(h/2\\pi)$", "$L = n\\hbar^2$", "$L = n^2(h/2\\pi)$", "$L = h/2\\pi$"], "answer": 0, "topic": "Atoms and Nuclei" },
-            { "id": 54, "question": "The process where a heavy nucleus splits into two lighter nuclei is called:", "options": ["Nuclear Fusion", "Alpha decay", "Nuclear Fission", "Chain reaction"], "answer": 2, "topic": "Atoms and Nuclei" },
-            { "id": 55, "question": "The time required for half of the radioactive atoms in a sample to decay is called the:", "options": ["Mean life", "Decay constant", "Half-life", "Activity"], "answer": 2, "topic": "Atoms and Nuclei" },
-            { "id": 56, "question": "According to the Mass-Energy equivalence, the energy equivalent of mass $m$ is given by:", "options": ["$E = mc$", "$E = mc^2$", "$E = m/c$", "$E = m^2c$"], "answer": 1, "topic": "Atoms and Nuclei" },
-            { "id": 57, "question": "The width of the forbidden energy gap is maximum in:", "options": ["Conductors", "Semiconductors", "Insulators", "Superconductors"], "answer": 2, "topic": "Semiconductor Electronics" },
-            { "id": 58, "question": "In a $p$-$n$ junction diode, the barrier potential is caused by the diffusion of:", "options": ["Holes from $p$ to $n$", "Electrons from $p$ to $n$", "Holes from $n$ to $p$", "Positive ions"], "answer": 0, "topic": "Semiconductor Electronics" },
-            { "id": 59, "question": "Which of the following acts as a signal amplifier?", "options": ["Diode", "LED", "Zener Diode", "Transistor"], "answer": 3, "topic": "Semiconductor Electronics" },
-            { "id": 60, "question": "The gate primarily used for the logical operation of inversion (NOT) is:", "options": ["OR gate", "AND gate", "NAND gate", "NOT gate"], "answer": 3, "topic": "Semiconductor Electronics" }
+            { "id": 53, "question": "According to Bohr's model, the radius ($r_n$) of the $n$-th stationary orbit of a hydrogen atom is proportional to:", "options": [
+                {"text": "$1/n$", "isCorrect": false, "rationale": "The radius is not inversely proportional to the principal quantum number."}, 
+                {"text": "$n$", "isCorrect": false, "rationale": "The proportionality is to the square of the principal quantum number."}, 
+                {"text": "$1/n^2$", "isCorrect": false, "rationale": "The energy of the orbit, not the radius, is inversely proportional to $n^2$."}, 
+                {"text": "$n^2$", "isCorrect": true, "rationale": "The formula for the radius of the $n$-th orbit is $r_n = a_0 n^2$, where $a_0$ is the Bohr radius. Thus, $r_n \\propto n^2$."}
+            ], "topic": "Atoms", "hint": "Recall the second postulate of Bohr's model, which relates angular momentum to the principal quantum number." },
+            
+            { "id": 54, "question": "The energy of an electron in the $n$-th orbit ($E_n$) of a hydrogen atom is proportional to:", "options": [
+                {"text": "$1/n$", "isCorrect": false, "rationale": "The energy is proportional to the reciprocal of the square of the principal quantum number."}, 
+                {"text": "$n$", "isCorrect": false, "rationale": "The energy is not directly proportional to the principal quantum number."}, 
+                {"text": "$1/n^2$", "isCorrect": true, "rationale": "The energy of the $n$-th orbit is given by $E_n = -13.6/n^2 \\text{ eV}$. Therefore, $E_n \\propto 1/n^2$."}, 
+                {"text": "$n^2$", "isCorrect": false, "rationale": "The radius, not the energy, is proportional to $n^2$."}
+            ], "topic": "Atoms", "hint": "The energy levels get closer together (less negative) as the principal quantum number $n$ increases." },
+            
+            { "id": 55, "question": "The difference between the mass of a nucleus and the sum of the masses of its constituent nucleons is called:", "options": [
+                {"text": "Binding Energy", "isCorrect": false, "rationale": "Binding energy is the energy equivalent of the mass defect, calculated using $E = \\Delta m c^2$."}, 
+                {"text": "Atomic Mass Unit", "isCorrect": false, "rationale": "The Atomic Mass Unit (amu) is a unit of mass."}, 
+                {"text": "Nuclear Force", "isCorrect": false, "rationale": "Nuclear force is the strong attractive force that holds nucleons together."}, 
+                {"text": "Mass Defect", "isCorrect": true, "rationale": "The mass defect ($\\Delta m$) is the difference between the mass of the constituent particles and the actual nuclear mass, representing the mass converted into energy for stability."}
+            ], "topic": "Nuclei", "hint": "This mass difference accounts for the stability of the nucleus." },
+            
+            { "id": 56, "question": "The process in which a heavy nucleus splits into two or more lighter nuclei, releasing a large amount of energy, is known as:", "options": [
+                {"text": "Nuclear Fusion", "isCorrect": false, "rationale": "Fusion is the process of combining light nuclei."}, 
+                {"text": "Alpha Decay", "isCorrect": false, "rationale": "Alpha decay is the emission of an alpha particle (helium nucleus)."}, 
+                {"text": "Nuclear Fission", "isCorrect": true, "rationale": "Fission is the splitting of a heavy nucleus (like Uranium) into smaller fragments, often triggered by neutron bombardment."}, 
+                {"text": "Beta Decay", "isCorrect": false, "rationale": "Beta decay is the emission of an electron or positron."}
+            ], "topic": "Nuclei", "hint": "The word for this process means 'to split apart'." },
+            
+            { "id": 57, "question": "In a forward-biased P-N junction diode, the width of the depletion region:", "options": [
+                {"text": "Increases and current decreases", "isCorrect": false, "rationale": "Forward bias reduces the depletion width and increases current."}, 
+                {"text": "Decreases and current increases", "isCorrect": true, "rationale": "Forward bias (positive to P-side, negative to N-side) reduces the potential barrier, narrowing the depletion region and allowing majority carriers to cross, leading to high current."}, 
+                {"text": "Remains unchanged", "isCorrect": false, "rationale": "The depletion region width changes with the applied voltage."}, 
+                {"text": "Becomes zero immediately", "isCorrect": false, "rationale": "The width is only fully eliminated at very high voltages, leading to breakdown."}
+            ], "topic": "Semiconductor Electronics", "hint": "Think about how the external voltage relates to the built-in potential barrier." },
+            
+            { "id": 58, "question": "Which semiconductor device is specifically fabricated to operate in the reverse breakdown region for voltage regulation?", "options": [
+                {"text": "LED", "isCorrect": false, "rationale": "An LED (Light Emitting Diode) is used to emit light in forward bias."}, 
+                {"text": "Photodiode", "isCorrect": false, "rationale": "A photodiode is used to detect light in reverse bias, but not for voltage regulation."}, 
+                {"text": "Zener Diode", "isCorrect": true, "rationale": "The Zener diode is designed to operate stably in the reverse breakdown region, where it maintains a nearly constant voltage (Zener voltage) across itself, making it ideal for voltage regulation."}, 
+                {"text": "Transistor", "isCorrect": false, "rationale": "A transistor is used for switching or amplification."}
+            ], "topic": "Semiconductor Electronics", "hint": "This device is named after the physicist who explained its operating mechanism." },
+            
+            { "id": 59, "question": "Which of the following logic gates is considered a universal gate?", "options": [
+                {"text": "AND Gate", "isCorrect": false, "rationale": "The AND gate is a basic gate, not universal."}, 
+                {"text": "OR Gate", "isCorrect": false, "rationale": "The OR gate is a basic gate, not universal."}, 
+                {"text": "XOR Gate", "isCorrect": false, "rationale": "The XOR gate is a derived gate, not universal."}, 
+                {"text": "NAND Gate", "isCorrect": true, "rationale": "A universal gate is one that can be used to construct all other basic logic gates (NOT, AND, OR). Both NAND and NOR gates have this property."}
+            ], "topic": "Semiconductor Electronics", "hint": "There are only two types of universal gates among the basic gates." },
+            
+            { "id": 60, "question": "A full-wave rectifier uses a minimum of how many diodes to convert AC voltage into pulsating DC voltage?", "options": [
+                {"text": "One", "isCorrect": false, "rationale": "One diode is used in a half-wave rectifier."}, 
+                {"text": "Two", "isCorrect": true, "rationale": "A center-tap full-wave rectifier uses a minimum of two diodes, while a bridge rectifier uses four. Therefore, the absolute minimum for a full-wave output is two."}, 
+                {"text": "Three", "isCorrect": false, "rationale": "This number is not standard for either half-wave or full-wave circuits."}, 
+                {"text": "Four", "isCorrect": false, "rationale": "Four diodes are used in a bridge rectifier, which is a full-wave configuration, but two is the absolute minimum."}
+            ], "topic": "Semiconductor Electronics", "hint": "Consider the simpler center-tap transformer configuration." }
         ];
 
+        // Global variables
+        let currentSessionQuestions = [];
+        let currentQuestionIndex = 0; 
+        let userAnswers = {}; 
+        let totalScore = 0; 
+        let currentTest = 1;
+        const QUESTIONS_PER_TEST = 20;
 
-        // --- UTILITY FUNCTIONS ---
-        
-        // Fisher-Yates (Knuth) shuffle algorithm
-        function shuffleArray(array) {
+        // Element references
+        const testSelection = document.getElementById('test-selection');
+        const testGrid = document.getElementById('test-grid');
+        const quizWrapper = document.getElementById('quiz-wrapper');
+        const quizTitle = document.getElementById('quiz-title');
+
+        // --- Generate Test Cards ---
+        function generateTestCards() {
+            testGrid.innerHTML = '';
+            
+            // Create 5 test cards (Test 1-5)
+            for (let i = 1; i <= 5; i++) {
+                const testCard = document.createElement('div');
+                testCard.className = 'test-card';
+                
+                testCard.innerHTML = `
+                    <div class="free-badge">FREE</div>
+                    <div class="test-title">Test ${i}</div>
+                    <div class="test-info">
+                        <div>📊 <span>20 Marks</span></div>
+                        <div>⏱️ <span>30 Min</span></div>
+                    </div>
+                    <button class="start-btn" onclick="loadTest(${i})">Start</button>
+                `;
+                
+                testGrid.appendChild(testCard);
+            }
+        }
+
+        // --- Load Test Function ---
+        function loadTest(testNumber) {
+            currentTest = testNumber;
+            
+            // Determine which questions to use based on test number
+            const startIndex = (testNumber - 1) * QUESTIONS_PER_TEST;
+            const endIndex = startIndex + QUESTIONS_PER_TEST;
+            
+            // Use available questions or wrap around if needed
+            if (endIndex <= ALL_PHYSICS_QUESTIONS.length) {
+                currentSessionQuestions = ALL_PHYSICS_QUESTIONS.slice(startIndex, endIndex);
+            } else {
+                // If not enough questions, start from beginning
+                const remaining = ALL_PHYSICS_QUESTIONS.length - startIndex;
+                currentSessionQuestions = ALL_PHYSICS_QUESTIONS.slice(startIndex);
+                
+                // If still not enough, pad with questions from start
+                if (currentSessionQuestions.length < QUESTIONS_PER_TEST) {
+                    currentSessionQuestions = currentSessionQuestions.concat(
+                        ALL_PHYSICS_QUESTIONS.slice(0, QUESTIONS_PER_TEST - currentSessionQuestions.length)
+                    );
+                }
+            }
+            
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            totalScore = 0;
+            
+            // Initialize userAnswers structure
+            currentSessionQuestions.forEach(q => {
+                userAnswers[q.id] = { 
+                    selectedIndex: -1, 
+                    isCorrect: null,
+                    answered: false
+                };
+            });
+
+            // Update UI
+            quizTitle.textContent = `AP Inter 2nd Year Physics - Test ${testNumber}`;
+            document.getElementById('total-q').textContent = currentSessionQuestions.length;
+            document.getElementById('score').textContent = '0';
+            
+            // Show quiz and hide test selection
+            testSelection.classList.add('hidden');
+            quizWrapper.classList.remove('hidden');
+            
+            // Initialize quiz
+            startQuizForTest();
+        }
+
+        // --- Show Test Selection ---
+        function showTestSelection() {
+            if (confirm('Are you sure you want to exit the test? Your progress will be lost.')) {
+                testSelection.classList.remove('hidden');
+                quizWrapper.classList.add('hidden');
+            }
+        }
+
+        // --- Start Quiz for Current Test ---
+        function startQuizForTest() {
+            createNavigatorGrid();
+            displayQuestion(currentQuestionIndex);
+        }
+
+        // --- QUIZ LOGIC FUNCTIONS ---
+
+        function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
-            return array;
         }
 
-        // Function to select and shuffle the questions for the current session
-        function prepareSessionQuestions() {
-            // 1. Shuffle the entire question pool
-            let shuffledPool = shuffleArray([...ALL_QUESTIONS]); // Creates a copy and shuffles it
-
-            // 2. Select the first SESSION_SIZE (20) questions
-            currentSessionQuestions = shuffledPool.slice(0, SESSION_SIZE);
-            
-            // 3. Reset state variables
-            currentQuestionIndex = 0;
-            totalScore = 0;
-            userAnswers = {};
-            
-            // 4. Initialize userAnswers structure for the session
-            currentSessionQuestions.forEach((q, index) => {
-                userAnswers[index] = { 
-                    id: q.id, 
-                    selectedIndex: null, 
-                    isCorrect: null,
-                    correctAnswer: q.answer 
-                };
-            });
-            
-            document.getElementById('total-q').textContent = SESSION_SIZE;
-            document.getElementById('quiz-title').textContent = `AP Inter 2nd Year Physics Quiz Session (${SESSION_SIZE} Qs)`;
-        }
-
-
-        // --- UI RENDERING FUNCTIONS ---
-
-        function renderQuestion() {
-            if (currentQuestionIndex >= SESSION_SIZE || currentQuestionIndex < 0) {
-                showResults();
-                return;
-            }
-
-            const qData = currentSessionQuestions[currentQuestionIndex];
-            const qState = userAnswers[currentQuestionIndex];
-            const optionsContainer = document.getElementById('answer-options');
-            const questionTextElement = document.getElementById('question-text');
-            const topicDisplay = document.getElementById('topic-display');
-            const feedbackText = document.getElementById('feedback-text');
-            const submitBtn = document.getElementById('submit-btn');
-            
-            // 1. Update Header Info
-            document.getElementById('current-q').textContent = currentQuestionIndex + 1;
-            topicDisplay.textContent = qData.topic;
-            
-            // 2. Update Question Text
-            questionTextElement.innerHTML = qData.question;
-            
-            // 3. Update Options
-            optionsContainer.innerHTML = '';
-            qData.options.forEach((option, index) => {
-                const isSelected = qState.selectedIndex === index;
-                const isAnswered = qState.isCorrect !== null;
-                const isCorrectOption = index === qData.answer;
-
-                const optionElement = document.createElement('label');
-                optionElement.className = 'option';
-                
-                // Add feedback classes if answered
-                if (isAnswered) {
-                    if (isCorrectOption) {
-                        optionElement.classList.add('correct');
-                    } else if (isSelected) {
-                        optionElement.classList.add('incorrect');
-                    }
-                }
-
-                optionElement.innerHTML = `
-                    <input type="radio" name="option" value="${index}" ${isSelected ? 'checked' : ''} ${isAnswered ? 'disabled' : ''}>
-                    ${option}
-                `;
-                
-                // Attach click listener only if not answered
-                if (!isAnswered) {
-                    optionElement.onclick = () => selectOption(index);
-                }
-                
-                optionsContainer.appendChild(optionElement);
-            });
-            
-            // 4. Update Buttons and Feedback
-            feedbackText.style.display = 'none';
-            submitBtn.disabled = qState.selectedIndex === null || qState.isCorrect !== null;
-            submitBtn.textContent = qState.isCorrect !== null ? 'Answered' : 'Submit Answer';
-            
-            if (qState.isCorrect !== null) {
-                feedbackText.textContent = qState.isCorrect ? '✅ Correct Answer!' : `❌ Incorrect. The correct option was: ${qData.options[qData.answer]}`;
-                feedbackText.className = qState.isCorrect ? 'feedback-text feedback-correct' : 'feedback-text feedback-incorrect';
-                feedbackText.style.display = 'block';
-            }
-            
-            // 5. Update Navigation and Progress
-            updateProgress();
-            updateNavGrid();
-            document.getElementById('previous-btn').disabled = currentQuestionIndex === 0;
-            document.getElementById('next-btn').disabled = currentQuestionIndex === SESSION_SIZE - 1 && qState.isCorrect !== null; // Allow next button if answered, even if it's the last question (to see results)
-
-            // Re-render LaTeX
-            renderMathInElement(questionTextElement);
-            optionsContainer.querySelectorAll('.option').forEach(el => renderMathInElement(el));
-        }
-
-        function selectOption(selectedIndex) {
-            const qState = userAnswers[currentQuestionIndex];
-            if (qState.isCorrect !== null) return; // Cannot change answer if already submitted
-
-            qState.selectedIndex = selectedIndex;
-            document.getElementById('submit-btn').disabled = false;
-            
-            // Visually update the radio button state immediately
-            document.querySelectorAll('.option input[type="radio"]').forEach((input, index) => {
-                input.checked = index === selectedIndex;
-            });
-        }
-
-        function submitAnswer() {
-            const qData = currentSessionQuestions[currentQuestionIndex];
-            const qState = userAnswers[currentQuestionIndex];
-
-            if (qState.selectedIndex === null || qState.isCorrect !== null) return;
-
-            const isCorrect = qState.selectedIndex === qData.answer;
-            qState.isCorrect = isCorrect;
-            
-            if (isCorrect) {
-                totalScore++;
-                showEmoji('✅');
-            } else {
-                showEmoji('❌');
-            }
-            
-            document.getElementById('score').textContent = totalScore;
-
-            // Re-render the question to show feedback
-            renderQuestion(); 
-            
-            // Update the state in the Nav Grid
-            updateNavGridItem(currentQuestionIndex, qState.isCorrect);
-
-            // If it's the last question, change the Next button to "View Results"
-            if (currentQuestionIndex === SESSION_SIZE - 1) {
-                document.getElementById('next-btn').textContent = 'View Results';
-                document.getElementById('next-btn').disabled = false;
-            }
-        }
-        
-        function navigate(direction) {
-            currentQuestionIndex += direction;
-            if (currentQuestionIndex < 0) {
-                currentQuestionIndex = 0;
-            } else if (currentQuestionIndex >= SESSION_SIZE) {
-                showResults();
-                return;
-            }
-            renderQuestion();
-        }
-
-        function updateProgress() {
-            const answeredCount = Object.values(userAnswers).filter(a => a.isCorrect !== null).length;
-            const progress = ((currentQuestionIndex + 1) / SESSION_SIZE) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-        }
-
-        function updateNavGrid() {
+        function createNavigatorGrid() {
             const navGrid = document.getElementById('nav-grid');
             navGrid.innerHTML = '';
-
-            for (let i = 0; i < SESSION_SIZE; i++) {
+            for (let i = 0; i < currentSessionQuestions.length; i++) {
                 const navItem = document.createElement('div');
                 navItem.className = 'nav-item';
                 navItem.textContent = i + 1;
-                navItem.onclick = () => { currentQuestionIndex = i; renderQuestion(); };
-
-                const qState = userAnswers[i];
-                if (qState && qState.isCorrect !== null) {
-                    navItem.classList.add('answered');
-                    if (qState.isCorrect) {
-                        navItem.classList.add('correct');
-                    } else {
-                        navItem.classList.add('incorrect');
-                    }
-                } else if (qState && qState.selectedIndex !== null) {
-                    navItem.classList.add('answered'); // Mark as attempted but not submitted/checked
-                }
-
-                if (i === currentQuestionIndex) {
-                    navItem.classList.add('current');
-                }
+                navItem.setAttribute('data-index', i);
+                navItem.onclick = () => navigateQuestion(0, i);
                 navGrid.appendChild(navItem);
             }
-            
-            // Also update the 'Next' button text based on the current index
-            const nextBtn = document.getElementById('next-btn');
-            if (currentQuestionIndex === SESSION_SIZE - 1 && userAnswers[currentQuestionIndex].isCorrect !== null) {
-                nextBtn.textContent = 'View Results';
-            } else if (currentQuestionIndex === SESSION_SIZE - 1) {
-                nextBtn.textContent = 'Finish Quiz';
-            } else {
-                nextBtn.textContent = 'Next Question';
-            }
         }
-        
-        function updateNavGridItem(index, isCorrect) {
-            const navItem = document.getElementById('nav-grid').children[index];
-            if (navItem) {
-                navItem.classList.add('answered');
-                navItem.classList.remove('incorrect', 'correct');
-                if (isCorrect) {
-                    navItem.classList.add('correct');
-                } else {
-                    navItem.classList.add('incorrect');
+
+        function displayQuestion(index) {
+            if (index < 0 || index >= currentSessionQuestions.length) {
+                if (index === currentSessionQuestions.length) {
+                    showFinalScore();
+                    return;
+                }
+                currentQuestionIndex = Math.max(0, Math.min(index, currentSessionQuestions.length - 1));
+                return;
+            }
+
+            currentQuestionIndex = index;
+            const q = currentSessionQuestions[index];
+            const qState = userAnswers[q.id];
+
+            // Update UI elements
+            document.getElementById('current-q').textContent = index + 1;
+            document.getElementById('topic-display').textContent = q.topic;
+            document.getElementById('question-text').innerHTML = q.question;
+            document.getElementById('hint-text').style.display = 'none';
+            document.getElementById('feedback-text').style.display = 'none';
+
+            // Answer Options
+            const optionsDiv = document.getElementById('answer-options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, i) => {
+                const optionLabel = document.createElement('label');
+                optionLabel.className = 'option';
+                optionLabel.innerHTML = `
+                    <input type="radio" name="answer-option" value="${i}" ${qState.selectedIndex === i ? 'checked' : ''} ${qState.answered ? 'disabled' : ''}>
+                    ${option.text}
+                `;
+                optionLabel.onclick = () => {
+                    if (!qState.answered) {
+                        qState.selectedIndex = i;
+                        optionLabel.querySelector('input').checked = true;
+                    }
+                };
+                
+                if (qState.answered) {
+                    if (option.isCorrect) {
+                        optionLabel.classList.add('correct');
+                        document.getElementById('hint-text').textContent = "Rationale: " + option.rationale;
+                        document.getElementById('hint-text').style.display = 'block';
+                    } else if (qState.selectedIndex === i) {
+                        optionLabel.classList.add('incorrect');
+                    }
+                }
+                optionsDiv.appendChild(optionLabel);
+            });
+
+            // Button states
+            document.getElementById('previous-btn').disabled = index === 0;
+            document.getElementById('next-btn').textContent = index === currentSessionQuestions.length - 1 ? 'Finish Quiz' : 'Next Question';
+            document.getElementById('submit-btn').style.display = qState.answered ? 'none' : 'block';
+            
+            // Update Progress Bar
+            const answeredCount = Object.values(userAnswers).filter(state => state.answered).length;
+            document.getElementById('progress-bar').style.width = `${(answeredCount / currentSessionQuestions.length) * 100}%`;
+
+            // Update Navigator
+            updateNavigatorGrid();
+
+            // Re-render KaTeX
+            renderMathInElement(document.body); 
+        }
+
+        function updateNavigatorGrid() {
+            const navItems = document.getElementById('nav-grid').children;
+            for (let i = 0; i < currentSessionQuestions.length; i++) {
+                const navItem = navItems[i];
+                const q = currentSessionQuestions[i];
+                const qState = userAnswers[q.id];
+                
+                navItem.classList.remove('current', 'answered', 'correct', 'incorrect');
+                
+                if (i === currentQuestionIndex) {
+                    navItem.classList.add('current');
+                } else if (qState.answered) {
+                    navItem.classList.add('answered');
+                    navItem.classList.add(qState.isCorrect ? 'correct' : 'incorrect');
                 }
             }
         }
 
-        function showResults() {
-            const correctCount = Object.values(userAnswers).filter(a => a.isCorrect === true).length;
-            const percentage = ((correctCount / SESSION_SIZE) * 100).toFixed(1);
+        function checkAnswer() {
+            const q = currentSessionQuestions[currentQuestionIndex];
+            const qState = userAnswers[q.id];
 
-            document.getElementById('quiz-container').innerHTML = `
-                <h2>Quiz Results</h2>
-                <div style="text-align: center; padding: 20px;">
-                    <p style="font-size: 1.5rem; font-weight: 600;">You scored: ${correctCount} / ${SESSION_SIZE}</p>
-                    <p style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">${percentage}%</p>
-                    <button onclick="window.location.reload()" class="submit-btn" style="width: 100%; margin-top: 20px;">Start New Quiz Session</button>
-                    <button onclick="reviewAnswers()" class="skip-btn" style="width: 100%; margin-top: 10px;">Review Answers</button>
+            if (qState.selectedIndex === -1) {
+                alert('Please select an answer option before submitting.');
+                return;
+            }
+
+            const correctOptionIndex = q.options.findIndex(opt => opt.isCorrect);
+            const isCorrect = qState.selectedIndex === correctOptionIndex;
+            
+            qState.isCorrect = isCorrect;
+            qState.answered = true;
+
+            if (isCorrect) {
+                totalScore++;
+                document.getElementById('score').textContent = totalScore;
+                showEmojiFeedback('✅');
+            } else {
+                showEmojiFeedback('❌');
+            }
+
+            const correctOption = q.options.find(opt => opt.isCorrect);
+            const feedbackText = document.getElementById('feedback-text');
+            feedbackText.className = 'feedback-text ' + (isCorrect ? 'feedback-correct' : 'feedback-incorrect');
+            feedbackText.innerHTML = isCorrect ? "Correct! Well done." : `Incorrect. The correct answer was: <strong>${correctOption.text}</strong>`;
+            feedbackText.style.display = 'block';
+
+            displayQuestion(currentQuestionIndex);
+        }
+
+        function navigateQuestion(direction, targetIndex = null) {
+            let nextIndex = targetIndex !== null ? targetIndex : currentQuestionIndex + direction;
+            
+            if (nextIndex < 0) nextIndex = 0;
+            if (nextIndex >= currentSessionQuestions.length) {
+                showFinalScore();
+                return;
+            }
+
+            displayQuestion(nextIndex);
+        }
+
+        function showFinalScore() {
+            const correctCount = Object.values(userAnswers).filter(state => state.isCorrect === true).length;
+            const skippedCount = Object.values(userAnswers).filter(state => state.selectedIndex === -1).length;
+            const incorrectCount = currentSessionQuestions.length - correctCount - skippedCount;
+            const percentage = ((correctCount / currentSessionQuestions.length) * 100).toFixed(1);
+
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+                <h1 style="color: var(--primary);">Test ${currentTest} Complete!</h1>
+                <div style="text-align: center; padding: 20px; background: #E9F7EF; border-radius: 12px; border: 2px solid var(--success);">
+                    <p style="font-size: 1.5rem; color: var(--text); font-weight: 600;">Your Final Score</p>
+                    <p style="font-size: 4rem; color: var(--success); font-weight: 700; margin: 0;">${correctCount} / ${currentSessionQuestions.length}</p>
+                    <p style="font-size: 1.2rem; color: var(--text-light); margin-top: 5px;">${percentage}% Accuracy</p>
+                </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 30px;">
+                    <p style="font-weight: 500; color: var(--success);">Correct: <span style="font-weight: 700;">${correctCount}</span></p>
+                    <p style="font-weight: 500; color: var(--error);">Incorrect: <span style="font-weight: 700;">${incorrectCount}</span></p>
+                    <p style="font-weight: 500; color: var(--secondary);">Skipped: <span style="font-weight: 700;">${skippedCount}</span></p>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button class="submit-btn" onclick="showTestSelection()">Back to Tests</button>
+                    <button class="skip-btn" onclick="loadTest(${currentTest})">Retry Test ${currentTest}</button>
                 </div>
             `;
-            document.getElementById('quiz-navigator').style.display = 'none';
-        }
-        
-        // Simplified Review Answers function
-        function reviewAnswers() {
-            currentQuestionIndex = 0;
-            document.getElementById('quiz-container').innerHTML = ''; // Clear results
-            document.getElementById('quiz-container').appendChild(document.getElementById('question-card'));
-            document.getElementById('quiz-container').appendChild(document.getElementById('quiz-navigator'));
-            document.getElementById('quiz-container').appendChild(document.getElementById('buttons-area'));
-            
-            document.getElementById('buttons-area').innerHTML = `
-                <button class="skip-btn" id="previous-btn" onclick="navigate(-1)">Previous</button>
-                <button class="submit-btn" id="next-btn" onclick="navigate(1)">Next</button>
-            `;
-            
-            renderQuestion(); // Render first question in review mode
-            document.getElementById('submit-btn').style.display = 'none';
+            quizWrapper.style.minHeight = 'auto';
         }
 
-
-        function showEmoji(emoji) {
-            const emojiEl = document.getElementById('emoji-feedback');
-            emojiEl.textContent = emoji;
-            emojiEl.style.opacity = 1;
+        function showEmojiFeedback(emoji) {
+            const emojiDiv = document.getElementById('emoji-feedback');
+            emojiDiv.textContent = emoji;
+            emojiDiv.style.opacity = 1;
+            
             setTimeout(() => {
-                emojiEl.style.opacity = 0;
+                emojiDiv.style.opacity = 0;
             }, 800);
         }
+        
+        // --- Navbar Functions ---
 
-        // --- NAVIGATION MENU FUNCTIONS ---
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
             navMenu.classList.toggle('active');
@@ -846,19 +1324,17 @@
             document.getElementById('navMenu').classList.remove('active');
         }
 
-
-        // --- MAIN ENTRY POINT ---
-        function startQuiz() {
-            // This prepares a *new* session of 20 random questions every time the user clicks or the page loads
-            prepareSessionQuestions();
-            renderQuestion();
-            // Attach event listeners for buttons only once
-            document.getElementById('submit-btn').onclick = submitAnswer;
-            document.getElementById('previous-btn').onclick = () => navigate(-1);
-            document.getElementById('next-btn').onclick = () => navigate(1);
-        }
-
-        // Call startQuiz initially on body load (defined in <body> tag)
+        // Initialize page
+        generateTestCards();
+        
+        // Make functions globally available
+        window.toggleMenu = toggleMenu;
+        window.closeMenu = closeMenu;
+        window.loadTest = loadTest;
+        window.showTestSelection = showTestSelection;
+        window.navigateQuestion = navigateQuestion;
+        window.checkAnswer = checkAnswer;
+        
     </script>
 </body>
 </html>
